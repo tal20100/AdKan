@@ -29,7 +29,7 @@ This file is auto-loaded at the start of every Claude Code session. It stays sho
 - Deployment target: **iOS 16.0+**, iPhone only in v1
 - Auth: **Apple Sign-In only** (no phone OTP, no email+password)
 - Dev account: **Individual** (personal name on App Store listing; VAT collected by Apple)
-- **No physical iPhone** — validation via TestFlight external testers + Sentry/PostHog as remote eyes
+- **Founder has a physical iPhone** (confirmed 2026-04-19). Tier-1 validation = simulator + `StubScreenTimeProvider`; Tier-2 = founder's own iPhone via TestFlight. External testers optional/later.
 - **Mac deferred** — Xcode Cloud (25 free hrs/mo with Developer Program) is the primary CI path
 - MVP = **TestFlight-quality, not App Store submitted**. Submission is a later milestone.
 
