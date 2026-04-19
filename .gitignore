@@ -1,0 +1,73 @@
+# ---------- Secrets (Rule 1 — RADIOACTIVE) ----------
+.env
+.env.*
+!.env.example
+config/mac-bridge.json
+*.p8
+*.p12
+*.pem
+*.mobileprovision
+*.certSigningRequest
+*.cer
+AuthKey_*
+Credentials/
+Keys/
+
+# ---------- macOS / Xcode ----------
+.DS_Store
+*.xcuserstate
+xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcscheme
+!*.xcscheme.shared
+DerivedData/
+build/
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# ---------- Swift / SPM ----------
+.build/
+.swiftpm/
+Package.resolved.local
+
+# ---------- CocoaPods (defensive; we don't use it) ----------
+Pods/
+
+# ---------- Node / Deno (backend + scripts) ----------
+node_modules/
+npm-debug.log*
+yarn-error.log
+.supabase/
+supabase/.temp/
+supabase/.branches/
+
+# ---------- IDE ----------
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*~
+
+# ---------- Logs ----------
+*.log
+logs/
+
+# ---------- OS ----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ---------- Claude Code local state ----------
+.claude/settings.local.json
+.claude/projects/
+
+# ---------- Snapshot test artefacts ----------
+**/__Snapshots__/__FailedRecordings__/
+**/__Snapshots__/__WrongRecordings__/
+
+# ---------- Misc ----------
+*.tmp
+.vercel
+.netlify

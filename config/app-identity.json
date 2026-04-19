@@ -1,0 +1,28 @@
+{
+  "appName": "AdKan",
+  "appNameHe": "עד כאן",
+  "meaning": "AdKan transliterates the Hebrew idiom 'עד כאן' (ad kan) — 'enough, stop right there'. Chosen to align product intent with language: an Israeli-native commitment device, not an imported American productivity frame.",
+  "bundleId": "com.taltalhayun.adkan",
+  "appGroupId": "group.com.taltalhayun.adkan",
+  "extensionBundleIds": {
+    "deviceActivityMonitor": "com.taltalhayun.adkan.deviceactivitymonitor",
+    "shieldConfiguration": "com.taltalhayun.adkan.shieldconfiguration",
+    "deviceActivityReport": "com.taltalhayun.adkan.deviceactivityreport"
+  },
+  "teamId": "TBD_APPLE_TEAM_ID_FOUNDER_ACTION",
+  "deploymentTargetIOS": "16.0",
+  "schemeName": "AdKan",
+  "productIds": {
+    "monthly": "com.taltalhayun.adkan.subscription.monthly",
+    "annual": "com.taltalhayun.adkan.subscription.annual",
+    "lifetime": "com.taltalhayun.adkan.lifetime"
+  },
+  "pricingIls": {
+    "monthly": 12.90,
+    "annual": 69.00,
+    "lifetime": 99.00
+  },
+  "supportedLanguages": ["he", "en"],
+  "primaryLanguage": "he",
+  "textDirectionDefault": "rtl"
+}
