@@ -1,0 +1,276 @@
+{
+  "sourceLanguage" : "he",
+  "strings" : {
+    "app.displayName" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AdKan" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד כאן" } }
+      }
+    },
+    "onboarding.welcome.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to AdKan" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברוך/ה הבא/ה לעד כאן" } }
+      }
+    },
+    "onboarding.welcome.cta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Let's go" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יאללה" } }
+      }
+    },
+    "onboarding.skip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "דלג/י" } }
+      }
+    },
+    "onboarding.next" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "המשך" } }
+      }
+    },
+    "onboarding.q1.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How many hours a day do you spend on your phone?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כמה שעות ביום את/ה על הטלפון?" } }
+      }
+    },
+    "onboarding.q1.options.low" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "1-2 hours" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "1-2 שעות" } }
+      }
+    },
+    "onboarding.q1.options.medium" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "3-4 hours" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "3-4 שעות" } }
+      }
+    },
+    "onboarding.q1.options.high" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "5-6 hours" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "5-6 שעות" } }
+      }
+    },
+    "onboarding.q1.options.extreme" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "7+ hours" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "7+ שעות" } }
+      }
+    },
+    "permission.prompt.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Accurate minutes, please" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "דקות מדויקות, אם אפשר" } }
+      }
+    },
+    "permission.prompt.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AdKan needs Screen Time access to show your daily total. Nothing per-app leaves your phone." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד כאן צריך גישה ל-Screen Time כדי להציג את הסך היומי שלך. שום מידע לפי אפליקציה לא עוזב את הטלפון." } }
+      }
+    },
+    "permission.prompt.allowCta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Got it" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הבנתי" } }
+      }
+    },
+    "leaderboard.empty.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your leaderboard is empty" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הלוח שלך ריק" } }
+      }
+    },
+    "leaderboard.empty.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend to compare your day" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמן/י חבר/ה כדי להשוות את היום שלכם" } }
+      }
+    },
+    "leaderboard.empty.cta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "להזמין חבר/ה" } }
+      }
+    },
+    "leaderboard.you" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "את/ה" } }
+      }
+    },
+    "paywall.hero.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Be the hero — forever" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "היה הגיבור - לתמיד" } }
+      }
+    },
+    "paywall.tier.lifetime.badge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Best value" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הכי משתלם" } }
+      }
+    },
+    "paywall.tier.lifetime.price" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪99 once" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪99 פעם אחת" } }
+      }
+    },
+    "paywall.tier.annual.price" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪69 / year · 3-day trial" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪69 לשנה · 3 ימים ניסיון" } }
+      }
+    },
+    "paywall.tier.monthly.price" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪12.90 / month · 3-day trial" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪12.90 לחודש · 3 ימים ניסיון" } }
+      }
+    },
+    "settings.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדרות" } }
+      }
+    },
+    "settings.retakeSurvey" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Retake survey" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מילוי שאלון מחדש" } }
+      }
+    },
+    "settings.privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Only your daily total leaves this phone. Never per-app." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "רק הסך היומי שלך עוזב את הטלפון. אף פעם לפי אפליקציה." } }
+      }
+    },
+    "onboarding.q2.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "When do you scroll the most?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתי את/ה הכי גוללים?" } }
+      }
+    },
+    "onboarding.q2.options.morning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Morning in bed" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בוקר במיטה" } }
+      }
+    },
+    "onboarding.q2.options.afternoon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Afternoon break" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הפסקת צהריים" } }
+      }
+    },
+    "onboarding.q2.options.evening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Evening on the couch" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ערב על הספה" } }
+      }
+    },
+    "onboarding.q2.options.allday" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All day, honestly" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל היום, בכנות" } }
+      }
+    },
+    "onboarding.q3.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your #1 enemy app?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "האפליקציה שהכי גונבת לך זמן?" } }
+      }
+    },
+    "onboarding.q3.options.tiktok" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "TikTok" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "טיקטוק" } }
+      }
+    },
+    "onboarding.q3.options.instagram" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Instagram" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אינסטגרם" } }
+      }
+    },
+    "onboarding.q3.options.youtube" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "YouTube" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יוטיוב" } }
+      }
+    },
+    "onboarding.q3.options.other" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Something else" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "משהו אחר" } }
+      }
+    },
+    "onboarding.q4.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who's doing this with you?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עם מי את/ה עושים את זה?" } }
+      }
+    },
+    "onboarding.q4.options.friends" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Friends" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חברים" } }
+      }
+    },
+    "onboarding.q4.options.roommates" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Roommates" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שותפים לדירה" } }
+      }
+    },
+    "onboarding.q4.options.partner" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Partner" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בן/בת זוג" } }
+      }
+    },
+    "onboarding.q4.options.coworkers" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Coworkers" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עמיתים לעבודה" } }
+      }
+    },
+    "onboarding.q5.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What's your daily screen goal?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מה היעד היומי שלך?" } }
+      }
+    },
+    "onboarding.q5.options.60" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "1 hour — hardcore" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שעה — הארדקור" } }
+      }
+    },
+    "onboarding.q5.options.90" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "1.5 hours — ambitious" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שעה וחצי — שאפתני" } }
+      }
+    },
+    "onboarding.q5.options.120" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "2 hours — balanced" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שעתיים — מאוזן" } }
+      }
+    },
+    "onboarding.q5.options.180" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "3 hours — easy start" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "3 שעות — התחלה קלה" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

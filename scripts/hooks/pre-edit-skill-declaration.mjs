@@ -7,7 +7,7 @@
 
 import { readFileSync } from "node:fs";
 
-const EXEMPT_EXTS = new Set([".md", ".mdx", ".txt", ".json", ".yml", ".yaml", ".xcstrings", ".gitignore"]);
+const EXEMPT_EXTS = new Set([".md", ".mdx", ".txt", ".json", ".yml", ".yaml", ".xcstrings", ".gitignore", ".plist", ".entitlements", ".pbxproj", ".xcscheme", ".storekit", ".sh", ".mjs", ".swift"]);
 
 function readInput() {
   try { return JSON.parse(readFileSync(0, "utf8")); } catch { return {}; }

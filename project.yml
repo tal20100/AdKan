@@ -1,0 +1,58 @@
+name: AdKan
+options:
+  bundleIdPrefix: com.taltalhayun
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  AdKan:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+    resources:
+      - path: App/Assets.xcassets
+      - path: App/Localizable.xcstrings
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.taltalhayun.adkan
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: App/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SUPPORTED_PLATFORMS: iphoneos iphonesimulator
+        TARGETED_DEVICE_FAMILY: 1
+        SWIFT_EMIT_LOC_STRINGS: "YES"
+    entitlements:
+      path: App/AdKan.entitlements
+    dependencies: []
+
+  AdKanTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AdKanTests
+    dependencies:
+      - target: AdKan
+
+schemes:
+  AdKan:
+    build:
+      targets:
+        AdKan: all
+        AdKanTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - AdKanTests
