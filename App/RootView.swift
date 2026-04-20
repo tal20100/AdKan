@@ -24,7 +24,7 @@ struct MainTabView: View {
             LeaderboardView()
                 .tabItem {
                     Label {
-                        Text("leaderboard.empty.title")
+                        Text("tab.home")
                     } icon: {
                         Image(systemName: "chart.bar.fill")
                     }
@@ -33,7 +33,7 @@ struct MainTabView: View {
             SettingsView()
                 .tabItem {
                     Label {
-                        Text("settings.title")
+                        Text("tab.settings")
                     } icon: {
                         Image(systemName: "gearshape.fill")
                     }

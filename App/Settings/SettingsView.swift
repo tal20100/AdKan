@@ -4,6 +4,7 @@ struct SettingsView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var showPaywall = false
+    @State private var showBlocking = false
 
     var body: some View {
         NavigationStack {
@@ -25,6 +26,18 @@ struct SettingsView: View {
                         }
                         .pickerStyle(.menu)
                     }
+                }
+
+                Section {
+                    Button(action: { showBlocking = true }) {
+                        Label {
+                            Text("blocking.title")
+                        } icon: {
+                            Image(systemName: "shield.checkered")
+                                .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                    .foregroundStyle(.primary)
                 }
 
                 Section {
@@ -75,6 +88,9 @@ struct SettingsView: View {
             .navigationTitle(Text("settings.title"))
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
+            }
+            .sheet(isPresented: $showBlocking) {
+                BlockSettingsView()
             }
         }
     }

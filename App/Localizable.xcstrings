@@ -270,6 +270,138 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "3 hours — easy start" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "3 שעות — התחלה קלה" } }
       }
+    },
+    "invite.shareText" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "I'm using AdKan to cut my screen time. Join me and let's compete! 📱⬇️" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אני משתמש/ת בעד כאן כדי להוריד זמן מסך. בוא/י נתחרה! 📱⬇️" } }
+      }
+    },
+    "blocking.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App Blocking" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימת אפליקציות" } }
+      }
+    },
+    "blocking.toggle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable blocking" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הפעלת חסימה" } }
+      }
+    },
+    "blocking.toggle.footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "When you hit your daily limit, selected app categories will be blocked until tomorrow." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כשתגיע/י למגבלה היומית, קטגוריות האפליקציות שנבחרו ייחסמו עד מחר." } }
+      }
+    },
+    "blocking.dailyLimit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily limit" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלה יומית" } }
+      }
+    },
+    "blocking.limit.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time limit" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלת זמן" } }
+      }
+    },
+    "blocking.categories.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Block these categories" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסום קטגוריות אלה" } }
+      }
+    },
+    "blocking.category.social" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Social Media" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "רשתות חברתיות" } }
+      }
+    },
+    "blocking.category.social.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Instagram, TikTok, Facebook, X" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אינסטגרם, טיקטוק, פייסבוק, X" } }
+      }
+    },
+    "blocking.category.video" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Video" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "וידאו" } }
+      }
+    },
+    "blocking.category.video.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "YouTube, Netflix, Twitch" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יוטיוב, נטפליקס, טוויץ׳" } }
+      }
+    },
+    "blocking.category.games" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Games" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "משחקים" } }
+      }
+    },
+    "blocking.category.games.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All games on your device" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל המשחקים במכשיר" } }
+      }
+    },
+    "blocking.category.messaging" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Messaging" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הודעות" } }
+      }
+    },
+    "blocking.category.messaging.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "WhatsApp, Telegram, Messenger" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "וואטסאפ, טלגרם, מסנג׳ר" } }
+      }
+    },
+    "blocking.category.news" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "News" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חדשות" } }
+      }
+    },
+    "blocking.category.news.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "News apps and aggregators" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אפליקציות חדשות ואגרגטורים" } }
+      }
+    },
+    "blocking.category.shopping" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shopping" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קניות" } }
+      }
+    },
+    "blocking.category.shopping.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amazon, AliExpress, Shein" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אמזון, אלי אקספרס, שיין" } }
+      }
+    },
+    "tab.home" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בית" } }
+      }
+    },
+    "tab.settings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדרות" } }
+      }
+    },
+    "blocking.entitlement.notice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App blocking requires Screen Time permission. Your settings are saved and will activate once permission is granted." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימת אפליקציות דורשת הרשאת Screen Time. ההגדרות שלך נשמרות ויופעלו ברגע שתינתן הרשאה." } }
+      }
     }
   },
   "version" : "1.0"

@@ -105,6 +105,11 @@ struct LeaderboardView: View {
     }
 
     private func shareInviteLink() {
-        // TODO: share sheet with invite link
+        let text = NSLocalizedString("invite.shareText", comment: "")
+        let av = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let root = scene.keyWindow?.rootViewController {
+            root.present(av, animated: true)
+        }
     }
 }
