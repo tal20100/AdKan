@@ -121,11 +121,11 @@ struct PaywallView: View {
 
     private var legalLinks: some View {
         HStack(spacing: 16) {
-            Button("Restore") { /* TODO */ }
+            Button("paywall.restore") { /* TODO: StoreKit restore */ }
             Text("·")
-            Button("Terms") { /* TODO */ }
+            Button("paywall.terms") { /* TODO: open terms URL */ }
             Text("·")
-            Button("Privacy") { /* TODO */ }
+            Button("paywall.privacy") { /* TODO: open privacy URL */ }
         }
         .font(.caption)
         .foregroundStyle(.white.opacity(0.5))

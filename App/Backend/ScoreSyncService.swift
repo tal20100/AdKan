@@ -1,0 +1,75 @@
+import Foundation
+
+protocol ScoreSyncService: Sendable {
+    func submitDailyScore(minutes: Int) async throws
+    func fetchTodayScore() async throws -> Int?
+}
+
+struct SupabaseScoreSyncService: ScoreSyncService {
+    let baseURL: URL
+    let apiKey: String
+    let accessToken: () async -> String?
+
+    func submitDailyScore(minutes: Int) async throws {
+        guard minutes >= 0, minutes <= 1440 else { return }
+        guard let token = await accessToken() else { return }
+
+        let url = baseURL.appendingPathComponent("rest/v1/daily_scores")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("return=representation", forHTTPHeaderField: "Prefer")
+        request.setValue("resolution=merge-duplicates", forHTTPHeaderField: "Prefer")
+        request.setValue(apiKey, forHTTPHeaderField: "apikey")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let body: [String: Any] = [
+            "daily_total_minutes": minutes,
+            "score_date": ISO8601DateFormatter.dateOnly.string(from: Date())
+        ]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw SyncError.uploadFailed
+        }
+    }
+
+    func fetchTodayScore() async throws -> Int? {
+        guard let token = await accessToken() else { return nil }
+
+        let today = ISO8601DateFormatter.dateOnly.string(from: Date())
+        var components = URLComponents(url: baseURL.appendingPathComponent("rest/v1/daily_scores"), resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "score_date", value: "eq.\(today)"),
+            URLQueryItem(name: "select", value: "daily_total_minutes"),
+            URLQueryItem(name: "limit", value: "1")
+        ]
+
+        var request = URLRequest(url: components.url!)
+        request.setValue(apiKey, forHTTPHeaderField: "apikey")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let rows = try JSONDecoder().decode([[String: Int]].self, from: data)
+        return rows.first?["daily_total_minutes"]
+    }
+}
+
+struct StubScoreSyncService: ScoreSyncService {
+    func submitDailyScore(minutes: Int) async throws {}
+    func fetchTodayScore() async throws -> Int? { nil }
+}
+
+enum SyncError: Error {
+    case uploadFailed
+    case notAuthenticated
+}
+
+extension ISO8601DateFormatter {
+    static let dateOnly: ISO8601DateFormatter = {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withFullDate]
+        return f
+    }()
+}

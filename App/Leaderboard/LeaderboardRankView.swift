@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct LeaderboardRankView: View {
+    @EnvironmentObject private var services: ServiceContainer
     @Environment(\.screenTimeProvider) private var provider
+    @State private var entries: [LeaderboardEntry] = []
     @State private var todayMinutes: Int = 0
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
 
@@ -13,9 +15,14 @@ struct LeaderboardRankView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: AdKanTheme.cardSpacing) {
-                    myRankCard
-
-                    friendsSection
+                    if entries.isEmpty {
+                        myRankCard
+                        emptyFriendsCard
+                    } else {
+                        ForEach(entries) { entry in
+                            leaderboardRow(entry)
+                        }
+                    }
                 }
                 .padding(.horizontal, AdKanTheme.screenPadding)
                 .padding(.top, 8)
@@ -25,8 +32,49 @@ struct LeaderboardRankView: View {
             .navigationTitle(Text("tab.leaderboard"))
             .task {
                 todayMinutes = await provider.todayTotalMinutes()
+                entries = (try? await services.leaderboard.fetchLeaderboard(for: Date())) ?? []
+            }
+            .refreshable {
+                entries = (try? await services.leaderboard.fetchLeaderboard(for: Date())) ?? []
             }
         }
+    }
+
+    private func leaderboardRow(_ entry: LeaderboardEntry) -> some View {
+        let isMe = entry.userId == services.auth.currentUserId || entry.userId == "me"
+        let saved = max(0, 1440 - entry.dailyTotalMinutes)
+
+        return PlainCard {
+            HStack(spacing: 16) {
+                Text("\(entry.rank)")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .foregroundStyle(entry.rank <= 3 ? AdKanTheme.primary : .secondary)
+                    .frame(width: 36)
+
+                Text(entry.avatarEmoji)
+                    .font(.title)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(isMe ? String(localized: "leaderboard.you") : entry.displayName)
+                        .font(.headline)
+                    Text("\(saved)m saved")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+
+                if saved >= goalMinutes {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(AdKanTheme.successGreen)
+                }
+            }
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: AdKanTheme.cardCornerRadius)
+                .stroke(isMe ? AdKanTheme.primary.opacity(0.4) : .clear, lineWidth: 2)
+        )
     }
 
     private var myRankCard: some View {
@@ -40,7 +88,7 @@ struct LeaderboardRankView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("leaderboard.you")
                         .font(.headline)
-                    Text("\(savedMinutes) min saved")
+                    Text("\(savedMinutes)m saved")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -54,7 +102,7 @@ struct LeaderboardRankView: View {
         }
     }
 
-    private var friendsSection: some View {
+    private var emptyFriendsCard: some View {
         PlainCard {
             VStack(spacing: 16) {
                 Image(systemName: "person.2.fill")

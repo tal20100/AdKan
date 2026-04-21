@@ -3,6 +3,8 @@
 .env.*
 !.env.example
 config/mac-bridge.json
+config/Local.xcconfig
+**/SupabaseSecrets.plist
 *.p8
 *.p12
 *.pem
@@ -62,6 +64,7 @@ Desktop.ini
 # ---------- Claude Code local state ----------
 .claude/settings.local.json
 .claude/projects/
+.mcp.json
 
 # ---------- Snapshot test artefacts ----------
 **/__Snapshots__/__FailedRecordings__/

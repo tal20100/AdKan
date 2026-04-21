@@ -457,6 +457,24 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "טבלה" } }
       }
     },
+    "paywall.restore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Restore" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שחזור" } }
+      }
+    },
+    "paywall.terms" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Terms" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תנאים" } }
+      }
+    },
+    "paywall.privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרטיות" } }
+      }
+    },
     "blocking.entitlement.notice" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "App blocking requires Screen Time permission. Your settings are saved and will activate once permission is granted." } },
