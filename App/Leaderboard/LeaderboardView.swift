@@ -40,7 +40,7 @@ struct LeaderboardView: View {
                     Text("\(todayMinutes)")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
-                    Text("min today")
+                    Text("home.minToday")
                         .font(AdKanTheme.cardBody)
                         .foregroundStyle(.secondary)
                 }
@@ -58,7 +58,7 @@ struct LeaderboardView: View {
                     }
                     .foregroundStyle(delta <= 0 ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
 
-                    Text("vs yesterday")
+                    Text("home.vsYesterday")
                         .font(AdKanTheme.cardBody)
                         .foregroundStyle(.secondary)
                 }

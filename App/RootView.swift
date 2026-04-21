@@ -26,7 +26,16 @@ struct MainTabView: View {
                     Label {
                         Text("tab.home")
                     } icon: {
-                        Image(systemName: "chart.bar.fill")
+                        Image(systemName: "house.fill")
+                    }
+                }
+
+            LeaderboardRankView()
+                .tabItem {
+                    Label {
+                        Text("tab.leaderboard")
+                    } icon: {
+                        Image(systemName: "trophy.fill")
                     }
                 }
 

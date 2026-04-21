@@ -39,14 +39,14 @@ struct TimeReclaimedView: View {
                     .scaleEffect(animateNumber ? 1.0 : 0.5)
                     .opacity(animateNumber ? 1.0 : 0)
 
-                Text(savedMinutes > 0 ? "saved today" : "start putting your phone down!")
+                Text(savedMinutes > 0 ? "home.savedToday" : "home.putPhoneDown")
                     .font(AdKanTheme.heroLabel)
                     .foregroundStyle(.white.opacity(0.8))
 
                 if metGoal {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.seal.fill")
-                        Text("Goal reached!")
+                        Text("home.goalReached")
                     }
                     .font(.subheadline.bold())
                     .foregroundStyle(.yellow)
@@ -63,7 +63,7 @@ struct TimeReclaimedView: View {
 
     private var comparisonCards: some View {
         VStack(spacing: 10) {
-            Text("you could've...")
+            Text("home.couldve")
                 .font(AdKanTheme.cardBody)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -80,7 +80,7 @@ struct TimeReclaimedView: View {
             Button(action: refreshComparisons) {
                 HStack(spacing: 6) {
                     Image(systemName: "shuffle")
-                    Text("more")
+                    Text("home.more")
                 }
                 .font(.footnote.bold())
                 .foregroundStyle(AdKanTheme.primary)

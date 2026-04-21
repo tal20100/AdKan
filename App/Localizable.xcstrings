@@ -10,7 +10,7 @@
     "onboarding.welcome.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to AdKan" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברוך/ה הבא/ה לעד כאן" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברוכים הבאים לעד כאן" } }
       }
     },
     "onboarding.welcome.cta" : {
@@ -154,7 +154,7 @@
     "onboarding.q2.prompt" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "When do you scroll the most?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתי את/ה הכי גוללים?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתי הכי קשה לך לעזוב את הטלפון?" } }
       }
     },
     "onboarding.q2.options.morning" : {
@@ -213,8 +213,8 @@
     },
     "onboarding.q4.prompt" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who's doing this with you?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עם מי את/ה עושים את זה?" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who will you compete with?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עם מי תתחרו?" } }
       }
     },
     "onboarding.q4.options.friends" : {
@@ -395,6 +395,66 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדרות" } }
+      }
+    },
+    "home.savedToday" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "saved today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נחסכו היום" } }
+      }
+    },
+    "home.putPhoneDown" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start putting your phone down!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בואו נתחיל להוריד את הטלפון!" } }
+      }
+    },
+    "home.goalReached" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Goal reached!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "היעד הושג!" } }
+      }
+    },
+    "home.couldve" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "In that time you could've..." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בזמן הזה יכולת..." } }
+      }
+    },
+    "home.more" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "More" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עוד" } }
+      }
+    },
+    "home.minToday" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "min today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "דקות היום" } }
+      }
+    },
+    "home.vsYesterday" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "vs yesterday" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מול אתמול" } }
+      }
+    },
+    "settings.dailyGoal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily goal" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יעד יומי" } }
+      }
+    },
+    "settings.version" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "גרסה" } }
+      }
+    },
+    "tab.leaderboard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Leaderboard" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "טבלה" } }
       }
     },
     "blocking.entitlement.notice" : {

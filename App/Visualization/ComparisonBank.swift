@@ -180,6 +180,10 @@ struct ResolvedComparison: Identifiable {
     let textHE: String
 
     func text(locale: String) -> String {
-        locale.hasPrefix("he") ? textHE : textEN
+        let str = locale.hasPrefix("he") ? textHE : textEN
+        if locale.hasPrefix("he") {
+            return "\u{200F}" + str
+        }
+        return str
     }
 }

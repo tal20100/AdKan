@@ -12,7 +12,7 @@ struct SettingsView: View {
                 Section {
                     HStack {
                         Label {
-                            Text("Daily goal")
+                            Text("settings.dailyGoal")
                         } icon: {
                             Image(systemName: "target")
                                 .foregroundStyle(AdKanTheme.primary)
@@ -77,7 +77,7 @@ struct SettingsView: View {
 
                 Section {
                     HStack {
-                        Text("Version")
+                        Text("settings.version")
                             .foregroundStyle(.secondary)
                         Spacer()
                         Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
