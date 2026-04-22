@@ -2,11 +2,15 @@ import SwiftUI
 
 struct OnboardingView: View {
     let onComplete: () -> Void
+    @Environment(\.screenTimeProvider) private var provider
     @State private var currentPage = 0
     @State private var answers: [Int] = []
+    @State private var showPermissionDeniedAlert = false
+    @State private var isRequestingPermission = false
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @AppStorage("topEnemyApp") private var topEnemyApp: Int = 0
     @AppStorage("crewType") private var crewType: Int = 0
+    @AppStorage("screenTimePermissionSkipped") private var permissionSkipped = false
 
     private let questions = SurveyData.questions
     private var totalPages: Int { questions.count + 2 } // welcome + questions + permission
@@ -165,14 +169,48 @@ struct OnboardingView: View {
 
             VStack(spacing: 12) {
                 AdKanButton(titleKey: "permission.prompt.allowCta", style: .primary) {
-                    onComplete()
+                    requestScreenTimePermission()
                 }
-                AdKanButton(titleKey: "onboarding.skip", style: .subtle) {
+                .disabled(isRequestingPermission)
+
+                AdKanButton(titleKey: "permission.maybeLater", style: .subtle) {
+                    permissionSkipped = true
                     onComplete()
                 }
             }
             .padding(.horizontal, AdKanTheme.screenPadding)
             .padding(.bottom, 48)
+        }
+        .alert("permission.denied.title", isPresented: $showPermissionDeniedAlert) {
+            Button("permission.denied.openSettings") {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url)
+                }
+            }
+            Button("permission.maybeLater", role: .cancel) {
+                permissionSkipped = true
+                onComplete()
+            }
+        } message: {
+            Text("permission.denied.body")
+        }
+    }
+
+    private func requestScreenTimePermission() {
+        isRequestingPermission = true
+        Task {
+            do {
+                try await provider.requestAuthorization()
+                let status = await provider.authorizationStatus
+                if status == .approved {
+                    onComplete()
+                } else {
+                    showPermissionDeniedAlert = true
+                }
+            } catch {
+                showPermissionDeniedAlert = true
+            }
+            isRequestingPermission = false
         }
     }
 

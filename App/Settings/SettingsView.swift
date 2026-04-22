@@ -3,21 +3,31 @@ import SwiftUI
 struct SettingsView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
+    @EnvironmentObject private var languageManager: LanguageManager
     @State private var showPaywall = false
-    @State private var showBlocking = false
 
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    HStack {
+                    LabeledContent {
+                        Picker("", selection: $languageManager.preferredLanguage) {
+                            Text("עברית").tag("he")
+                            Text("English").tag("en")
+                        }
+                        .pickerStyle(.menu)
+                    } label: {
                         Label {
-                            Text("settings.dailyGoal")
+                            Text("settings.language")
                         } icon: {
-                            Image(systemName: "target")
+                            Image(systemName: "globe")
                                 .foregroundStyle(AdKanTheme.primary)
                         }
-                        Spacer()
+                    }
+                }
+
+                Section {
+                    LabeledContent {
                         Picker("", selection: $goalMinutes) {
                             Text("1h").tag(60)
                             Text("1.5h").tag(90)
@@ -25,19 +35,14 @@ struct SettingsView: View {
                             Text("3h").tag(180)
                         }
                         .pickerStyle(.menu)
-                    }
-                }
-
-                Section {
-                    Button(action: { showBlocking = true }) {
+                    } label: {
                         Label {
-                            Text("blocking.title")
+                            Text("settings.dailyGoal")
                         } icon: {
-                            Image(systemName: "shield.checkered")
+                            Image(systemName: "target")
                                 .foregroundStyle(AdKanTheme.primary)
                         }
                     }
-                    .foregroundStyle(.primary)
                 }
 
                 Section {
@@ -76,21 +81,18 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    HStack {
-                        Text("settings.version")
-                            .foregroundStyle(.secondary)
-                        Spacer()
+                    LabeledContent {
                         Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
                             .foregroundStyle(.tertiary)
+                    } label: {
+                        Text("settings.version")
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
             .navigationTitle(Text("settings.title"))
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
-            }
-            .sheet(isPresented: $showBlocking) {
-                BlockSettingsView()
             }
         }
     }

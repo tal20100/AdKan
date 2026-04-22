@@ -3,6 +3,7 @@ import SwiftUI
 struct TimeReclaimedView: View {
     let savedMinutes: Int
     let goalMinutes: Int
+    @EnvironmentObject private var languageManager: LanguageManager
     @State private var comparisons: [ResolvedComparison] = []
     @State private var animateNumber = false
     @State private var showConfetti = false
@@ -122,7 +123,7 @@ private struct ComparisonRow: View {
             Text(comparison.icon)
                 .font(.title2)
 
-            Text(comparison.text(locale: Locale.current.language.languageCode?.identifier ?? "en"))
+            Text(comparison.text(locale: languageManager.preferredLanguage))
                 .font(AdKanTheme.comparisonText)
                 .foregroundStyle(.primary)
 

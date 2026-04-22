@@ -4,6 +4,7 @@ final class ServiceContainer: ObservableObject {
     let auth: AuthService
     let scoreSync: ScoreSyncService
     let leaderboard: LeaderboardService
+    let groups: GroupService
 
     init() {
         if SupabaseConfig.isConfigured,
@@ -21,10 +22,16 @@ final class ServiceContainer: ObservableObject {
                 apiKey: key,
                 accessToken: { await authService.accessToken() }
             )
+            self.groups = SupabaseGroupService(
+                baseURL: url,
+                apiKey: key,
+                accessToken: { await authService.accessToken() }
+            )
         } else {
             self.auth = StubAuthService()
             self.scoreSync = StubScoreSyncService()
             self.leaderboard = StubLeaderboardService()
+            self.groups = StubGroupService()
         }
     }
 }

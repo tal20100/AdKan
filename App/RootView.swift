@@ -21,7 +21,7 @@ struct RootView: View {
 struct MainTabView: View {
     var body: some View {
         TabView {
-            LeaderboardView()
+            HomeView()
                 .tabItem {
                     Label {
                         Text("tab.home")
@@ -30,12 +30,21 @@ struct MainTabView: View {
                     }
                 }
 
-            LeaderboardRankView()
+            GroupsListView()
                 .tabItem {
                     Label {
-                        Text("tab.leaderboard")
+                        Text("tab.groups")
                     } icon: {
                         Image(systemName: "trophy.fill")
+                    }
+                }
+
+            BlockingView()
+                .tabItem {
+                    Label {
+                        Text("tab.blocking")
+                    } icon: {
+                        Image(systemName: "shield.checkered")
                     }
                 }
 

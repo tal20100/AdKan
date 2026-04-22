@@ -1,10 +1,9 @@
 import SwiftUI
 
-struct BlockSettingsView: View {
+struct BlockingView: View {
     @AppStorage("blockingEnabled") private var blockingEnabled = false
     @AppStorage("dailyLimitMinutes") private var dailyLimitMinutes: Int = 120
     @AppStorage("blockedCategories") private var blockedCategoriesRaw: String = "social,video"
-    @Environment(\.dismiss) private var dismiss
 
     private let categories = AppCategory.allCases
 
@@ -15,6 +14,27 @@ struct BlockSettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    GradientCard {
+                        VStack(spacing: 12) {
+                            Image(systemName: "shield.checkered")
+                                .font(.system(size: 40))
+                                .foregroundStyle(.white)
+
+                            Text("blocking.hero.title")
+                                .font(AdKanTheme.cardTitle)
+                                .foregroundStyle(.white)
+
+                            Text("blocking.hero.body")
+                                .font(AdKanTheme.cardBody)
+                                .foregroundStyle(.white.opacity(0.8))
+                                .multilineTextAlignment(.center)
+                        }
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                }
+
                 Section {
                     Toggle(isOn: $blockingEnabled) {
                         Label {
@@ -33,13 +53,13 @@ struct BlockSettingsView: View {
                 if blockingEnabled {
                     Section {
                         VStack(alignment: .leading, spacing: 12) {
-                            HStack {
-                                Text("blocking.dailyLimit")
-                                    .font(.subheadline.weight(.medium))
-                                Spacer()
+                            LabeledContent {
                                 Text("\(dailyLimitMinutes / 60)h \(dailyLimitMinutes % 60)m")
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(AdKanTheme.primary)
+                            } label: {
+                                Text("blocking.dailyLimit")
+                                    .font(.subheadline.weight(.medium))
                             }
 
                             Slider(
@@ -106,14 +126,6 @@ struct BlockSettingsView: View {
                 }
             }
             .navigationTitle(Text("blocking.title"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: { dismiss() }) {
-                        Text("onboarding.next")
-                    }
-                }
-            }
             .animation(.easeInOut(duration: 0.25), value: blockingEnabled)
         }
     }

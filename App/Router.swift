@@ -5,6 +5,9 @@ enum Route: Hashable {
     case leaderboard
     case paywall
     case settings
+    case groupDetail(groupId: String)
+    case createGroup
+    case addFriend(groupId: String)
 }
 
 final class Router: ObservableObject {

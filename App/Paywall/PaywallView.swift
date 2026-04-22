@@ -1,6 +1,12 @@
 import SwiftUI
 
+enum PaywallContext {
+    case general
+    case groupLimit(groupName: String)
+}
+
 struct PaywallView: View {
+    var context: PaywallContext = .general
     @Environment(\.dismiss) private var dismiss
     @State private var selectedTier: Tier = .lifetime
     @State private var animateHero = false
@@ -52,10 +58,24 @@ struct PaywallView: View {
                 }
             }
 
-            Text("paywall.hero.title")
-                .font(.title.bold())
-                .foregroundStyle(.white)
-                .multilineTextAlignment(.center)
+            switch context {
+            case .general:
+                Text("paywall.hero.title")
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.center)
+            case .groupLimit:
+                VStack(spacing: 8) {
+                    Text("paywall.group.hero")
+                        .font(.title.bold())
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                    Text("paywall.group.subtitle")
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                }
+            }
         }
         .padding(.horizontal, AdKanTheme.screenPadding)
     }
