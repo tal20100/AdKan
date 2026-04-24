@@ -810,6 +810,12 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add up to 30 friends to a group" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרג כדי להוסיף עד 30 חברים לקבוצה" } }
       }
+    },
+    "paywall.error" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purchase Error" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שגיאה ברכישה" } }
+      }
     }
   },
   "version" : "1.0"

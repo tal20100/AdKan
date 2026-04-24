@@ -1,11 +1,10 @@
 import SwiftUI
 
 struct WeeklySummaryCard: View {
-    @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
-
-    // TODO: Replace with real weekly data from ScoreSyncService
-    private let thisWeekMinutes: Int = 680
-    private let lastWeekMinutes: Int = 820
+    @EnvironmentObject private var services: ServiceContainer
+    @State private var thisWeekMinutes: Int = 0
+    @State private var lastWeekMinutes: Int = 0
+    @State private var loaded = false
 
     private var delta: Int { thisWeekMinutes - lastWeekMinutes }
     private var improved: Bool { delta <= 0 }
@@ -21,20 +20,26 @@ struct WeeklySummaryCard: View {
                     Spacer()
                 }
 
-                HStack(spacing: 20) {
-                    weekColumn(titleKey: "home.thisWeek", minutes: thisWeekMinutes)
+                if loaded {
+                    HStack(spacing: 20) {
+                        weekColumn(titleKey: "home.thisWeek", minutes: thisWeekMinutes)
 
-                    Divider()
+                        Divider()
+                            .frame(height: 40)
+
+                        weekColumn(titleKey: "home.lastWeek", minutes: lastWeekMinutes)
+
+                        Spacer()
+
+                        deltaView
+                    }
+                } else {
+                    ProgressView()
                         .frame(height: 40)
-
-                    weekColumn(titleKey: "home.lastWeek", minutes: lastWeekMinutes)
-
-                    Spacer()
-
-                    deltaView
                 }
             }
         }
+        .task { await loadWeeklyData() }
     }
 
     private func weekColumn(titleKey: String, minutes: Int) -> some View {
@@ -55,5 +60,28 @@ struct WeeklySummaryCard: View {
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .foregroundStyle(improved ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
+    }
+
+    private func loadWeeklyData() async {
+        let calendar = Calendar.current
+        let today = Date()
+
+        var thisWeek = 0
+        var lastWeek = 0
+
+        for dayOffset in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) {
+                let score = try? await services.scoreSync.fetchWeeklyScore(for: date)
+                thisWeek += score ?? 0
+            }
+            if let date = calendar.date(byAdding: .day, value: -(dayOffset + 7), to: today) {
+                let score = try? await services.scoreSync.fetchWeeklyScore(for: date)
+                lastWeek += score ?? 0
+            }
+        }
+
+        thisWeekMinutes = thisWeek
+        lastWeekMinutes = lastWeek
+        loaded = true
     }
 }

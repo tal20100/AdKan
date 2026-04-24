@@ -6,6 +6,7 @@ struct AdKanApp: App {
     @StateObject private var router = Router()
     @StateObject private var services = ServiceContainer()
     @StateObject private var languageManager = LanguageManager()
+    @StateObject private var storeManager = StoreManager()
 
     var body: some Scene {
         WindowGroup {
@@ -13,10 +14,19 @@ struct AdKanApp: App {
                 .environmentObject(router)
                 .environmentObject(services)
                 .environmentObject(languageManager)
-                .environment(\.screenTimeProvider, StubScreenTimeProvider.goalHit)
+                .environmentObject(storeManager)
+                .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
                 .environment(\.locale, languageManager.locale)
                 .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
         }
+    }
+
+    private static func makeScreenTimeProvider() -> any ScreenTimeProvider {
+        #if targetEnvironment(simulator)
+        return StubScreenTimeProvider.goalHit
+        #else
+        return RealScreenTimeProvider()
+        #endif
     }
 }

@@ -72,30 +72,138 @@ struct SupabaseGroupService: GroupService {
     let apiKey: String
     let accessToken: @Sendable () async -> String?
 
+    private func authHeaders() async -> [(String, String)] {
+        var headers = [
+            ("Content-Type", "application/json"),
+            ("apikey", apiKey)
+        ]
+        if let token = await accessToken() {
+            headers.append(("Authorization", "Bearer \(token)"))
+        }
+        return headers
+    }
+
+    private func applyHeaders(_ request: inout URLRequest, headers: [(String, String)]) {
+        for (key, value) in headers { request.setValue(value, forHTTPHeaderField: key) }
+    }
+
     func fetchMyGroups() async throws -> [AdKanGroup] {
-        // TODO: Implement Supabase REST call
-        return []
+        guard await accessToken() != nil else { return [] }
+        let headers = await authHeaders()
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/my_groups")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        applyHeaders(&request, headers: headers)
+        request.httpBody = try JSONSerialization.data(withJSONObject: [:] as [String: String])
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            return []
+        }
+        return try JSONDecoder().decode([AdKanGroup].self, from: data)
     }
 
     func createGroup(name: String, type: GroupType) async throws -> AdKanGroup {
-        // TODO: Implement Supabase REST call
-        AdKanGroup(id: UUID().uuidString, name: name, type: type, isFavorite: false, members: [])
+        let headers = await authHeaders()
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/create_group")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        applyHeaders(&request, headers: headers)
+        request.setValue("return=representation", forHTTPHeaderField: "Prefer")
+
+        let body: [String: String] = ["group_name": name, "group_type": type.rawValue]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
+        return try JSONDecoder().decode(AdKanGroup.self, from: data)
     }
 
     func fetchGroupDetail(groupId: String) async throws -> AdKanGroup {
-        // TODO: Implement Supabase REST call
-        AdKanGroup(id: groupId, name: "", type: .friends, isFavorite: false, members: [])
+        let headers = await authHeaders()
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/group_detail")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        applyHeaders(&request, headers: headers)
+
+        let body = ["group_id": groupId]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
+        return try JSONDecoder().decode(AdKanGroup.self, from: data)
     }
 
     func addMember(groupId: String, userId: String) async throws {
-        // TODO: Implement Supabase REST call
+        let headers = await authHeaders()
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/group_members")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        applyHeaders(&request, headers: headers)
+
+        let body: [String: String] = ["group_id": groupId, "user_id": userId]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
     }
 
     func removeMember(groupId: String, userId: String) async throws {
-        // TODO: Implement Supabase REST call
+        let headers = await authHeaders()
+
+        let base = URL(string: baseURL)!
+        var components = URLComponents(url: base.appendingPathComponent("rest/v1/group_members"), resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "group_id", value: "eq.\(groupId)"),
+            URLQueryItem(name: "user_id", value: "eq.\(userId)")
+        ]
+
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+        applyHeaders(&request, headers: headers)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
     }
 
     func setFavorite(groupId: String, isFavorite: Bool) async throws {
-        // TODO: Implement Supabase REST call
+        let headers = await authHeaders()
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/set_favorite_group")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        applyHeaders(&request, headers: headers)
+
+        let body: [String: Any] = ["target_group_id": groupId, "is_favorite": isFavorite]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
+    }
+}
+
+enum GroupServiceError: Error, LocalizedError {
+    case requestFailed
+    case notAuthenticated
+
+    var errorDescription: String? {
+        switch self {
+        case .requestFailed: return "Group service request failed."
+        case .notAuthenticated: return "Not authenticated."
+        }
     }
 }

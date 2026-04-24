@@ -5,6 +5,10 @@ enum Tier: String, CaseIterable {
     case annual
     case monthly
 
+    var productID: String {
+        "com.taltalhayun.adkan.\(rawValue)"
+    }
+
     var icon: String {
         switch self {
         case .lifetime: return "crown.fill"
@@ -26,5 +30,9 @@ enum Tier: String, CaseIterable {
         case .lifetime: return "paywall.tier.lifetime.badge"
         default: return nil
         }
+    }
+
+    static func from(productID: String) -> Tier? {
+        allCases.first { $0.productID == productID }
     }
 }

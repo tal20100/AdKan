@@ -8,8 +8,10 @@ enum PaywallContext {
 struct PaywallView: View {
     var context: PaywallContext = .general
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var storeManager: StoreManager
     @State private var selectedTier: Tier = .lifetime
     @State private var animateHero = false
+    @State private var showError = false
 
     var body: some View {
         NavigationStack {
@@ -128,30 +130,64 @@ struct PaywallView: View {
 
     private var purchaseButton: some View {
         Button(action: purchase) {
-            Text(selectedTier == .lifetime ? "paywall.tier.lifetime.price" : "onboarding.next")
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 18)
-                .background(.yellow)
-                .foregroundStyle(.black)
-                .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
+            Group {
+                if storeManager.isLoading {
+                    ProgressView()
+                        .tint(.black)
+                } else if let product = storeManager.product(for: selectedTier) {
+                    Text(product.displayPrice)
+                        .font(.headline)
+                } else {
+                    Text(LocalizedStringKey(selectedTier.priceKey))
+                        .font(.headline)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 18)
+            .background(.yellow)
+            .foregroundStyle(.black)
+            .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
         }
+        .disabled(storeManager.isLoading)
         .padding(.horizontal, AdKanTheme.screenPadding)
+        .alert("paywall.error", isPresented: $showError) {
+            Button("OK") {}
+        } message: {
+            Text(storeManager.errorMessage ?? "")
+        }
     }
 
     private var legalLinks: some View {
         HStack(spacing: 16) {
-            Button("paywall.restore") { /* TODO: StoreKit restore */ }
+            Button("paywall.restore") {
+                Task { await storeManager.restorePurchases() }
+            }
             Text("·")
-            Button("paywall.terms") { /* TODO: open terms URL */ }
+            Button("paywall.terms") {
+                if let url = URL(string: "https://taltalhayun.com/adkan/terms") {
+                    UIApplication.shared.open(url)
+                }
+            }
             Text("·")
-            Button("paywall.privacy") { /* TODO: open privacy URL */ }
+            Button("paywall.privacy") {
+                if let url = URL(string: "https://taltalhayun.com/adkan/privacy") {
+                    UIApplication.shared.open(url)
+                }
+            }
         }
         .font(.caption)
         .foregroundStyle(.white.opacity(0.5))
     }
 
     private func purchase() {
-        // TODO: StoreKit 2 purchase
+        guard let product = storeManager.product(for: selectedTier) else { return }
+        Task {
+            let success = await storeManager.purchase(product)
+            if success {
+                dismiss()
+            } else if storeManager.errorMessage != nil {
+                showError = true
+            }
+        }
     }
 }

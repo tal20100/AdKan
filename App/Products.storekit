@@ -1,0 +1,107 @@
+{
+  "identifier" : "com.taltalhayun.adkan.products",
+  "nonRenewableSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "79.99",
+      "familyShareable" : false,
+      "internalID" : "lifetime",
+      "localizations" : [
+        {
+          "description" : "Unlock all features forever",
+          "displayName" : "AdKan Premium — Lifetime",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "פתיחת כל התכונות לתמיד",
+          "displayName" : "עד כאן פרימיום — לכל החיים",
+          "locale" : "he"
+        }
+      ],
+      "productID" : "com.taltalhayun.adkan.lifetime",
+      "referenceName" : "Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "adkan",
+    "_developerTeamID" : ""
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "premium",
+      "localizations" : [
+
+      ],
+      "name" : "Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "29.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "annual",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All features, billed annually",
+              "displayName" : "AdKan Premium — Annual",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "כל התכונות, חיוב שנתי",
+              "displayName" : "עד כאן פרימיום — שנתי",
+              "locale" : "he"
+            }
+          ],
+          "productID" : "com.taltalhayun.adkan.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Annual",
+          "subscriptionGroupID" : "premium",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "monthly",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All features, billed monthly",
+              "displayName" : "AdKan Premium — Monthly",
+              "locale" : "en_US"
+            },
+            {
+              "description" : "כל התכונות, חיוב חודשי",
+              "displayName" : "עד כאן פרימיום — חודשי",
+              "locale" : "he"
+            }
+          ],
+          "productID" : "com.taltalhayun.adkan.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly",
+          "subscriptionGroupID" : "premium",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

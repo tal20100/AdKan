@@ -3,6 +3,7 @@ import SwiftUI
 struct GroupDetailView: View {
     let groupId: String
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var storeManager: StoreManager
     @State private var group: AdKanGroup?
     @State private var showAddFriend = false
     @State private var showPaywall = false
@@ -12,7 +13,7 @@ struct GroupDetailView: View {
     }
 
     private var isAtFreeLimit: Bool {
-        (group?.memberCount ?? 0) >= AdKanGroup.freeMaxMembers
+        !storeManager.isPremium && (group?.memberCount ?? 0) >= AdKanGroup.freeMaxMembers
     }
 
     var body: some View {
@@ -22,7 +23,7 @@ struct GroupDetailView: View {
                 leaderboardSection
                 if isAtFreeLimit {
                     paywallBanner
-                } else {
+                } else if !storeManager.isPremium {
                     upsellHint
                 }
             }

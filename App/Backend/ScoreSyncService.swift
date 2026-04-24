@@ -3,6 +3,7 @@ import Foundation
 protocol ScoreSyncService: Sendable {
     func submitDailyScore(minutes: Int) async throws
     func fetchTodayScore() async throws -> Int?
+    func fetchWeeklyScore(for date: Date) async throws -> Int?
 }
 
 struct SupabaseScoreSyncService: ScoreSyncService {
@@ -55,11 +56,35 @@ struct SupabaseScoreSyncService: ScoreSyncService {
         let rows = try JSONDecoder().decode([[String: Int]].self, from: data)
         return rows.first?["daily_total_minutes"]
     }
+
+    func fetchWeeklyScore(for date: Date) async throws -> Int? {
+        guard let token = await accessToken() else { return nil }
+
+        let dateStr = ISO8601DateFormatter.dateOnly.string(from: date)
+        let base = URL(string: baseURL)!
+        var components = URLComponents(url: base.appendingPathComponent("rest/v1/daily_scores"), resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "score_date", value: "eq.\(dateStr)"),
+            URLQueryItem(name: "select", value: "daily_total_minutes"),
+            URLQueryItem(name: "limit", value: "1")
+        ]
+
+        var request = URLRequest(url: components.url!)
+        request.setValue(apiKey, forHTTPHeaderField: "apikey")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let rows = try JSONDecoder().decode([[String: Int]].self, from: data)
+        return rows.first?["daily_total_minutes"]
+    }
 }
 
 struct StubScoreSyncService: ScoreSyncService {
     func submitDailyScore(minutes: Int) async throws {}
     func fetchTodayScore() async throws -> Int? { nil }
+    func fetchWeeklyScore(for date: Date) async throws -> Int? {
+        Int.random(in: 60...180)
+    }
 }
 
 enum SyncError: Error {

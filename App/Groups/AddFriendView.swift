@@ -4,10 +4,11 @@ struct AddFriendView: View {
     let groupId: String
     let memberCount: Int
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var storeManager: StoreManager
     @State private var showPaywall = false
 
     private var wouldExceedFreeLimit: Bool {
-        memberCount + 1 > AdKanGroup.freeMaxMembers
+        !storeManager.isPremium && memberCount + 1 > AdKanGroup.freeMaxMembers
     }
 
     var body: some View {

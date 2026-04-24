@@ -31,8 +31,10 @@
 	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>AdKan does not track you. This permission is never requested.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
