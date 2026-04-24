@@ -7,6 +7,8 @@ struct HomeView: View {
     @State private var todayMinutes: Int = 0
     @State private var yesterdayMinutes: Int = 0
     @State private var groups: [AdKanGroup] = []
+    @State private var isLoading = true
+    @State private var loadError: String?
 
     private var savedMinutes: Int {
         max(0, (24 * 60) - todayMinutes)
@@ -19,20 +21,25 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: AdKanTheme.cardSpacing) {
-                    TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
+                if isLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, minHeight: 300)
+                } else {
+                    VStack(spacing: AdKanTheme.cardSpacing) {
+                        TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
 
-                    usageCard
+                        usageCard
 
-                    ProgressBarView(currentMinutes: todayMinutes, goalMinutes: goalMinutes, compact: false)
+                        ProgressBarView(currentMinutes: todayMinutes, goalMinutes: goalMinutes, compact: false)
 
-                    FavoriteGroupCard(group: favoriteGroup)
+                        FavoriteGroupCard(group: favoriteGroup)
 
-                    WeeklySummaryCard()
+                        WeeklySummaryCard()
+                    }
+                    .padding(.horizontal, AdKanTheme.screenPadding)
+                    .padding(.top, 8)
+                    .padding(.bottom, 32)
                 }
-                .padding(.horizontal, AdKanTheme.screenPadding)
-                .padding(.top, 8)
-                .padding(.bottom, 32)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle(Text("app.displayName"))
@@ -41,7 +48,10 @@ struct HomeView: View {
                 yesterdayMinutes = await provider.yesterdayTotalMinutes()
                 do {
                     groups = try await services.groups.fetchMyGroups()
-                } catch {}
+                } catch {
+                    loadError = error.localizedDescription
+                }
+                isLoading = false
             }
         }
     }

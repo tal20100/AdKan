@@ -86,30 +86,30 @@ enum ComparisonBank {
             return (en: "done \(fmtInt(reps)) push-ups", he: "לעשות \(fmtInt(reps)) שכיבות סמיכה")
         },
 
-        // More activities
-        ComparisonTemplate(icon: "🎨") { m in
-            let sketches = Double(m) / 15.0
-            return (en: "drawn \(fmt(sketches)) sketches", he: "לצייר \(fmt(sketches)) סקיצות")
+        // Fun facts
+        ComparisonTemplate(icon: "🐋") { m in
+            let beats = Double(m) * 6
+            return (en: "a blue whale's heart beat \(fmtInt(beats)) times", he: "לב של לוויתן כחול היה פועם \(fmtInt(beats)) פעמים")
         },
-        ComparisonTemplate(icon: "🎸") { m in
-            let songs = Double(m) / 4.0
-            return (en: "learned \(fmt(songs)) songs on guitar", he: "ללמוד \(fmt(songs)) שירים על גיטרה")
+        ComparisonTemplate(icon: "🦒") { m in
+            let km = Double(m) / 60.0 * 5.0
+            return (en: "a giraffe walked \(fmt(km)) km", he: "ג׳ירפה היתה הולכת \(fmt(km)) ק״מ")
         },
-        ComparisonTemplate(icon: "🏀") { m in
-            let shots = Double(m) * 6
-            return (en: "shot \(fmtInt(shots)) free throws", he: "לזרוק \(fmtInt(shots)) זריקות חופשיות")
+        ComparisonTemplate(icon: "🧊") { m in
+            let meters = Double(m) * 11.67
+            return (en: "an iceberg drifted \(fmtInt(meters)) meters", he: "קרחון היה נסחף \(fmtInt(meters)) מטר")
         },
-        ComparisonTemplate(icon: "🧹") { m in
-            let rooms = Double(m) / 15.0
-            return (en: "cleaned \(fmt(rooms)) rooms", he: "לנקות \(fmt(rooms)) חדרים")
+        ComparisonTemplate(icon: "🌻") { m in
+            let mm = Double(m) / 1440.0 * 30.0
+            return (en: "a sunflower grew \(fmt(mm)) mm", he: "חמנייה היתה גדלה \(fmt(mm)) מ״מ")
         },
-        ComparisonTemplate(icon: "🌱") { m in
-            let plants = Double(m) / 10.0
-            return (en: "planted \(fmt(plants)) plants", he: "לשתול \(fmt(plants)) צמחים")
+        ComparisonTemplate(icon: "🎬") { m in
+            let pct = Double(m) / 3540.0 * 100
+            return (en: "watched \(fmt(pct))% of every Marvel movie", he: "לצפות ב-\(fmt(pct))% מכל סרטי מארוול")
         },
-        ComparisonTemplate(icon: "🎧") { m in
-            let episodes = Double(m) / 40.0
-            return (en: "listened to \(fmt(episodes)) podcast episodes", he: "להאזין ל-\(fmt(episodes)) פרקי פודקאסט")
+        ComparisonTemplate(icon: "🏗️") { m in
+            let pct = Double(m) / 1440.0 * 100
+            return (en: "built \(fmt(pct))% of a LEGO Death Star", he: "לבנות \(fmt(pct))% מכוכב מוות מלגו")
         },
     ]
 

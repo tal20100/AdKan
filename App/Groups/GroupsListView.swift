@@ -4,11 +4,36 @@ struct GroupsListView: View {
     @EnvironmentObject private var services: ServiceContainer
     @State private var groups: [AdKanGroup] = []
     @State private var showCreateGroup = false
+    @State private var isLoading = true
+    @State private var loadError: String?
 
     var body: some View {
         NavigationStack {
             List {
-                if groups.isEmpty {
+                if isLoading {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, minHeight: 200)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets())
+                } else if let error = loadError {
+                    VStack(spacing: 12) {
+                        Image(systemName: "wifi.exclamationmark")
+                            .font(.system(size: 36))
+                            .foregroundStyle(.secondary)
+                        Text(error)
+                            .font(AdKanTheme.cardBody)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                        Button("common.retry") {
+                            Task { await loadGroups() }
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 40)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
+                } else if groups.isEmpty {
                     emptyState
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets())
@@ -105,8 +130,12 @@ struct GroupsListView: View {
     }
 
     private func loadGroups() async {
+        loadError = nil
         do {
             groups = try await services.groups.fetchMyGroups()
-        } catch {}
+        } catch {
+            loadError = error.localizedDescription
+        }
+        isLoading = false
     }
 }

@@ -7,6 +7,8 @@ struct GroupDetailView: View {
     @State private var group: AdKanGroup?
     @State private var showAddFriend = false
     @State private var showPaywall = false
+    @State private var isLoading = true
+    @State private var loadError: String?
 
     private var sortedMembers: [GroupMember] {
         (group?.members ?? []).sorted { ($0.rank ?? 999) < ($1.rank ?? 999) }
@@ -18,7 +20,27 @@ struct GroupDetailView: View {
 
     var body: some View {
         List {
-            if let group = group {
+            if isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, minHeight: 200)
+                    .listRowBackground(Color.clear)
+            } else if let error = loadError {
+                VStack(spacing: 12) {
+                    Image(systemName: "wifi.exclamationmark")
+                        .font(.system(size: 36))
+                        .foregroundStyle(.secondary)
+                    Text(error)
+                        .font(AdKanTheme.cardBody)
+                        .foregroundStyle(.secondary)
+                    Button("common.retry") {
+                        Task { await loadDetail() }
+                    }
+                    .buttonStyle(.bordered)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 40)
+                .listRowBackground(Color.clear)
+            } else if let group = group {
                 headerSection(group)
                 leaderboardSection
                 if isAtFreeLimit {
@@ -45,9 +67,7 @@ struct GroupDetailView: View {
             PaywallView(context: .groupLimit(groupName: group?.name ?? ""))
         }
         .task {
-            do {
-                group = try await services.groups.fetchGroupDetail(groupId: groupId)
-            } catch {}
+            await loadDetail()
         }
     }
 
@@ -166,5 +186,15 @@ struct GroupDetailView: View {
         } label: {
             Image(systemName: "person.badge.plus")
         }
+    }
+
+    private func loadDetail() async {
+        loadError = nil
+        do {
+            group = try await services.groups.fetchGroupDetail(groupId: groupId)
+        } catch {
+            loadError = error.localizedDescription
+        }
+        isLoading = false
     }
 }

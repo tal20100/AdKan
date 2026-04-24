@@ -8,6 +8,7 @@ struct CreateGroupView: View {
     @State private var groupName: String = ""
     @State private var groupType: GroupType = .friends
     @State private var isCreating = false
+    @State private var errorMessage: String?
 
     var body: some View {
         NavigationStack {
@@ -68,17 +69,30 @@ struct CreateGroupView: View {
                     }
                 }
             }
+            .alert("common.error", isPresented: .init(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
+                Button("common.ok") { errorMessage = nil }
+            } message: {
+                if let msg = errorMessage {
+                    Text(msg)
+                }
+            }
         }
     }
 
     private func createGroup() {
         guard !groupName.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         isCreating = true
+        errorMessage = nil
         Task {
             do {
                 let newGroup = try await services.groups.createGroup(name: groupName, type: groupType)
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 onCreated?(newGroup)
             } catch {
+                errorMessage = error.localizedDescription
                 isCreating = false
             }
         }

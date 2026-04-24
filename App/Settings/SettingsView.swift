@@ -4,7 +4,10 @@ struct SettingsView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @EnvironmentObject private var languageManager: LanguageManager
+    @EnvironmentObject private var services: ServiceContainer
     @State private var showPaywall = false
+    @State private var showSignOutConfirm = false
+    @State private var showDeleteConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -68,15 +71,54 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Label {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("settings.privacy")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
+                    Link(destination: URL(string: "https://taltalhayun.com/adkan/privacy")!) {
+                        Label {
+                            Text("settings.privacyPolicy")
+                        } icon: {
+                            Image(systemName: "lock.shield.fill")
+                                .foregroundStyle(AdKanTheme.successGreen)
                         }
-                    } icon: {
-                        Image(systemName: "lock.shield.fill")
-                            .foregroundStyle(AdKanTheme.successGreen)
+                    }
+                    .foregroundStyle(.primary)
+
+                    Link(destination: URL(string: "https://taltalhayun.com/adkan/terms")!) {
+                        Label {
+                            Text("settings.termsOfService")
+                        } icon: {
+                            Image(systemName: "doc.text.fill")
+                                .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+
+                    Link(destination: URL(string: "mailto:tal.hayun2010@gmail.com")!) {
+                        Label {
+                            Text("settings.contact")
+                        } icon: {
+                            Image(systemName: "envelope.fill")
+                                .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+                }
+
+                Section {
+                    Button(action: { showSignOutConfirm = true }) {
+                        Label {
+                            Text("settings.signOut")
+                        } icon: {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .foregroundStyle(.orange)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+
+                    Button(role: .destructive, action: { showDeleteConfirm = true }) {
+                        Label {
+                            Text("settings.deleteAccount")
+                        } icon: {
+                            Image(systemName: "trash.fill")
+                        }
                     }
                 }
 
@@ -94,6 +136,28 @@ struct SettingsView: View {
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
             }
+            .alert("settings.signOut.confirm", isPresented: $showSignOutConfirm) {
+                Button("settings.signOut", role: .destructive) {
+                    services.auth.signOut()
+                    hasCompletedOnboarding = false
+                }
+                Button("common.cancel", role: .cancel) {}
+            }
+            .alert("settings.deleteAccount.confirm", isPresented: $showDeleteConfirm) {
+                Button("settings.deleteAccount", role: .destructive) {
+                    services.auth.signOut()
+                    clearAllData()
+                    hasCompletedOnboarding = false
+                }
+                Button("common.cancel", role: .cancel) {}
+            } message: {
+                Text("settings.deleteAccount.message")
+            }
         }
+    }
+
+    private func clearAllData() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
     }
 }

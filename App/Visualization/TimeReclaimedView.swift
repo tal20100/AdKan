@@ -27,6 +27,7 @@ struct TimeReclaimedView: View {
             }
             if metGoal {
                 withAnimation(.easeIn.delay(1.0)) { showConfetti = true }
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
         }
     }
@@ -91,6 +92,7 @@ struct TimeReclaimedView: View {
     }
 
     private func refreshComparisons() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         withAnimation(.spring(response: 0.4)) {
             comparisons = ComparisonBank.random(savedMinutes: savedMinutes, count: 3)
         }

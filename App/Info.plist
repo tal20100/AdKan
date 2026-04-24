@@ -35,6 +35,8 @@
 	</array>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>AdKan does not track you. This permission is never requested.</string>
+	<key>NSFamilyControlsUsageDescription</key>
+	<string>AdKan uses Screen Time to help you set daily limits and block distracting apps.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

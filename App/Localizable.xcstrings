@@ -768,6 +768,78 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Purchase Error" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שגיאה ברכישה" } }
       }
+    },
+    "settings.signOut" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign Out" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התנתקות" } }
+      }
+    },
+    "settings.signOut.confirm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Are you sure you want to sign out?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בטוח שאתה רוצה להתנתק?" } }
+      }
+    },
+    "settings.deleteAccount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Account" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מחיקת חשבון" } }
+      }
+    },
+    "settings.deleteAccount.confirm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete your account?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "למחוק את החשבון שלך?" } }
+      }
+    },
+    "settings.deleteAccount.message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This will remove all your data and cannot be undone." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל המידע שלך יימחק ולא ניתן לשחזר." } }
+      }
+    },
+    "settings.privacyPolicy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy Policy" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מדיניות פרטיות" } }
+      }
+    },
+    "settings.termsOfService" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Terms of Service" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תנאי שימוש" } }
+      }
+    },
+    "settings.contact" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Contact Us" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור קשר" } }
+      }
+    },
+    "common.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ביטול" } }
+      }
+    },
+    "common.retry" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Retry" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נסה שוב" } }
+      }
+    },
+    "common.error" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Error" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שגיאה" } }
+      }
+    },
+    "common.ok" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אישור" } }
+      }
     }
   },
   "version" : "1.0"
