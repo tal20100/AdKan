@@ -7,14 +7,9 @@ struct HomeView: View {
     @State private var todayMinutes: Int = 0
     @State private var yesterdayMinutes: Int = 0
     @State private var groups: [AdKanGroup] = []
-    @State private var streakDays: Int = 0
 
     private var savedMinutes: Int {
         max(0, (24 * 60) - todayMinutes)
-    }
-
-    private var avatarState: AvatarState {
-        .from(todayMinutes: todayMinutes, goalMinutes: goalMinutes, streakDays: streakDays)
     }
 
     private var favoriteGroup: AdKanGroup? {
@@ -25,17 +20,13 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: AdKanTheme.cardSpacing) {
-                    avatarSection
-
-                    ProgressBarView(currentMinutes: todayMinutes, goalMinutes: goalMinutes, compact: false)
+                    TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
 
                     usageCard
 
+                    ProgressBarView(currentMinutes: todayMinutes, goalMinutes: goalMinutes, compact: false)
+
                     FavoriteGroupCard(group: favoriteGroup)
-
-                    TopEnemyCard()
-
-                    TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
 
                     WeeklySummaryCard()
                 }
@@ -51,26 +42,6 @@ struct HomeView: View {
                 do {
                     groups = try await services.groups.fetchMyGroups()
                 } catch {}
-            }
-        }
-    }
-
-    private var avatarSection: some View {
-        PlainCard {
-            HStack(spacing: 16) {
-                AvatarView(state: avatarState, size: 64)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(LocalizedStringKey(avatarState.nameKey))
-                        .font(.headline)
-                        .foregroundStyle(AdKanTheme.avatarColor(for: avatarState))
-
-                    Text("home.statusLabel")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer()
             }
         }
     }

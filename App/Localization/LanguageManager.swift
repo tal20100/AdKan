@@ -33,6 +33,7 @@ final class LanguageManager: ObservableObject {
         let attr: UISemanticContentAttribute = preferredLanguage == "he"
             ? .forceRightToLeft
             : .forceLeftToRight
+        UserDefaults.standard.set([preferredLanguage], forKey: "AppleLanguages")
         UIView.appearance().semanticContentAttribute = attr
         UINavigationBar.appearance().semanticContentAttribute = attr
         UITabBar.appearance().semanticContentAttribute = attr

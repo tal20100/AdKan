@@ -19,22 +19,10 @@ enum AdKanTheme {
     static let warningOrange = Color(red: 1.0, green: 0.62, blue: 0.04)
     static let dangerRed = Color(red: 0.95, green: 0.25, blue: 0.3)
 
-    static let avatarGold = Color(red: 1.0, green: 0.84, blue: 0.0)
-
     static func minutesColor(_ minutes: Int, goal: Int = 120) -> Color {
         if minutes <= goal { return successGreen }
         if minutes <= goal * 2 { return warningOrange }
         return dangerRed
-    }
-
-    static func avatarColor(for state: AvatarState) -> Color {
-        switch state {
-        case .streakWinning: return avatarGold
-        case .onTrack: return successGreen
-        case .neutral: return Color(.systemGray3)
-        case .slipping: return warningOrange
-        case .spiraling: return dangerRed
-        }
     }
 
     // MARK: - Typography

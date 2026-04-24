@@ -349,12 +349,6 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "מול אתמול" } }
       }
     },
-    "home.statusLabel" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your daily status" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הסטטוס היומי שלך" } }
-      }
-    },
     "settings.dailyGoal" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily goal" } },
@@ -407,48 +401,6 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Blocking" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימה" } }
-      }
-    },
-    "avatar.state.streakWinning" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Winning streak! 🔥" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "רצף מנצח! 🔥" } }
-      }
-    },
-    "avatar.state.onTrack" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "On track" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "על המסלול" } }
-      }
-    },
-    "avatar.state.neutral" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "In range" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בטווח" } }
-      }
-    },
-    "avatar.state.slipping" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Slipping..." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מחליק..." } }
-      }
-    },
-    "avatar.state.spiraling" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Spiraling 😵" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "ספירלה 😵" } }
-      }
-    },
-    "home.topEnemy" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your #1 enemy" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "האויב מספר 1 שלך" } }
-      }
-    },
-    "home.topEnemy.other" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אחר" } }
       }
     },
     "home.seeAll" : {

@@ -1,11 +1,5 @@
 import Foundation
 
-struct Comparison: Identifiable {
-    let id = UUID()
-    let icon: String
-    let format: (Int) -> (en: String, he: String)
-}
-
 enum ComparisonBank {
     static func random(savedMinutes: Int, count: Int = 3) -> [ResolvedComparison] {
         guard savedMinutes > 0 else { return [] }
@@ -16,10 +10,10 @@ enum ComparisonBank {
     }
 
     static let all: [ComparisonTemplate] = [
-        // Distance & hiking
+        // Distance & travel
         ComparisonTemplate(icon: "🏔️") { m in
             let pct = Double(m) * 60 / (8 * 3600) * 100
-            return (en: "hiked \(fmt(pct))% of Mount Everest's summit push", he: "לטפס \(fmt(pct))% מהפסגה של האוורסט")
+            return (en: "hiked \(fmt(pct))% of Everest's summit push", he: "לטפס \(fmt(pct))% מהפסגה של האוורסט")
         },
         ComparisonTemplate(icon: "🚶") { m in
             let km = Double(m) / 12.0
@@ -31,40 +25,15 @@ enum ComparisonBank {
         },
         ComparisonTemplate(icon: "🏊") { m in
             let pct = Double(m) * 60 / (34200) * 100
-            return (en: "swum \(fmt(pct))% of the English Channel", he: "לשחות \(fmt(pct))% מתעלת לה מאנש")
+            return (en: "swum \(fmt(pct))% of the English Channel", he: "לשחות \(fmt(pct))% מתעלת למאנש")
         },
-
-        // Speed & animals
-        ComparisonTemplate(icon: "🦥") { m in
-            let meters = Double(m) * 0.15
-            return (en: "a sloth could've moved \(fmt(meters)) meters", he: "עצלן היה זז \(fmt(meters)) מטר")
-        },
-        ComparisonTemplate(icon: "🐆") { m in
-            let km = Double(m) / 60.0 * 120.0
-            return (en: "a cheetah could've run \(fmtInt(km)) km", he: "צ׳יטה היתה רצה \(fmtInt(km)) ק״מ")
-        },
-        ComparisonTemplate(icon: "🐌") { m in
-            let meters = Double(m) * 0.8
-            return (en: "a snail could've crossed \(fmt(meters)) meters", he: "חילזון היה חוצה \(fmt(meters)) מטר")
+        ComparisonTemplate(icon: "✈️") { m in
+            let pct = Double(m) / 660.0 * 100
+            return (en: "flown \(fmt(pct))% from TLV to NYC", he: "לטוס \(fmt(pct))% מת״א לניו יורק")
         },
         ComparisonTemplate(icon: "🐕") { m in
             let walks = Double(m) / 30.0
             return (en: "taken your dog on \(fmt(walks)) walks", he: "להוציא את הכלב \(fmt(walks)) פעמים")
-        },
-
-        // Space & science
-        ComparisonTemplate(icon: "🛸") { m in
-            let orbits = Double(m) / 92.0
-            return (en: "the ISS orbited Earth \(fmt(orbits)) times", he: "תחנת החלל הקיפה את כדור הארץ \(fmt(orbits)) פעמים")
-        },
-        ComparisonTemplate(icon: "🌙") { m in
-            let pct = Double(m) * 60 / (259200) * 100
-            return (en: "traveled \(fmt(pct))% of the way to the Moon", he: "לנסוע \(fmt(pct))% מהדרך לירח")
-        },
-        ComparisonTemplate(icon: "⚡") { m in
-            let bolts = Double(m) * 60 / 0.001
-            let billions = bolts / 1_000_000_000
-            return (en: "lightning could've struck \(fmt(billions)) billion times", he: "ברק היה יכול לפגוע \(fmt(billions)) מיליארד פעמים")
         },
 
         // Food & cooking
@@ -94,14 +63,6 @@ enum ComparisonBank {
             let pages = Double(m) * 1.1
             return (en: "read \(fmtInt(pages)) pages of a book", he: "לקרוא \(fmtInt(pages)) עמודים בספר")
         },
-        ComparisonTemplate(icon: "🎬") { m in
-            let pct = Double(m) / 201.0 * 100
-            return (en: "watched \(fmt(pct))% of Lord of the Rings: Fellowship", he: "לצפות ב-\(fmt(pct))% משר הטבעות: אחוות הטבעת")
-        },
-        ComparisonTemplate(icon: "🎵") { m in
-            let listens = Double(m) / 47.0
-            return (en: "listened to Abbey Road \(fmt(listens)) times", he: "להאזין ל-Abbey Road \u{200F}\(fmt(listens)) פעמים")
-        },
         ComparisonTemplate(icon: "🎮") { m in
             let matches = Double(m) / 25.0
             return (en: "played \(fmt(matches)) full game matches", he: "לשחק \(fmt(matches)) משחקים שלמים")
@@ -125,28 +86,30 @@ enum ComparisonBank {
             return (en: "done \(fmtInt(reps)) push-ups", he: "לעשות \(fmtInt(reps)) שכיבות סמיכה")
         },
 
-        // Absurd
-        ComparisonTemplate(icon: "🧔") { m in
-            let nm = Double(m) * 5.5
-            return (en: "your beard grew \(fmtInt(nm)) nanometers", he: "הזקן שלך גדל \(fmtInt(nm)) ננומטר")
+        // More activities
+        ComparisonTemplate(icon: "🎨") { m in
+            let sketches = Double(m) / 15.0
+            return (en: "drawn \(fmt(sketches)) sketches", he: "לצייר \(fmt(sketches)) סקיצות")
         },
-        ComparisonTemplate(icon: "💓") { m in
-            let beats = Double(m) * 72
-            return (en: "your heart beat \(fmtInt(beats)) times", he: "הלב שלך דפק \(fmtInt(beats)) פעימות")
+        ComparisonTemplate(icon: "🎸") { m in
+            let songs = Double(m) / 4.0
+            return (en: "learned \(fmt(songs)) songs on guitar", he: "ללמוד \(fmt(songs)) שירים על גיטרה")
         },
-        ComparisonTemplate(icon: "🌍") { m in
-            let km = Double(m) / 60.0 * 1670.0
-            return (en: "Earth carried you \(fmtInt(km)) km through space", he: "כדור הארץ נשא אותך \(fmtInt(km)) ק״מ בחלל")
+        ComparisonTemplate(icon: "🏀") { m in
+            let shots = Double(m) * 6
+            return (en: "shot \(fmtInt(shots)) free throws", he: "לזרוק \(fmtInt(shots)) זריקות חופשיות")
         },
-        ComparisonTemplate(icon: "✈️") { m in
-            let pct = Double(m) / 660.0 * 100
-            return (en: "flown \(fmt(pct))% from TLV to NYC", he: "לטוס \(fmt(pct))% מת״א לניו יורק")
+        ComparisonTemplate(icon: "🧹") { m in
+            let rooms = Double(m) / 15.0
+            return (en: "cleaned \(fmt(rooms)) rooms", he: "לנקות \(fmt(rooms)) חדרים")
         },
-        ComparisonTemplate(icon: "🦠") { m in
-            let divisions = Double(m) / 20.0
-            let bacteria = pow(2.0, divisions)
-            let formatted = bacteria > 1_000_000 ? "\(fmt(bacteria / 1_000_000))M" : fmtInt(bacteria)
-            return (en: "one bacterium became \(formatted)", he: "חיידק אחד הפך ל-\(formatted)")
+        ComparisonTemplate(icon: "🌱") { m in
+            let plants = Double(m) / 10.0
+            return (en: "planted \(fmt(plants)) plants", he: "לשתול \(fmt(plants)) צמחים")
+        },
+        ComparisonTemplate(icon: "🎧") { m in
+            let episodes = Double(m) / 40.0
+            return (en: "listened to \(fmt(episodes)) podcast episodes", he: "להאזין ל-\(fmt(episodes)) פרקי פודקאסט")
         },
     ]
 
