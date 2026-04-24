@@ -65,6 +65,28 @@ From `/plan/02-infrastructure-setup.md`:
 
 ## Turn log (last 20)
 
+- 2026-04-24T08:45:05.683Z orchestrator — (no subject) — ? files — ok
+- 2026-04-24T08:13:25.661Z orchestrator — (no subject) — ? files — ok
+- 2026-04-24T08:03:51.709Z orchestrator — (no subject) — ? files — ok
+- 2026-04-24T07:59:35.266Z orchestrator — (no subject) — ? files — ok
+- 2026-04-22T19:02:27.241Z orchestrator — (no subject) — ? files — ok
+- 2026-04-22T18:55:02.277Z orchestrator — (no subject) — ? files — ok
+- 2026-04-22T18:07:36.007Z orchestrator — (no subject) — ? files — ok
+- 2026-04-22T18:02:17.574Z orchestrator — (no subject) — ? files — ok
+- 2026-04-22T18:01:36.926Z orchestrator — (no subject) — ? files — ok
+- 2026-04-22T18:00:30.988Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T13:29:38.033Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T13:24:29.317Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T13:24:24.312Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T13:22:33.227Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T11:02:50.606Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T10:35:24.106Z orchestrator — (no subject) — ? files — ok
+- 2026-04-21T09:00:23.625Z orchestrator — (no subject) — ? files — ok
+- 2026-04-20T20:30:06.686Z orchestrator — (no subject) — ? files — ok
+- 2026-04-20T20:01:15.094Z orchestrator — (no subject) — ? files — ok
+- 2026-04-20T19:23:11.342Z orchestrator — (no subject) — ? files — ok
+- 2026-04-20T14:32:21.800Z orchestrator — (no subject) — ? files — ok
+- 2026-04-19T08:23:46.521Z orchestrator — (no subject) — ? files — ok
 _(auto-appended by `subagent-stop-status-update.mjs` once the hook is wired in Batch 11)_
 
 - 2026-04-18 orchestrator — Batch 1 root scaffold — 4 files — ok

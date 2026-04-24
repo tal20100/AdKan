@@ -56,14 +56,23 @@ struct HomeView: View {
     }
 
     private var avatarSection: some View {
-        VStack(spacing: 12) {
-            AvatarView(state: avatarState)
+        PlainCard {
+            HStack(spacing: 16) {
+                AvatarView(state: avatarState, size: 64)
 
-            Text(LocalizedStringKey(avatarState.nameKey))
-                .font(AdKanTheme.cardBody)
-                .foregroundStyle(AdKanTheme.avatarColor(for: avatarState))
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(LocalizedStringKey(avatarState.nameKey))
+                        .font(.headline)
+                        .foregroundStyle(AdKanTheme.avatarColor(for: avatarState))
+
+                    Text("home.statusLabel")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+            }
         }
-        .padding(.vertical, 8)
     }
 
     private var usageCard: some View {

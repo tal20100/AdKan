@@ -10,20 +10,20 @@ final class ServiceContainer: ObservableObject {
         if SupabaseConfig.isConfigured,
            let url = SupabaseConfig.projectURL,
            let key = SupabaseConfig.anonKey {
-            let authService = SupabaseAuthService(baseURL: url, apiKey: key)
+            let authService = SupabaseAuthService(baseURL: url.absoluteString, apiKey: key)
             self.auth = authService
             self.scoreSync = SupabaseScoreSyncService(
-                baseURL: url,
+                baseURL: url.absoluteString,
                 apiKey: key,
                 accessToken: { await authService.accessToken() }
             )
             self.leaderboard = SupabaseLeaderboardService(
-                baseURL: url,
+                baseURL: url.absoluteString,
                 apiKey: key,
                 accessToken: { await authService.accessToken() }
             )
             self.groups = SupabaseGroupService(
-                baseURL: url,
+                baseURL: url.absoluteString,
                 apiKey: key,
                 accessToken: { await authService.accessToken() }
             )

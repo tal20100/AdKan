@@ -117,6 +117,7 @@ struct TimeReclaimedView: View {
 
 private struct ComparisonRow: View {
     let comparison: ResolvedComparison
+    @EnvironmentObject private var languageManager: LanguageManager
 
     var body: some View {
         HStack(spacing: 14) {

@@ -23,7 +23,7 @@ protocol LeaderboardService: Sendable {
 }
 
 struct SupabaseLeaderboardService: LeaderboardService {
-    let baseURL: URL
+    let baseURL: String
     let apiKey: String
     let accessToken: () async -> String?
 
@@ -31,7 +31,7 @@ struct SupabaseLeaderboardService: LeaderboardService {
         guard let token = await accessToken() else { return [] }
 
         let dateStr = ISO8601DateFormatter.dateOnly.string(from: date)
-        let url = baseURL.appendingPathComponent("rest/v1/rpc/leaderboard_for")
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/leaderboard_for")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

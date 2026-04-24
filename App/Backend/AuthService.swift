@@ -10,12 +10,12 @@ protocol AuthService: Sendable {
 }
 
 final class SupabaseAuthService: AuthService, @unchecked Sendable {
-    private let baseURL: URL
+    private let baseURL: String
     private let apiKey: String
     private let tokenKey = "com.taltalhayun.adkan.accessToken"
     private let userIdKey = "com.taltalhayun.adkan.userId"
 
-    init(baseURL: URL, apiKey: String) {
+    init(baseURL: String, apiKey: String) {
         self.baseURL = baseURL
         self.apiKey = apiKey
     }
@@ -34,7 +34,7 @@ final class SupabaseAuthService: AuthService, @unchecked Sendable {
             throw AuthError.missingToken
         }
 
-        let url = baseURL.appendingPathComponent("auth/v1/token")
+        let url = URL(string: baseURL)!.appendingPathComponent("auth/v1/token")
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.queryItems = [URLQueryItem(name: "grant_type", value: "id_token")]
 
@@ -77,7 +77,7 @@ final class SupabaseAuthService: AuthService, @unchecked Sendable {
     }
 
     private func ensureUserRow(userId: String) async throws {
-        let url = baseURL.appendingPathComponent("rest/v1/users")
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/users")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

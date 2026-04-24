@@ -6,7 +6,7 @@ protocol ScoreSyncService: Sendable {
 }
 
 struct SupabaseScoreSyncService: ScoreSyncService {
-    let baseURL: URL
+    let baseURL: String
     let apiKey: String
     let accessToken: () async -> String?
 
@@ -14,7 +14,7 @@ struct SupabaseScoreSyncService: ScoreSyncService {
         guard minutes >= 0, minutes <= 1440 else { return }
         guard let token = await accessToken() else { return }
 
-        let url = baseURL.appendingPathComponent("rest/v1/daily_scores")
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/daily_scores")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -39,7 +39,8 @@ struct SupabaseScoreSyncService: ScoreSyncService {
         guard let token = await accessToken() else { return nil }
 
         let today = ISO8601DateFormatter.dateOnly.string(from: Date())
-        var components = URLComponents(url: baseURL.appendingPathComponent("rest/v1/daily_scores"), resolvingAgainstBaseURL: false)!
+        let base = URL(string: baseURL)!
+        var components = URLComponents(url: base.appendingPathComponent("rest/v1/daily_scores"), resolvingAgainstBaseURL: false)!
         components.queryItems = [
             URLQueryItem(name: "score_date", value: "eq.\(today)"),
             URLQueryItem(name: "select", value: "daily_total_minutes"),

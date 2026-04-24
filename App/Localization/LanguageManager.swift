@@ -1,8 +1,12 @@
 import SwiftUI
+import UIKit
 
 final class LanguageManager: ObservableObject {
     @AppStorage("preferredLanguage") var preferredLanguage: String = "he" {
-        didSet { objectWillChange.send() }
+        didSet {
+            objectWillChange.send()
+            applyUIKitDirection()
+        }
     }
 
     var layoutDirection: LayoutDirection {
@@ -19,5 +23,18 @@ final class LanguageManager: ObservableObject {
 
     var isHebrew: Bool {
         preferredLanguage == "he"
+    }
+
+    init() {
+        applyUIKitDirection()
+    }
+
+    private func applyUIKitDirection() {
+        let attr: UISemanticContentAttribute = preferredLanguage == "he"
+            ? .forceRightToLeft
+            : .forceLeftToRight
+        UIView.appearance().semanticContentAttribute = attr
+        UINavigationBar.appearance().semanticContentAttribute = attr
+        UITabBar.appearance().semanticContentAttribute = attr
     }
 }

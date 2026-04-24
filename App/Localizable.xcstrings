@@ -295,96 +295,6 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "כשתגיע/י למגבלה היומית, קטגוריות האפליקציות שנבחרו ייחסמו עד מחר." } }
       }
     },
-    "blocking.dailyLimit" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily limit" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלה יומית" } }
-      }
-    },
-    "blocking.limit.header" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time limit" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלת זמן" } }
-      }
-    },
-    "blocking.categories.header" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Block these categories" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסום קטגוריות אלה" } }
-      }
-    },
-    "blocking.category.social" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Social Media" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "רשתות חברתיות" } }
-      }
-    },
-    "blocking.category.social.desc" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Instagram, TikTok, Facebook, X" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אינסטגרם, טיקטוק, פייסבוק, X" } }
-      }
-    },
-    "blocking.category.video" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Video" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "וידאו" } }
-      }
-    },
-    "blocking.category.video.desc" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "YouTube, Netflix, Twitch" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "יוטיוב, נטפליקס, טוויץ׳" } }
-      }
-    },
-    "blocking.category.games" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Games" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "משחקים" } }
-      }
-    },
-    "blocking.category.games.desc" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "All games on your device" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל המשחקים במכשיר" } }
-      }
-    },
-    "blocking.category.messaging" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Messaging" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הודעות" } }
-      }
-    },
-    "blocking.category.messaging.desc" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "WhatsApp, Telegram, Messenger" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "וואטסאפ, טלגרם, מסנג׳ר" } }
-      }
-    },
-    "blocking.category.news" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "News" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חדשות" } }
-      }
-    },
-    "blocking.category.news.desc" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "News apps and aggregators" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אפליקציות חדשות ואגרגטורים" } }
-      }
-    },
-    "blocking.category.shopping" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shopping" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "קניות" } }
-      }
-    },
-    "blocking.category.shopping.desc" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Amazon, AliExpress, Shein" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אמזון, אלי אקספרס, שיין" } }
-      }
-    },
     "tab.home" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Home" } },
@@ -437,6 +347,12 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "vs yesterday" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "מול אתמול" } }
+      }
+    },
+    "home.statusLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your daily status" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הסטטוס היומי שלך" } }
       }
     },
     "settings.dailyGoal" : {
@@ -587,6 +503,114 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Set daily limits for apps that steal your time" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדר מגבלות יומיות לאפליקציות שגונבות לך את הזמן" } }
+      }
+    },
+    "blocking.defaultLimit.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Default Daily Limit" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלת זמן יומית ברירת מחדל" } }
+      }
+    },
+    "blocking.defaultLimit.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Limit per app" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "זמן לכל אפליקציה" } }
+      }
+    },
+    "blocking.defaultLimit.footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Applied to all blocked apps unless overridden" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חל על כל האפליקציות החסומות אלא אם הוגדרה מגבלה ספציפית" } }
+      }
+    },
+    "blocking.apps.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Apps" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אפליקציות" } }
+      }
+    },
+    "blocking.apps.blockedCount %lld" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld blocked" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld חסומות" } }
+      }
+    },
+    "blocking.app.activeLimit %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Limit: %@" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלה: %@" } }
+      }
+    },
+    "blocking.app.customLimit.label" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom limit" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלה מותאמת" } }
+      }
+    },
+    "blocking.app.customLimit.useDefault" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Use default" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "השתמש בברירת מחדל" } }
+      }
+    },
+    "blocking.app.tiktok" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "TikTok" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "טיקטוק" } }
+      }
+    },
+    "blocking.app.instagram" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Instagram" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אינסטגרם" } }
+      }
+    },
+    "blocking.app.youtube" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "YouTube" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יוטיוב" } }
+      }
+    },
+    "blocking.app.whatsapp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "WhatsApp" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "וואטסאפ" } }
+      }
+    },
+    "blocking.app.snapchat" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snapchat" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סנאפצ׳ט" } }
+      }
+    },
+    "blocking.app.x" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "X (Twitter)" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אקס (טוויטר)" } }
+      }
+    },
+    "blocking.app.telegram" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Telegram" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "טלגרם" } }
+      }
+    },
+    "blocking.app.facebook" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Facebook" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פייסבוק" } }
+      }
+    },
+    "blocking.app.reddit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reddit" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "רדיט" } }
+      }
+    },
+    "blocking.app.netflix" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Netflix" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נטפליקס" } }
       }
     },
     "groups.title" : {
