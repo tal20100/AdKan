@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var streakTracker: StreakTracker
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var todayMinutes: Int = 0
     @State private var yesterdayMinutes: Int = 0
@@ -29,6 +30,10 @@ struct HomeView: View {
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
 
                         usageCard
+
+                        if streakTracker.currentStreak > 0 {
+                            streakCard
+                        }
 
                         PlainCard {
                             VStack(spacing: 8) {
@@ -65,6 +70,13 @@ struct HomeView: View {
                 } catch {
                     loadError = error.localizedDescription
                 }
+                if todayMinutes <= goalMinutes && todayMinutes > 0 {
+                    streakTracker.recordGoalMet()
+                    let streak = streakTracker.currentStreak
+                    if [3, 7, 14, 30].contains(streak) {
+                        NotificationManager.shared.sendStreakMilestone(days: streak)
+                    }
+                }
                 isLoading = false
             }
         }
@@ -74,6 +86,33 @@ struct HomeView: View {
         todayMinutes = await provider.todayTotalMinutes()
         yesterdayMinutes = await provider.yesterdayTotalMinutes()
         groups = (try? await services.groups.fetchMyGroups()) ?? groups
+    }
+
+    private var streakCard: some View {
+        PlainCard {
+            HStack(spacing: 16) {
+                Text("🔥")
+                    .font(.system(size: 36))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("home.streak \(streakTracker.currentStreak)")
+                        .font(AdKanTheme.cardTitle)
+                    if streakTracker.longestStreak > streakTracker.currentStreak {
+                        Text("home.streakBest \(streakTracker.longestStreak)")
+                            .font(AdKanTheme.cardBody)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                Spacer()
+
+                if streakTracker.currentStreak >= 7 {
+                    Image(systemName: "medal.fill")
+                        .font(.title2)
+                        .foregroundStyle(.yellow)
+                }
+            }
+        }
     }
 
     private var usageCard: some View {

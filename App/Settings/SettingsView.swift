@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct SettingsView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
@@ -8,6 +9,8 @@ struct SettingsView: View {
     @State private var showPaywall = false
     @State private var showSignOutConfirm = false
     @State private var showDeleteConfirm = false
+    @AppStorage("eveningReminderEnabled") private var eveningReminder = false
+    @AppStorage("weeklyCheckinEnabled") private var weeklyCheckin = true
 
     var body: some View {
         NavigationStack {
@@ -44,6 +47,50 @@ struct SettingsView: View {
                         } icon: {
                             Image(systemName: "target")
                                 .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                }
+
+                Section("settings.notifications") {
+                    Toggle(isOn: $eveningReminder) {
+                        Label {
+                            Text("settings.notifications.evening")
+                        } icon: {
+                            Image(systemName: "moon.fill")
+                                .foregroundStyle(.purple)
+                        }
+                    }
+                    .tint(AdKanTheme.primary)
+                    .onChange(of: eveningReminder) { enabled in
+                        Task {
+                            if enabled {
+                                let granted = await NotificationManager.shared.requestPermission()
+                                if granted {
+                                    NotificationManager.shared.scheduleEveningReminder()
+                                } else {
+                                    eveningReminder = false
+                                }
+                            } else {
+                                NotificationManager.shared.cancelEveningReminder()
+                            }
+                        }
+                    }
+
+                    Toggle(isOn: $weeklyCheckin) {
+                        Label {
+                            Text("settings.notifications.weekly")
+                        } icon: {
+                            Image(systemName: "calendar.badge.clock")
+                                .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                    .tint(AdKanTheme.primary)
+                    .onChange(of: weeklyCheckin) { enabled in
+                        if enabled {
+                            NotificationManager.shared.scheduleWeeklyCheckIn(friendName: nil)
+                        } else {
+                            UNUserNotificationCenter.current()
+                                .removePendingNotificationRequests(withIdentifiers: ["weekly_checkin"])
                         }
                     }
                 }

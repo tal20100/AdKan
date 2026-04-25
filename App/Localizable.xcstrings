@@ -22,7 +22,7 @@
     "onboarding.skip" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "דלג/י" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "דלג" } }
       }
     },
     "onboarding.next" : {
@@ -34,7 +34,7 @@
     "onboarding.q1.prompt" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "How many hours a day do you spend on your phone?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "כמה שעות ביום את/ה על הטלפון?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כמה שעות ביום אתה בטלפון?" } }
       }
     },
     "onboarding.q1.options.low" : {
@@ -88,19 +88,19 @@
     "leaderboard.empty.body" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend to compare your day" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמן/י חבר/ה כדי להשוות את היום שלכם" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמינו חברים כדי להתחרות" } }
       }
     },
     "leaderboard.empty.cta" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "להזמין חבר/ה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמן חברים" } }
       }
     },
     "leaderboard.you" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "You" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "את/ה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה" } }
       }
     },
     "paywall.hero.title" : {
@@ -316,7 +316,7 @@
     "home.putPhoneDown" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Start putting your phone down!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בואו נתחיל להוריד את הטלפון!" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בוא נוריד את הטלפון!" } }
       }
     },
     "home.goalReached" : {
@@ -652,7 +652,7 @@
     "groups.invite.roommates" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Let's hate our phones together" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "ששונאים את הטלפון ביחד" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יורדים מהטלפון ביחד" } }
       }
     },
     "groups.invite.partner" : {
@@ -664,7 +664,7 @@
     "groups.invite.coworkers" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Competing on productivity this week?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתמודדים על פרודוקטיביות השבוע?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתחרים על פחות סקרול השבוע?" } }
       }
     },
     "groups.create.name" : {
@@ -845,6 +845,78 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily Goal" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "יעד יומי" } }
+      }
+    },
+    "home.streak %lld" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld day streak 🔥" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סטריק של %lld ימים 🔥" } }
+      }
+    },
+    "home.streakBest %lld" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Best: %lld days" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שיא: %lld ימים" } }
+      }
+    },
+    "notif.weekly.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly check-in" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום שבועי" } }
+      }
+    },
+    "notif.weekly.body.friend" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "See how you rank against %@'s group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בדוק איך אתה עומד מול הקבוצה של %@" } }
+      }
+    },
+    "notif.weekly.body.solo" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Check your weekly progress" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בדוק את ההתקדמות השבועית שלך" } }
+      }
+    },
+    "notif.streak.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "🔥 %lld day streak!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "🔥 סטריק של %lld ימים!" } }
+      }
+    },
+    "notif.streak.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're on fire! Keep it going." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה על אש! תמשיך ככה." } }
+      }
+    },
+    "notif.evening.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time to put the phone down" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגיע הזמן להוריד את הטלפון" } }
+      }
+    },
+    "notif.evening.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You've got this. End the day strong." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה יכול. תסיים את היום חזק." } }
+      }
+    },
+    "settings.notifications" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התראות" } }
+      }
+    },
+    "settings.notifications.evening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Evening reminder" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תזכורת ערב" } }
+      }
+    },
+    "settings.notifications.weekly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly check-in" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום שבועי" } }
       }
     }
   },

@@ -7,6 +7,7 @@ struct AdKanApp: App {
     @StateObject private var services = ServiceContainer()
     @StateObject private var languageManager = LanguageManager()
     @StateObject private var storeManager = StoreManager()
+    @StateObject private var streakTracker = StreakTracker()
 
     var body: some Scene {
         WindowGroup {
@@ -15,10 +16,14 @@ struct AdKanApp: App {
                 .environmentObject(services)
                 .environmentObject(languageManager)
                 .environmentObject(storeManager)
+                .environmentObject(streakTracker)
                 .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
                 .environment(\.locale, languageManager.locale)
                 .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
+                .task {
+                    await NotificationManager.shared.checkStatus()
+                }
         }
     }
 
