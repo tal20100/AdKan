@@ -19,7 +19,6 @@ struct AdKanApp: App {
                 .environmentObject(streakTracker)
                 .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
                 .environment(\.locale, languageManager.locale)
-                .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
                 .task {
                     await NotificationManager.shared.checkStatus()
