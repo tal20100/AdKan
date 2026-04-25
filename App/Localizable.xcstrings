@@ -840,6 +840,12 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "אישור" } }
       }
+    },
+    "home.dailyGoal" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily Goal" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יעד יומי" } }
+      }
     }
   },
   "version" : "1.0"

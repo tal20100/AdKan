@@ -184,6 +184,7 @@ struct PaywallView: View {
         Task {
             let success = await storeManager.purchase(product)
             if success {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 dismiss()
             } else if storeManager.errorMessage != nil {
                 showError = true

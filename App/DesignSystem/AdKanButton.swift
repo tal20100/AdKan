@@ -10,7 +10,10 @@ struct AdKanButton: View {
     }
 
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            action()
+        }) {
             Text(titleKey)
                 .font(.headline)
                 .frame(maxWidth: .infinity)
@@ -19,6 +22,7 @@ struct AdKanButton: View {
                 .foregroundStyle(foregroundColor)
                 .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
         }
+        .buttonStyle(ScaleButtonStyle())
     }
 
     @ViewBuilder

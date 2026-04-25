@@ -30,7 +30,18 @@ struct HomeView: View {
 
                         usageCard
 
-                        ProgressBarView(currentMinutes: todayMinutes, goalMinutes: goalMinutes, compact: false)
+                        PlainCard {
+                            VStack(spacing: 8) {
+                                HStack {
+                                    Image(systemName: "flame.fill")
+                                        .foregroundStyle(AdKanTheme.primary)
+                                    Text("home.dailyGoal")
+                                        .font(AdKanTheme.cardTitle)
+                                    Spacer()
+                                }
+                                ProgressBarView(currentMinutes: todayMinutes, goalMinutes: goalMinutes, compact: false)
+                            }
+                        }
 
                         FavoriteGroupCard(group: favoriteGroup)
 
@@ -43,6 +54,9 @@ struct HomeView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle(Text("app.displayName"))
+            .refreshable {
+                await refreshData()
+            }
             .task {
                 todayMinutes = await provider.todayTotalMinutes()
                 yesterdayMinutes = await provider.yesterdayTotalMinutes()
@@ -54,6 +68,12 @@ struct HomeView: View {
                 isLoading = false
             }
         }
+    }
+
+    private func refreshData() async {
+        todayMinutes = await provider.todayTotalMinutes()
+        yesterdayMinutes = await provider.yesterdayTotalMinutes()
+        groups = (try? await services.groups.fetchMyGroups()) ?? groups
     }
 
     private var usageCard: some View {

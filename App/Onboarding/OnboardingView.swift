@@ -113,6 +113,7 @@ struct OnboardingView: View {
             VStack(spacing: 10) {
                 ForEach(Array(question.options.enumerated()), id: \.offset) { _, option in
                     Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         answers.append(option.value)
                         applyEffect(questionIndex: index, value: option.value)
                         withAnimation { currentPage += 1 }
