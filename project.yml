@@ -18,6 +18,8 @@ targets:
     platform: iOS
     sources:
       - path: App
+        excludes:
+          - "ScreenTime/RealScreenTimeProvider.swift"
     resources:
       - path: App/Assets.xcassets
       - path: App/Localizable.xcstrings
