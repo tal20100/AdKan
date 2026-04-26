@@ -9,9 +9,9 @@ struct TimeReclaimedView: View {
     @State private var animateNumber = false
     @State private var showConfetti = false
 
-    private var underGoal: Bool { todayMinutes < goalMinutes && todayMinutes > 0 }
-    private var hours: Int { todayMinutes / 60 }
-    private var mins: Int { todayMinutes % 60 }
+    private var underGoal: Bool { savedMinutes > 0 && todayMinutes > 0 }
+    private var hours: Int { savedMinutes / 60 }
+    private var mins: Int { savedMinutes % 60 }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -42,7 +42,7 @@ struct TimeReclaimedView: View {
                     .scaleEffect(animateNumber ? 1.0 : 0.5)
                     .opacity(animateNumber ? 1.0 : 0)
 
-                Text("home.minToday")
+                Text(underGoal ? "home.savedToday" : "home.putPhoneDown")
                     .font(AdKanTheme.heroLabel)
                     .foregroundStyle(.white.opacity(0.8))
 
