@@ -89,13 +89,7 @@ struct MascotView: View {
                 .multilineTextAlignment(.center)
                 .animation(.easeInOut, value: state.messageKey)
         }
-        .padding(.vertical, 20)
-        .padding(.horizontal, AdKanTheme.cardPadding)
-        .background(
-            RoundedRectangle(cornerRadius: AdKanTheme.cardCornerRadius)
-                .fill(Color(.systemBackground))
-                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 2)
-        )
+        .padding(.vertical, 12)
         .onChange(of: state.messageKey) { _ in
             restartAnimations()
         }

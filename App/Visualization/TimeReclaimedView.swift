@@ -3,14 +3,15 @@ import SwiftUI
 struct TimeReclaimedView: View {
     let savedMinutes: Int
     let goalMinutes: Int
+    let todayMinutes: Int
     @EnvironmentObject private var languageManager: LanguageManager
     @State private var comparisons: [ResolvedComparison] = []
     @State private var animateNumber = false
     @State private var showConfetti = false
 
-    private var metGoal: Bool { savedMinutes > 0 && savedMinutes < goalMinutes }
-    private var hours: Int { savedMinutes / 60 }
-    private var mins: Int { savedMinutes % 60 }
+    private var underGoal: Bool { todayMinutes < goalMinutes && todayMinutes > 0 }
+    private var hours: Int { todayMinutes / 60 }
+    private var mins: Int { todayMinutes % 60 }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -25,7 +26,7 @@ struct TimeReclaimedView: View {
             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
                 animateNumber = true
             }
-            if metGoal {
+            if underGoal {
                 withAnimation(.easeIn.delay(1.0)) { showConfetti = true }
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
@@ -33,7 +34,7 @@ struct TimeReclaimedView: View {
     }
 
     private var heroCard: some View {
-        GradientCard(gradient: metGoal ? goalMetGradient : defaultGradient) {
+        GradientCard(gradient: underGoal ? goalMetGradient : defaultGradient) {
             VStack(spacing: 8) {
                 Text(timeString)
                     .font(AdKanTheme.heroNumber)
@@ -41,11 +42,11 @@ struct TimeReclaimedView: View {
                     .scaleEffect(animateNumber ? 1.0 : 0.5)
                     .opacity(animateNumber ? 1.0 : 0)
 
-                Text(savedMinutes > 0 ? "home.savedToday" : "home.putPhoneDown")
+                Text("home.minToday")
                     .font(AdKanTheme.heroLabel)
                     .foregroundStyle(.white.opacity(0.8))
 
-                if metGoal {
+                if underGoal {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.seal.fill")
                         Text("home.goalReached")

@@ -29,7 +29,7 @@ struct HomeView: View {
                     VStack(spacing: AdKanTheme.cardSpacing) {
                         MascotView(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
 
-                        TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
+                        TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
                         usageCard
 
