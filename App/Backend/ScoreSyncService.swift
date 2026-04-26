@@ -6,7 +6,7 @@ protocol ScoreSyncService: Sendable {
     func fetchWeeklyScore(for date: Date) async throws -> Int?
 }
 
-struct SupabaseScoreSyncService: ScoreSyncService {
+struct SupabaseScoreSyncService: ScoreSyncService, @unchecked Sendable {
     let baseURL: String
     let apiKey: String
     let accessToken: () async -> String?

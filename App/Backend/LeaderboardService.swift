@@ -22,7 +22,7 @@ protocol LeaderboardService: Sendable {
     func fetchLeaderboard(for date: Date) async throws -> [LeaderboardEntry]
 }
 
-struct SupabaseLeaderboardService: LeaderboardService {
+struct SupabaseLeaderboardService: LeaderboardService, @unchecked Sendable {
     let baseURL: String
     let apiKey: String
     let accessToken: () async -> String?
