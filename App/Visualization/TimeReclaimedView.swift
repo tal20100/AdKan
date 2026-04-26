@@ -8,7 +8,7 @@ struct TimeReclaimedView: View {
     @State private var animateNumber = false
     @State private var showConfetti = false
 
-    private var metGoal: Bool { savedMinutes >= goalMinutes }
+    private var metGoal: Bool { savedMinutes > 0 && todayMinutes > 0 }
     private var hours: Int { savedMinutes / 60 }
     private var mins: Int { savedMinutes % 60 }
 

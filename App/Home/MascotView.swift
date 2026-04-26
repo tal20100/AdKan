@@ -29,13 +29,13 @@ enum MascotState {
         }
     }
 
-    var saturation: Double {
+    var imageName: String {
         switch self {
-        case .thriving: return 1.0
-        case .onTrack: return 1.0
-        case .slipping: return 0.6
-        case .warning: return 0.3
-        case .spiraling: return 0.0
+        case .spiraling: return "mascot_state_1"
+        case .warning:   return "mascot_state_2"
+        case .slipping:  return "mascot_state_3"
+        case .onTrack:   return "mascot_state_4"
+        case .thriving:  return "mascot_state_5"
         }
     }
 
@@ -120,28 +120,19 @@ struct MascotView: View {
                 )
 
             // Mascot image
-            Image("mascot_logo")
+            Image(state.imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 130, height: 130)
-                .saturation(state.saturation)
-                .colorMultiply(warningTint)
                 .offset(x: shakeOffset)
                 .shadow(color: state.glowColor.opacity(0.35), radius: 10, x: 0, y: 4)
+                .transition(.opacity)
+                .animation(.easeInOut(duration: 0.4), value: state.imageName)
 
             // Sparkle overlays for thriving state
             if state.showSparkles {
                 sparkleLayer
             }
-        }
-    }
-
-    /// Orange tint overlay for warning state — neutral white for all others
-    private var warningTint: Color {
-        switch state {
-        case .warning: return Color(red: 1.0, green: 0.88, blue: 0.75)
-        case .spiraling: return Color(red: 0.92, green: 0.92, blue: 0.92)
-        default: return .white
         }
     }
 

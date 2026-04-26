@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var loadError: String?
 
     private var savedMinutes: Int {
-        max(0, (24 * 60) - todayMinutes)
+        max(0, goalMinutes - todayMinutes)
     }
 
     private var favoriteGroup: AdKanGroup? {
