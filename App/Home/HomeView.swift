@@ -60,7 +60,7 @@ struct HomeView: View {
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle(Text("app.displayName"))
+            .navigationTitle("AdKan")
             .refreshable {
                 await refreshData()
             }

@@ -164,7 +164,7 @@ struct BlockingView: View {
 
     private var appsSection: some View {
         Section {
-            ForEach(apps.indices, id: \.self) { index in
+            ForEach(Array(apps.enumerated()), id: \.element.id) { index, _ in
                 appRow(index: index)
             }
         } header: {
@@ -218,17 +218,7 @@ struct BlockingView: View {
                     .buttonStyle(.plain)
                 }
 
-                Toggle("", isOn: Binding(
-                    get: { apps[index].isBlocked },
-                    set: { newVal in
-                        apps[index].isBlocked = newVal
-                        if !newVal {
-                            apps[index].customLimitMinutes = nil
-                            if expandedAppID == app.id { expandedAppID = nil }
-                        }
-                        saveApps()
-                    }
-                ))
+                Toggle("", isOn: appBlockedBinding(index: index))
                 .labelsHidden()
                 .tint(AdKanTheme.successGreen)
             }
@@ -308,6 +298,25 @@ struct BlockingView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    // MARK: - Bindings
+
+    private func appBlockedBinding(index: Int) -> Binding<Bool> {
+        Binding(
+            get: { guard index < apps.count else { return false }; return apps[index].isBlocked },
+            set: { newVal in
+                guard index < apps.count else { return }
+                var updated = apps
+                updated[index].isBlocked = newVal
+                if !newVal {
+                    updated[index].customLimitMinutes = nil
+                    if expandedAppID == updated[index].id { expandedAppID = nil }
+                }
+                apps = updated
+                saveApps()
+            }
+        )
     }
 
     // MARK: - Persistence
