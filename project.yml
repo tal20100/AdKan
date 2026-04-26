@@ -1,16 +1,15 @@
 name: AdKan
 options:
-  bundleIdPrefix: com.taltalhayun
+  bundleIdPrefix: com.talhayun
   deploymentTarget:
     iOS: "16.0"
-  xcodeVersion: "15.0"
   createIntermediateGroups: true
-  generateEmptyDirectories: true
 
 settings:
   base:
     SWIFT_VERSION: "5.9"
     CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
 
 targets:
   AdKan:
@@ -20,43 +19,38 @@ targets:
       - path: App
         excludes:
           - "ScreenTime/RealScreenTimeProvider.swift"
+          - "**/*.storekit"
+          - "**/*.entitlements"
+          - "**/*.plist"
+          - "**/*.xcprivacy"
     resources:
       - path: App/Assets.xcassets
       - path: App/Localizable.xcstrings
       - path: App/PrivacyInfo.xcprivacy
-      - path: App/Products.storekit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.taltalhayun.adkan
+        PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
-        INFOPLIST_FILE: App/Info.plist
-        GENERATE_INFOPLIST_FILE: false
+        GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_KEY_CFBundleDisplayName: AdKan
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_CFBundleDevelopmentRegion: he
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        SUPPORTED_PLATFORMS: iphoneos iphonesimulator
-        TARGETED_DEVICE_FAMILY: 1
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        TARGETED_DEVICE_FAMILY: "1"
         SWIFT_EMIT_LOC_STRINGS: "YES"
-        CODE_SIGN_ENTITLEMENTS: App/AdKan.entitlements
     dependencies: []
-
-  AdKanTests:
-    type: bundle.unit-test
-    platform: iOS
-    sources:
-      - path: AdKanTests
-    dependencies:
-      - target: AdKan
 
 schemes:
   AdKan:
     build:
       targets:
         AdKan: all
-        AdKanTests: [test]
     run:
       config: Debug
-      storeKitConfiguration: App/Products.storekit
     test:
       config: Debug
-      targets:
-        - AdKanTests
