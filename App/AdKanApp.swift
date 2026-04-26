@@ -19,6 +19,7 @@ struct AdKanApp: App {
                 .environmentObject(streakTracker)
                 .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
                 .environment(\.locale, languageManager.locale)
+                .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
                 .task {
                     await NotificationManager.shared.checkStatus()
@@ -29,8 +30,10 @@ struct AdKanApp: App {
     private static func makeScreenTimeProvider() -> any ScreenTimeProvider {
         #if targetEnvironment(simulator)
         return StubScreenTimeProvider.goalHit
-        #else
+        #elseif canImport(FamilyControls)
         return RealScreenTimeProvider()
+        #else
+        return StubScreenTimeProvider.goalHit
         #endif
     }
 }

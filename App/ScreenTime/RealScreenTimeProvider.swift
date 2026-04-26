@@ -1,12 +1,9 @@
 import Foundation
+
+#if canImport(FamilyControls)
 import FamilyControls
 import DeviceActivity
 
-/// Real ScreenTime provider using FamilyControls.
-/// Usage data is read from the app group shared UserDefaults where a
-/// DeviceActivityMonitor extension writes daily totals. Until that
-/// extension is built, values default to 0 and the app falls back
-/// gracefully (showing "put the phone down" zero-state).
 final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     private let center = AuthorizationCenter.shared
     private let sharedDefaults = UserDefaults(suiteName: "group.com.taltalhayun.adkan")
@@ -37,3 +34,4 @@ final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
         await authorizationStatus == .approved
     }
 }
+#endif
