@@ -11,6 +11,7 @@ struct OnboardingView: View {
     @AppStorage("topEnemyApp") private var topEnemyApp: Int = 0
     @AppStorage("crewType") private var crewType: Int = 0
     @AppStorage("screenTimePermissionSkipped") private var permissionSkipped = false
+    @AppStorage("genderPreference") private var genderPreference: Int = 0
 
     private let questions = SurveyData.questions
     private var totalPages: Int { questions.count + 2 } // welcome + questions + permission
@@ -72,7 +73,7 @@ struct OnboardingView: View {
                     .fill(AdKanTheme.primaryGradient)
                     .frame(width: 120, height: 120)
 
-                Image(systemName: "hourglass.circle.fill")
+                Image(systemName: "brain.head.profile.fill")
                     .font(.system(size: 56))
                     .foregroundStyle(.white)
             }
@@ -219,9 +220,10 @@ struct OnboardingView: View {
 
     private func applyEffect(questionIndex: Int, value: Int) {
         switch questionIndex {
-        case 2: topEnemyApp = value      // Q3: top enemy app
-        case 3: crewType = value         // Q4: crew type
-        case 4: goalMinutes = value      // Q5: daily goal
+        case 0: genderPreference = value // Gender preference
+        case 3: topEnemyApp = value      // Q3: top enemy app
+        case 4: crewType = value         // Q4: crew type
+        case 5: goalMinutes = value      // Q5: daily goal
         default: break
         }
     }

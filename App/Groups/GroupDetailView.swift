@@ -15,7 +15,7 @@ struct GroupDetailView: View {
     }
 
     private var isAtFreeLimit: Bool {
-        !storeManager.isPremium && (group?.memberCount ?? 0) >= AdKanGroup.freeMaxMembers
+        (group?.memberCount ?? 0) >= storeManager.groupMemberLimit
     }
 
     var body: some View {

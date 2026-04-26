@@ -27,6 +27,8 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, minHeight: 300)
                 } else {
                     VStack(spacing: AdKanTheme.cardSpacing) {
+                        MascotView(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
 
                         usageCard

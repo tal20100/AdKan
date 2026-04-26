@@ -154,7 +154,7 @@ private struct ConfettiOverlay: View {
                 }
             }
             .onAppear {
-                let colors: [Color] = [.yellow, .green, .blue, .orange, .pink, .purple]
+                let colors: [Color] = [AdKanTheme.brandGreen, AdKanTheme.brandGreenLight, AdKanTheme.brandPurple, AdKanTheme.brandPurpleLight, .yellow]
                 for i in 0..<20 {
                     let startX = geo.size.width / 2 + CGFloat.random(in: -30...30)
                     particles.append((

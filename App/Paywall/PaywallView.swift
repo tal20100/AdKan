@@ -3,6 +3,7 @@ import SwiftUI
 enum PaywallContext {
     case general
     case groupLimit(groupName: String)
+    case feature(PremiumFeature)
 }
 
 struct PaywallView: View {
@@ -13,14 +14,21 @@ struct PaywallView: View {
     @State private var animateHero = false
     @State private var showError = false
 
+    private var highlightedFeature: PremiumFeature? {
+        if case .feature(let f) = context { return f }
+        if case .groupLimit = context { return .largeGroups }
+        return nil
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
                 AdKanTheme.heroGradient.ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: 28) {
+                    VStack(spacing: 24) {
                         heroSection
+                        featureGrid
                         tierCards
                         purchaseButton
                         legalLinks
@@ -45,13 +53,13 @@ struct PaywallView: View {
         VStack(spacing: 16) {
             ZStack {
                 Circle()
-                    .fill(.yellow.opacity(0.2))
+                    .fill(AdKanTheme.brandPurple.opacity(0.2))
                     .frame(width: 100, height: 100)
                     .scaleEffect(animateHero ? 1.15 : 1.0)
 
-                Image(systemName: "crown.fill")
+                Image(systemName: "brain.head.profile.fill")
                     .font(.system(size: 48))
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(AdKanTheme.brandGreen)
                     .scaleEffect(animateHero ? 1.05 : 1.0)
             }
             .onAppear {
@@ -60,23 +68,47 @@ struct PaywallView: View {
                 }
             }
 
-            switch context {
-            case .general:
+            VStack(spacing: 8) {
                 Text("paywall.hero.title")
                     .font(.title.bold())
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
-            case .groupLimit:
-                VStack(spacing: 8) {
-                    Text("paywall.group.hero")
-                        .font(.title.bold())
-                        .foregroundStyle(.white)
-                        .multilineTextAlignment(.center)
+
+                if case .groupLimit = context {
                     Text("paywall.group.subtitle")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.7))
                         .multilineTextAlignment(.center)
                 }
+            }
+            .padding(.horizontal, AdKanTheme.screenPadding)
+        }
+    }
+
+    private var featureGrid: some View {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+            ForEach(PremiumFeature.allCases, id: \.self) { feature in
+                let isHighlighted = feature == highlightedFeature
+                VStack(spacing: 8) {
+                    Image(systemName: feature.icon)
+                        .font(.title2)
+                        .foregroundStyle(isHighlighted ? AdKanTheme.brandPurple : .white.opacity(0.8))
+
+                    Text(LocalizedStringKey(feature.titleKey))
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(isHighlighted ? Color.white.opacity(0.15) : Color.white.opacity(0.06))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(isHighlighted ? AdKanTheme.brandPurple.opacity(0.6) : Color.clear, lineWidth: 1.5)
+                )
             }
         }
         .padding(.horizontal, AdKanTheme.screenPadding)
@@ -109,7 +141,7 @@ struct PaywallView: View {
                         Spacer()
 
                         Image(systemName: selectedTier == tier ? "checkmark.circle.fill" : "circle")
-                            .foregroundStyle(selectedTier == tier ? .yellow : .white.opacity(0.3))
+                            .foregroundStyle(selectedTier == tier ? AdKanTheme.brandPurple : .white.opacity(0.3))
                             .font(.title3)
                     }
                     .padding(18)
@@ -119,7 +151,7 @@ struct PaywallView: View {
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(selectedTier == tier ? Color.yellow.opacity(0.6) : Color.clear, lineWidth: 2)
+                            .stroke(selectedTier == tier ? AdKanTheme.brandPurple.opacity(0.6) : Color.clear, lineWidth: 2)
                     )
                 }
                 .buttonStyle(ScaleButtonStyle())
@@ -133,7 +165,7 @@ struct PaywallView: View {
             Group {
                 if storeManager.isLoading {
                     ProgressView()
-                        .tint(.black)
+                        .tint(.white)
                 } else if let product = storeManager.product(for: selectedTier) {
                     Text(product.displayPrice)
                         .font(.headline)
@@ -144,8 +176,8 @@ struct PaywallView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 18)
-            .background(.yellow)
-            .foregroundStyle(.black)
+            .background(AdKanTheme.premiumGradient)
+            .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
         }
         .disabled(storeManager.isLoading)

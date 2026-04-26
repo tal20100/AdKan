@@ -6,6 +6,7 @@ struct SettingsView: View {
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @EnvironmentObject private var languageManager: LanguageManager
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var storeManager: StoreManager
     @State private var showPaywall = false
     @State private var showSignOutConfirm = false
     @State private var showDeleteConfirm = false
@@ -95,6 +96,27 @@ struct SettingsView: View {
                     }
                 }
 
+                Section("settings.premium") {
+                    if storeManager.isPremium {
+                        Label {
+                            Text("settings.premium.active")
+                        } icon: {
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundStyle(AdKanTheme.brandPurple)
+                        }
+                    } else {
+                        Button(action: { showPaywall = true }) {
+                            Label {
+                                Text("settings.premium.upgrade")
+                            } icon: {
+                                Image(systemName: "crown.fill")
+                                    .foregroundStyle(.yellow)
+                            }
+                        }
+                        .foregroundStyle(.primary)
+                    }
+                }
+
                 Section {
                     Button(action: { hasCompletedOnboarding = false }) {
                         Label {
@@ -102,16 +124,6 @@ struct SettingsView: View {
                         } icon: {
                             Image(systemName: "arrow.counterclockwise")
                                 .foregroundStyle(AdKanTheme.primary)
-                        }
-                    }
-                    .foregroundStyle(.primary)
-
-                    Button(action: { showPaywall = true }) {
-                        Label {
-                            Text("paywall.hero.title")
-                        } icon: {
-                            Image(systemName: "crown.fill")
-                                .foregroundStyle(.yellow)
                         }
                     }
                     .foregroundStyle(.primary)

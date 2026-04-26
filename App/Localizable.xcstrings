@@ -9,8 +9,8 @@
     },
     "onboarding.welcome.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to AdKan" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברוכים הבאים לעד כאן" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This is AdKan" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "זה עד כאן" } }
       }
     },
     "onboarding.welcome.cta" : {
@@ -22,7 +22,7 @@
     "onboarding.skip" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "דלג" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "דילוג" } }
       }
     },
     "onboarding.next" : {
@@ -31,10 +31,34 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "המשך" } }
       }
     },
+    "onboarding.gender.prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How should we talk to you?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "איך לפנות אליך?" } }
+      }
+    },
+    "onboarding.gender.options.male" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Masculine" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בלשון זכר" } }
+      }
+    },
+    "onboarding.gender.options.female" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Feminine" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בלשון נקבה" } }
+      }
+    },
+    "onboarding.gender.options.neutral" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Neutral" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ניטרלי" } }
+      }
+    },
     "onboarding.q1.prompt" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "How many hours a day do you spend on your phone?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "כמה שעות ביום אתה בטלפון?" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "How many hours a day are you on your phone?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כמה שעות ביום על הטלפון?" } }
       }
     },
     "onboarding.q1.options.low" : {
@@ -63,50 +87,50 @@
     },
     "permission.prompt.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Accurate minutes, please" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "דקות מדויקות, אם אפשר" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "One last thing" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עוד דבר אחד" } }
       }
     },
     "permission.prompt.body" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "AdKan needs Screen Time access to show your daily total. Nothing per-app leaves your phone." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד כאן צריך גישה ל-Screen Time כדי להציג את הסך היומי שלך. שום מידע לפי אפליקציה לא עוזב את הטלפון." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד כאן צריך גישה לזמן מסך כדי להציג את הסך היומי. שום מידע לפי אפליקציה לא יוצא מהטלפון." } }
       }
     },
     "permission.prompt.allowCta" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Got it" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הבנתי" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow access" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אישור גישה" } }
       }
     },
     "leaderboard.empty.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Your leaderboard is empty" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הלוח שלך ריק" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הטבלה ריקה" } }
       }
     },
     "leaderboard.empty.body" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend to compare your day" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמינו חברים כדי להתחרות" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend to start competing" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמינו חברים ותתחילו להתחרות" } }
       }
     },
     "leaderboard.empty.cta" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמן חברים" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמנת חברים" } }
       }
     },
     "leaderboard.you" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "You" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אני" } }
       }
     },
     "paywall.hero.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Be the hero — forever" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "היה הגיבור - לתמיד" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade your brain" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו את המוח" } }
       }
     },
     "paywall.tier.lifetime.badge" : {
@@ -117,8 +141,8 @@
     },
     "paywall.tier.lifetime.price" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪99 once" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪99 פעם אחת" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪99 once — forever" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪99 פעם אחת — לתמיד" } }
       }
     },
     "paywall.tier.annual.price" : {
@@ -131,6 +155,54 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "₪12.90 / month · 3-day trial" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "₪12.90 לחודש · 3 ימים ניסיון" } }
+      }
+    },
+    "paywall.feature.multipleGroups.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlimited groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות ללא הגבלה" } }
+      }
+    },
+    "paywall.feature.largeGroups.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Up to 30 friends per group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד 30 חברים בקבוצה" } }
+      }
+    },
+    "paywall.feature.weeklyChallenges.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly challenges" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתגרים שבועיים" } }
+      }
+    },
+    "paywall.feature.customAppLimits.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom per-app limits" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלה מותאמת לכל אפליקציה" } }
+      }
+    },
+    "paywall.feature.streakBadges.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Streak badges & multipliers" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תגים ומכפילי סטריק" } }
+      }
+    },
+    "paywall.feature.enhancedRecap.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enhanced weekly recap" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום שבועי מורחב" } }
+      }
+    },
+    "paywall.feature.customThemes.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom themes" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ערכות עיצוב" } }
+      }
+    },
+    "paywall.feature.premium.locked" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium feature" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פיצ׳ר פרימיום" } }
       }
     },
     "settings.title" : {
@@ -148,13 +220,13 @@
     "settings.privacy" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Only your daily total leaves this phone. Never per-app." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "רק הסך היומי שלך עוזב את הטלפון. אף פעם לפי אפליקציה." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "רק הסך היומי יוצא מהטלפון. אף פעם לא לפי אפליקציה." } }
       }
     },
     "onboarding.q2.prompt" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "When do you scroll the most?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתי הכי קשה לך לעזוב את הטלפון?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתי הכי קשה לעזוב את הטלפון?" } }
       }
     },
     "onboarding.q2.options.morning" : {
@@ -184,7 +256,7 @@
     "onboarding.q3.prompt" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Your #1 enemy app?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "האפליקציה שהכי גונבת לך זמן?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "האפליקציה שהכי גונבת זמן?" } }
       }
     },
     "onboarding.q3.options.tiktok" : {
@@ -214,7 +286,7 @@
     "onboarding.q4.prompt" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Who will you compete with?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עם מי תתחרו?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עם מי רוצים להתחרות?" } }
       }
     },
     "onboarding.q4.options.friends" : {
@@ -244,13 +316,13 @@
     "onboarding.q5.prompt" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "What's your daily screen goal?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מה היעד היומי שלך?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מה היעד היומי?" } }
       }
     },
     "onboarding.q5.options.60" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "1 hour — hardcore" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שעה — הארדקור" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שעה — ברמה אחרת" } }
       }
     },
     "onboarding.q5.options.90" : {
@@ -274,7 +346,7 @@
     "invite.shareText" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "I'm using AdKan to cut my screen time. Join me and let's compete! 📱⬇️" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אני משתמש/ת בעד כאן כדי להוריד זמן מסך. בוא/י נתחרה! 📱⬇️" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אני משתמש/ת בעד כאן כדי להוריד זמן מסך. בואו נתחרה! 📱⬇️" } }
       }
     },
     "blocking.title" : {
@@ -292,7 +364,7 @@
     "blocking.toggle.footer" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "When you hit your daily limit, selected app categories will be blocked until tomorrow." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "כשתגיע/י למגבלה היומית, קטגוריות האפליקציות שנבחרו ייחסמו עד מחר." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כשמגיעים למגבלה היומית, האפליקציות שנבחרו ייחסמו עד מחר." } }
       }
     },
     "tab.home" : {
@@ -315,8 +387,8 @@
     },
     "home.putPhoneDown" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start putting your phone down!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בוא נוריד את הטלפון!" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time to put the phone down!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יאללה, מורידים את הטלפון!" } }
       }
     },
     "home.goalReached" : {
@@ -328,7 +400,7 @@
     "home.couldve" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "In that time you could've..." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בזמן הזה יכולת..." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בזמן הזה אפשר היה..." } }
       }
     },
     "home.more" : {
@@ -346,7 +418,7 @@
     "home.vsYesterday" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "vs yesterday" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מול אתמול" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "לעומת אתמול" } }
       }
     },
     "settings.dailyGoal" : {
@@ -370,7 +442,7 @@
     "paywall.restore" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Restore" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שחזור" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שחזור רכישה" } }
       }
     },
     "paywall.terms" : {
@@ -388,7 +460,7 @@
     "blocking.entitlement.notice" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "App blocking requires Screen Time permission. Your settings are saved and will activate once permission is granted." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימת אפליקציות דורשת הרשאת Screen Time. ההגדרות שלך נשמרות ויופעלו ברגע שתינתן הרשאה." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימת אפליקציות דורשת הרשאת זמן מסך. ההגדרות נשמרות ויופעלו ברגע שתינתן הרשאה." } }
       }
     },
     "tab.groups" : {
@@ -411,20 +483,20 @@
     },
     "home.noGroups.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not competing with friends yet!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עדיין לא מתחרים עם חברים!" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not competing yet!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עוד לא מתחרים!" } }
       }
     },
     "home.noGroups.body" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group and invite friends to start competing" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור קבוצה והזמן חברים כדי להתחיל תחרות" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group and invite friends to start" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתחו קבוצה והזמינו חברים" } }
       }
     },
     "home.noGroups.cta" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור קבוצה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתיחת קבוצה" } }
       }
     },
     "home.weeklySummary" : {
@@ -448,31 +520,31 @@
     "blocking.hero.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Block distracting apps" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסום אפליקציות מסיחות" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימת אפליקציות מסיחות" } }
       }
     },
     "blocking.hero.body" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Set daily limits for apps that steal your time" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדר מגבלות יומיות לאפליקציות שגונבות לך את הזמן" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלות יומיות לאפליקציות שגונבות זמן" } }
       }
     },
     "blocking.defaultLimit.header" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Default Daily Limit" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלת זמן יומית ברירת מחדל" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלת ברירת מחדל" } }
       }
     },
     "blocking.defaultLimit.label" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Limit per app" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "זמן לכל אפליקציה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מגבלה לכל אפליקציה" } }
       }
     },
     "blocking.defaultLimit.footer" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Applied to all blocked apps unless overridden" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חל על כל האפליקציות החסומות אלא אם הוגדרה מגבלה ספציפית" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חל על כל האפליקציות החסומות, אלא אם הוגדר אחרת" } }
       }
     },
     "blocking.apps.header" : {
@@ -502,7 +574,7 @@
     "blocking.app.customLimit.useDefault" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Use default" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "השתמש בברירת מחדל" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברירת מחדל" } }
       }
     },
     "blocking.app.tiktok" : {
@@ -571,10 +643,16 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "הקבוצות שלי" } }
       }
     },
+    "groups.upgradeCta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade for more groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו לעוד קבוצות" } }
+      }
+    },
     "groups.create" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create new group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור קבוצה חדשה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצה חדשה" } }
       }
     },
     "groups.members" : {
@@ -592,31 +670,31 @@
     "groups.empty.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "No groups yet" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אין קבוצות עדיין" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אין עדיין קבוצות" } }
       }
     },
     "groups.empty.body" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group and invite friends to compete for less screen time" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור קבוצה והזמן חברים להתחרות על פחות זמן מסך" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group and invite friends to compete" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתחו קבוצה והזמינו חברים להתחרות" } }
       }
     },
     "groups.paywall.banner" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add more than 3 friends to a group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרג כדי להוסיף יותר מ-3 חברים לקבוצה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add more than 3 friends" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו כדי להוסיף יותר מ-3 חברים" } }
       }
     },
     "groups.paywall.cta" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade now" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרג עכשיו" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרוג" } }
       }
     },
     "groups.paywall.upsell" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Paid users can open groups with up to 30 friends" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "משתמשי פרימיום יכולים לפתוח קבוצות עם עד 30 חברים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium members can have up to 30 friends per group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חברי פרימיום יכולים להוסיף עד 30 חברים לקבוצה" } }
       }
     },
     "groups.type.friends" : {
@@ -646,7 +724,7 @@
     "groups.invite.friends" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Come join us!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "יאללה תצטרף!" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יאללה תצטרפו!" } }
       }
     },
     "groups.invite.roommates" : {
@@ -688,37 +766,37 @@
     "groups.create.cta" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Create" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יצירה" } }
       }
     },
     "groups.addFriend.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Invite a friend" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמן חבר" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הזמנת חברים" } }
       }
     },
     "groups.addFriend.body" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Send an invitation to your friend to join the group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שלח הזמנה לחבר שלך כדי שיצטרף לקבוצה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Send an invite link to join the group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שלחו קישור הזמנה להצטרפות לקבוצה" } }
       }
     },
     "groups.addFriend.privacyNote" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Only daily total is shared. Never per-app data." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "רק סה\"כ דקות יומי משותף. אף פעם לא נתונים לפי אפליקציה." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "רק סה\"כ דקות יומי משותף. אף פעם לא לפי אפליקציה." } }
       }
     },
     "groups.addFriend.shareLink" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Send invite" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שלח הזמנה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שליחת הזמנה" } }
       }
     },
     "groups.addFriend.limitReached" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade required to add more friends" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "נדרש שדרוג להוספת חברים נוספים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add more friends" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו כדי להוסיף עוד חברים" } }
       }
     },
     "settings.language" : {
@@ -735,32 +813,32 @@
     },
     "permission.denied.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Permission required" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "נדרשת הרשאה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Permission needed" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "צריך הרשאה" } }
       }
     },
     "permission.denied.body" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "To track your screen time, we need permission. You can change this in Settings." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "כדי לעקוב אחרי זמן המסך שלך, אנחנו צריכים הרשאה. אפשר לשנות בהגדרות." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כדי לעקוב אחרי זמן המסך צריך הרשאה. אפשר לשנות בהגדרות." } }
       }
     },
     "permission.denied.openSettings" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Settings" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתח הגדרות" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתיחת הגדרות" } }
       }
     },
     "paywall.group.hero" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Your group is growing!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הקבוצה שלך גדלה!" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הקבוצה גדלה!" } }
       }
     },
     "paywall.group.subtitle" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add up to 30 friends to a group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרג כדי להוסיף עד 30 חברים לקבוצה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add up to 30 friends" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו כדי להוסיף עד 30 חברים" } }
       }
     },
     "paywall.error" : {
@@ -778,7 +856,7 @@
     "settings.signOut.confirm" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Are you sure you want to sign out?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בטוח שאתה רוצה להתנתק?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "להתנתק?" } }
       }
     },
     "settings.deleteAccount" : {
@@ -790,13 +868,13 @@
     "settings.deleteAccount.confirm" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete your account?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "למחוק את החשבון שלך?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "למחוק את החשבון?" } }
       }
     },
     "settings.deleteAccount.message" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "This will remove all your data and cannot be undone." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל המידע שלך יימחק ולא ניתן לשחזר." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל המידע יימחק. אי אפשר לשחזר." } }
       }
     },
     "settings.privacyPolicy" : {
@@ -814,7 +892,19 @@
     "settings.contact" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Contact Us" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "צור קשר" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יצירת קשר" } }
+      }
+    },
+    "settings.premium" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרימיום" } }
+      }
+    },
+    "settings.premium.active" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium active" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרימיום פעיל" } }
       }
     },
     "common.cancel" : {
@@ -826,7 +916,7 @@
     "common.retry" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Retry" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "נסה שוב" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ניסיון נוסף" } }
       }
     },
     "common.error" : {
@@ -859,6 +949,36 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שיא: %lld ימים" } }
       }
     },
+    "mascot.thriving" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're crushing it!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מדהים!" } }
+      }
+    },
+    "mascot.onTrack" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "On track today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בכיוון הנכון" } }
+      }
+    },
+    "mascot.slipping" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting close to the limit..." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתקרבים למגבלה..." } }
+      }
+    },
+    "mascot.warning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Over the goal" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברנו את היעד" } }
+      }
+    },
+    "mascot.spiraling" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time to put it down" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגיע הזמן להוריד" } }
+      }
+    },
     "notif.weekly.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly check-in" } },
@@ -868,13 +988,13 @@
     "notif.weekly.body.friend" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "See how you rank against %@'s group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בדוק איך אתה עומד מול הקבוצה של %@" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מה המצב מול הקבוצה של %@?" } }
       }
     },
     "notif.weekly.body.solo" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Check your weekly progress" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בדוק את ההתקדמות השבועית שלך" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "איך היה השבוע?" } }
       }
     },
     "notif.streak.title" : {
@@ -886,7 +1006,7 @@
     "notif.streak.body" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "You're on fire! Keep it going." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה על אש! תמשיך ככה." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "על אש! ממשיכים ככה." } }
       }
     },
     "notif.evening.title" : {
@@ -898,7 +1018,7 @@
     "notif.evening.body" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "You've got this. End the day strong." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה יכול. תסיים את היום חזק." } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אפשר לסיים את היום חזק." } }
       }
     },
     "settings.notifications" : {
@@ -917,6 +1037,138 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly check-in" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום שבועי" } }
+      }
+    },
+    "settings.premium" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרימיום" } }
+      }
+    },
+    "settings.premium.active" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium active" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרימיום פעיל" } }
+      }
+    },
+    "settings.premium.upgrade" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to Premium" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו לפרימיום" } }
+      }
+    },
+    "mascot.thriving" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're crushing it today!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אלוף/ה! יום מדהים" } }
+      }
+    },
+    "mascot.onTrack" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Looking good, keep it up" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נראה טוב, ממשיכים" } }
+      }
+    },
+    "mascot.slipping" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting close to the limit..." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתקרבים לגבול..." } }
+      }
+    },
+    "mascot.warning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Way over the goal today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברת את היעד בהרבה" } }
+      }
+    },
+    "mascot.spiraling" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שים את הטלפון. ברצינות." } }
+      }
+    },
+    "premium.feature.unlimitedGroups.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unlimited Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות ללא הגבלה" } }
+      }
+    },
+    "premium.feature.unlimitedGroups.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create as many groups as you want" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "צרו כמה קבוצות שרוצים" } }
+      }
+    },
+    "premium.feature.largeGroups.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Big Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות גדולות" } }
+      }
+    },
+    "premium.feature.largeGroups.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Up to 30 members per group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד 30 חברים בקבוצה" } }
+      }
+    },
+    "premium.feature.weeklyChallenges.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly Challenges" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתגרים שבועיים" } }
+      }
+    },
+    "premium.feature.weeklyChallenges.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Compete in themed weekly challenges" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התחרו באתגרים שבועיים" } }
+      }
+    },
+    "premium.feature.customAppLimits.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom App Limits" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגבלות מותאמות" } }
+      }
+    },
+    "premium.feature.customAppLimits.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set per-app time limits" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדירו מגבלות לכל אפליקציה" } }
+      }
+    },
+    "premium.feature.premiumBadges.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium Badges" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תגים מיוחדים" } }
+      }
+    },
+    "premium.feature.premiumBadges.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Exclusive streak badges and multipliers" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תגי סטריק בלעדיים ומכפילים" } }
+      }
+    },
+    "premium.feature.enhancedRecap.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enhanced Recap" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום מורחב" } }
+      }
+    },
+    "premium.feature.enhancedRecap.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly recap with detailed charts" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום שבועי עם גרפים מפורטים" } }
+      }
+    },
+    "premium.feature.customThemes.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom Themes" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ערכות נושא" } }
+      }
+    },
+    "premium.feature.customThemes.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Personalize the app's look" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התאימו את המראה שלכם" } }
       }
     }
   },

@@ -10,6 +10,22 @@ final class StoreManager: ObservableObject {
 
     @AppStorage("isPremium") var isPremium = false
 
+    static let freeGroupLimit = 1
+    static let freeGroupMemberLimit = 3
+    static let premiumGroupMemberLimit = 30
+
+    func canAccess(_ feature: PremiumFeature) -> Bool {
+        isPremium
+    }
+
+    var groupMemberLimit: Int {
+        isPremium ? Self.premiumGroupMemberLimit : Self.freeGroupMemberLimit
+    }
+
+    var groupLimit: Int {
+        isPremium ? .max : Self.freeGroupLimit
+    }
+
     private var updateTask: Task<Void, Never>?
 
     static let productIDs: Set<String> = [

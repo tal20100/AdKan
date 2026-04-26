@@ -2,8 +2,10 @@ import SwiftUI
 
 struct GroupsListView: View {
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var storeManager: StoreManager
     @State private var groups: [AdKanGroup] = []
     @State private var showCreateGroup = false
+    @State private var showPaywall = false
     @State private var isLoading = true
     @State private var loadError: String?
 
@@ -48,12 +50,23 @@ struct GroupsListView: View {
                 }
 
                 Section {
-                    Button(action: { showCreateGroup = true }) {
-                        Label {
-                            Text("groups.create")
-                        } icon: {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(AdKanTheme.primary)
+                    if !storeManager.isPremium && groups.count >= StoreManager.freeGroupLimit {
+                        Button(action: { showPaywall = true }) {
+                            Label {
+                                Text("groups.upgradeCta")
+                            } icon: {
+                                Image(systemName: "lock.fill")
+                                    .foregroundStyle(AdKanTheme.brandPurple)
+                            }
+                        }
+                    } else {
+                        Button(action: { showCreateGroup = true }) {
+                            Label {
+                                Text("groups.create")
+                            } icon: {
+                                Image(systemName: "plus.circle.fill")
+                                    .foregroundStyle(AdKanTheme.primary)
+                            }
                         }
                     }
                 }
@@ -64,6 +77,9 @@ struct GroupsListView: View {
                     groups.append(newGroup)
                     showCreateGroup = false
                 })
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView(context: .general)
             }
             .refreshable {
                 await loadGroups()
@@ -83,7 +99,7 @@ struct GroupsListView: View {
                 Text(group.name)
                     .font(.body.weight(.medium))
 
-                Text("\(group.memberCount) / \(AdKanGroup.freeMaxMembers)")
+                Text("\(group.memberCount) / \(storeManager.groupMemberLimit)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

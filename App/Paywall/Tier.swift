@@ -6,7 +6,11 @@ enum Tier: String, CaseIterable {
     case monthly
 
     var productID: String {
-        "com.taltalhayun.adkan.\(rawValue)"
+        switch self {
+        case .lifetime: return "com.taltalhayun.adkan.lifetime"
+        case .annual: return "com.taltalhayun.adkan.subscription.annual"
+        case .monthly: return "com.taltalhayun.adkan.subscription.monthly"
+        }
     }
 
     var icon: String {
@@ -34,5 +38,37 @@ enum Tier: String, CaseIterable {
 
     static func from(productID: String) -> Tier? {
         allCases.first { $0.productID == productID }
+    }
+}
+
+enum PremiumFeature: String, CaseIterable {
+    case unlimitedGroups
+    case largeGroups
+    case weeklyChallenges
+    case customAppLimits
+    case premiumBadges
+    case enhancedRecap
+    case customThemes
+
+    var titleKey: String { "premium.feature.\(rawValue).title" }
+    var descriptionKey: String { "premium.feature.\(rawValue).desc" }
+
+    var icon: String {
+        switch self {
+        case .unlimitedGroups: return "person.3.fill"
+        case .largeGroups: return "person.crop.rectangle.stack.fill"
+        case .weeklyChallenges: return "trophy.fill"
+        case .customAppLimits: return "slider.horizontal.3"
+        case .premiumBadges: return "medal.fill"
+        case .enhancedRecap: return "chart.bar.fill"
+        case .customThemes: return "paintpalette.fill"
+        }
+    }
+
+    var isHardGate: Bool {
+        switch self {
+        case .unlimitedGroups, .largeGroups: return true
+        default: return false
+        }
     }
 }

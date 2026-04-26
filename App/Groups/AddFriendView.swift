@@ -8,7 +8,7 @@ struct AddFriendView: View {
     @State private var showPaywall = false
 
     private var wouldExceedFreeLimit: Bool {
-        !storeManager.isPremium && memberCount + 1 > AdKanGroup.freeMaxMembers
+        memberCount + 1 > storeManager.groupMemberLimit
     }
 
     var body: some View {

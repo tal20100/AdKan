@@ -33,9 +33,7 @@ struct FavoriteGroupCard: View {
                 VStack(spacing: 8) {
                     ForEach(group.members.sorted(by: { ($0.rank ?? 999) < ($1.rank ?? 999) })) { member in
                         HStack(spacing: 12) {
-                            Text("#\(member.rank ?? 0)")
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
-                                .foregroundStyle(.secondary)
+                            rankBadge(member.rank ?? 0)
                                 .frame(width: 28, alignment: .leading)
 
                             Text(member.avatarEmoji)
@@ -43,6 +41,7 @@ struct FavoriteGroupCard: View {
 
                             Text(member.displayName)
                                 .font(.subheadline.weight(.medium))
+                                .foregroundStyle(member.isCurrentUser ? AdKanTheme.brandGreen : .primary)
 
                             Spacer()
 
@@ -55,6 +54,28 @@ struct FavoriteGroupCard: View {
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func rankBadge(_ rank: Int) -> some View {
+        switch rank {
+        case 1:
+            Image(systemName: "medal.fill")
+                .foregroundStyle(.yellow)
+                .font(.system(size: 16))
+        case 2:
+            Image(systemName: "medal.fill")
+                .foregroundStyle(Color(white: 0.75))
+                .font(.system(size: 16))
+        case 3:
+            Image(systemName: "medal.fill")
+                .foregroundStyle(Color(red: 0.8, green: 0.5, blue: 0.2))
+                .font(.system(size: 16))
+        default:
+            Text("#\(rank)")
+                .font(.system(size: 14, weight: .bold, design: .rounded))
+                .foregroundStyle(.secondary)
         }
     }
 

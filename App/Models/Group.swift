@@ -8,9 +8,6 @@ struct AdKanGroup: Identifiable, Codable, Sendable {
     var members: [GroupMember]
 
     var memberCount: Int { members.count }
-
-    static let freeMaxMembers = 3
-    static let paidMaxMembers = 30
 }
 
 struct GroupMember: Identifiable, Codable, Sendable {
@@ -19,6 +16,7 @@ struct GroupMember: Identifiable, Codable, Sendable {
     var avatarEmoji: String
     var dailyTotalMinutes: Int?
     var rank: Int?
+    var isCurrentUser: Bool = false
 
     var id: String { userId }
 }
