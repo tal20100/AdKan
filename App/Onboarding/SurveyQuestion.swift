@@ -8,6 +8,14 @@ struct SurveyQuestion {
 enum SurveyData {
     static let questions: [SurveyQuestion] = [
         SurveyQuestion(
+            promptKey: "onboarding.gender.prompt",
+            options: [
+                ("onboarding.gender.options.male", 1),
+                ("onboarding.gender.options.female", 2),
+                ("onboarding.gender.options.neutral", 0),
+            ]
+        ),
+        SurveyQuestion(
             promptKey: "onboarding.q1.prompt",
             options: [
                 ("onboarding.q1.options.low", 90),

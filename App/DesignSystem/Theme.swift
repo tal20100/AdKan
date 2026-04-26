@@ -1,23 +1,45 @@
 import SwiftUI
 
 enum AdKanTheme {
-    // MARK: - Colors
+    // MARK: - Brand Colors
 
     static let primary = Color("AccentColor")
+    static let brandGreen = Color(red: 0.471, green: 0.788, blue: 0.435)
+    static let brandGreenLight = Color(red: 0.773, green: 0.929, blue: 0.729)
+    static let brandPurple = Color(red: 0.651, green: 0.545, blue: 0.969)
+    static let brandPurpleLight = Color(red: 0.839, green: 0.729, blue: 0.945)
+    static let surfaceDark = Color(red: 0.118, green: 0.122, blue: 0.125)
+    static let surfaceGray = Color(red: 0.400, green: 0.435, blue: 0.447)
+    static let brandNavy = Color(red: 0.122, green: 0.306, blue: 0.435)
+
+    // MARK: - Mascot Colors
+
+    static let mascotHealthy = brandGreen
+    static let mascotUnhealthy = surfaceGray
+
+    // MARK: - Gradients
+
     static let primaryGradient = LinearGradient(
-        colors: [Color(red: 0.255, green: 0.420, blue: 0.380), Color(red: 0.18, green: 0.55, blue: 0.52)],
+        colors: [brandGreen, brandGreenLight],
         startPoint: .topLeading, endPoint: .bottomTrailing
     )
     static let heroGradient = LinearGradient(
-        colors: [Color(red: 0.15, green: 0.15, blue: 0.25), Color(red: 0.08, green: 0.22, blue: 0.28)],
+        colors: [surfaceDark, brandNavy],
         startPoint: .top, endPoint: .bottom
     )
-    static let cardBackground = Color(.systemBackground).opacity(0.9)
-    static let subtleGray = Color(.systemGray6)
+    static let premiumGradient = LinearGradient(
+        colors: [brandPurple, brandPurpleLight],
+        startPoint: .topLeading, endPoint: .bottomTrailing
+    )
+
+    // MARK: - Semantic Colors
 
     static let successGreen = Color(red: 0.2, green: 0.78, blue: 0.45)
     static let warningOrange = Color(red: 1.0, green: 0.62, blue: 0.04)
     static let dangerRed = Color(red: 0.95, green: 0.25, blue: 0.3)
+
+    static let cardBackground = Color(.systemBackground).opacity(0.9)
+    static let subtleGray = Color(.systemGray6)
 
     static func minutesColor(_ minutes: Int, goal: Int = 120) -> Color {
         if minutes <= goal { return successGreen }

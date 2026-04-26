@@ -16,6 +16,10 @@ final class LanguageManager: ObservableObject {
         preferredLanguage == "he"
     }
 
+    var layoutDirection: LayoutDirection {
+        preferredLanguage == "he" ? .rightToLeft : .leftToRight
+    }
+
     init() {
         UserDefaults.standard.set([preferredLanguage], forKey: "AppleLanguages")
     }

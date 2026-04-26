@@ -6,7 +6,7 @@ struct AdKanButton: View {
     let action: () -> Void
 
     enum Style {
-        case primary, secondary, subtle
+        case primary, secondary, subtle, premium
     }
 
     var body: some View {
@@ -34,6 +34,8 @@ struct AdKanButton: View {
             Color(.systemGray5)
         case .subtle:
             Color.clear
+        case .premium:
+            AdKanTheme.premiumGradient
         }
     }
 
@@ -42,6 +44,7 @@ struct AdKanButton: View {
         case .primary: return .white
         case .secondary: return .primary
         case .subtle: return AdKanTheme.primary
+        case .premium: return .white
         }
     }
 }
