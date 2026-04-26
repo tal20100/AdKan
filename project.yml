@@ -7,6 +7,10 @@ options:
   createIntermediateGroups: true
   generateEmptyDirectories: true
 
+configs:
+  Debug: debug
+  Release: release
+
 settings:
   base:
     SWIFT_VERSION: "5.9"
@@ -34,8 +38,11 @@ targets:
         SUPPORTED_PLATFORMS: iphoneos iphonesimulator
         TARGETED_DEVICE_FAMILY: 1
         SWIFT_EMIT_LOC_STRINGS: "YES"
-    entitlements:
-      path: App/AdKan.entitlements
+      configs:
+        Debug:
+          CODE_SIGN_ENTITLEMENTS: App/AdKanDev.entitlements
+        Release:
+          CODE_SIGN_ENTITLEMENTS: App/AdKan.entitlements
     dependencies: []
 
   AdKanTests:
