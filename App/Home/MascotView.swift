@@ -1,3 +1,4 @@
+// MascotView — brain mascot with state-driven visual effects and animations.
 import SwiftUI
 
 enum MascotState {
@@ -18,25 +19,6 @@ enum MascotState {
         }
     }
 
-    var icon: String {
-        switch self {
-        case .thriving: return "brain.head.profile.fill"
-        case .onTrack: return "brain.head.profile.fill"
-        case .slipping: return "brain.head.profile"
-        case .warning: return "brain.head.profile"
-        case .spiraling: return "brain.head.profile"
-        }
-    }
-
-    var color: Color {
-        switch self {
-        case .thriving, .onTrack: return AdKanTheme.mascotHealthy
-        case .slipping: return AdKanTheme.warningOrange
-        case .warning: return AdKanTheme.dangerRed.opacity(0.7)
-        case .spiraling: return AdKanTheme.mascotUnhealthy
-        }
-    }
-
     var messageKey: String {
         switch self {
         case .thriving: return "mascot.thriving"
@@ -44,6 +26,41 @@ enum MascotState {
         case .slipping: return "mascot.slipping"
         case .warning: return "mascot.warning"
         case .spiraling: return "mascot.spiraling"
+        }
+    }
+
+    var saturation: Double {
+        switch self {
+        case .thriving: return 1.0
+        case .onTrack: return 1.0
+        case .slipping: return 0.6
+        case .warning: return 0.3
+        case .spiraling: return 0.0
+        }
+    }
+
+    var glowColor: Color {
+        switch self {
+        case .thriving: return AdKanTheme.brandGreen
+        case .onTrack: return AdKanTheme.mascotHealthy
+        case .slipping: return AdKanTheme.warningOrange.opacity(0.7)
+        case .warning: return AdKanTheme.warningOrange
+        case .spiraling: return AdKanTheme.mascotUnhealthy
+        }
+    }
+
+    var showSparkles: Bool {
+        self == .thriving
+    }
+
+    /// Index into the 5-dot state indicator (0 = thriving, 4 = spiraling)
+    var dotIndex: Int {
+        switch self {
+        case .thriving: return 0
+        case .onTrack: return 1
+        case .slipping: return 2
+        case .warning: return 3
+        case .spiraling: return 4
         }
     }
 }
@@ -56,33 +73,157 @@ struct MascotView: View {
         MascotState(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
     }
 
-    @State private var bounce = false
+    @State private var glowPulse = false
+    @State private var sparkleOffset1: CGFloat = 0
+    @State private var sparkleOffset2: CGFloat = 0
+    @State private var sparkleOffset3: CGFloat = 0
+    @State private var shakeOffset: CGFloat = 0
 
     var body: some View {
-        VStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(state.color.opacity(0.15))
-                    .frame(width: 90, height: 90)
-                    .scaleEffect(bounce ? 1.08 : 1.0)
-
-                Image(systemName: state.icon)
-                    .font(.system(size: 44))
-                    .foregroundStyle(state.color)
-                    .symbolEffect(.pulse, options: .repeating, value: state.color)
-            }
-            .onAppear {
-                withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
-                    bounce = true
-                }
-            }
-
+        VStack(spacing: 16) {
+            mascotStack
+            stateDots
             Text(LocalizedStringKey(state.messageKey))
-                .font(.subheadline.weight(.medium))
+                .font(AdKanTheme.cardBody)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .animation(.easeInOut, value: state.messageKey)
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 20)
+        .padding(.horizontal, AdKanTheme.cardPadding)
+        .background(
+            RoundedRectangle(cornerRadius: AdKanTheme.cardCornerRadius)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 2)
+        )
+        .onChange(of: state.messageKey) { _ in
+            restartAnimations()
+        }
+        .onAppear {
+            startAnimations()
+        }
+    }
+
+    // MARK: - Mascot stack
+
+    private var mascotStack: some View {
+        ZStack {
+            // Soft glow circle behind mascot
+            Circle()
+                .fill(state.glowColor.opacity(0.18))
+                .frame(width: 160, height: 160)
+                .scaleEffect(glowPulse ? 1.10 : 1.0)
+                .blur(radius: glowPulse ? 8 : 4)
+                .animation(
+                    .easeInOut(duration: 2.2).repeatForever(autoreverses: true),
+                    value: glowPulse
+                )
+
+            // Mascot image
+            Image("mascot_logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 130, height: 130)
+                .saturation(state.saturation)
+                .colorMultiply(warningTint)
+                .offset(x: shakeOffset)
+                .shadow(color: state.glowColor.opacity(0.35), radius: 10, x: 0, y: 4)
+
+            // Sparkle overlays for thriving state
+            if state.showSparkles {
+                sparkleLayer
+            }
+        }
+    }
+
+    /// Orange tint overlay for warning state — neutral white for all others
+    private var warningTint: Color {
+        switch state {
+        case .warning: return Color(red: 1.0, green: 0.88, blue: 0.75)
+        case .spiraling: return Color(red: 0.92, green: 0.92, blue: 0.92)
+        default: return .white
+        }
+    }
+
+    // MARK: - Sparkles
+
+    private var sparkleLayer: some View {
+        ZStack {
+            Text("✨")
+                .font(.system(size: 20))
+                .offset(x: -58, y: -40 + sparkleOffset1)
+                .opacity(0.9)
+
+            Text("✨")
+                .font(.system(size: 14))
+                .offset(x: 62, y: -28 + sparkleOffset2)
+                .opacity(0.85)
+
+            Text("✨")
+                .font(.system(size: 17))
+                .offset(x: 48, y: 44 + sparkleOffset3)
+                .opacity(0.8)
+        }
+    }
+
+    // MARK: - State dots
+
+    private var stateDots: some View {
+        HStack(spacing: 7) {
+            ForEach(0..<5) { index in
+                let isActive = index == state.dotIndex
+                Circle()
+                    .fill(isActive ? state.glowColor : Color(.systemGray4))
+                    .frame(width: isActive ? 10 : 7, height: isActive ? 10 : 7)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.65), value: state.dotIndex)
+            }
+        }
+    }
+
+    // MARK: - Animation control
+
+    private func startAnimations() {
+        glowPulse = true
+
+        if state.showSparkles {
+            withAnimation(.easeInOut(duration: 1.8).repeatForever(autoreverses: true).delay(0.0)) {
+                sparkleOffset1 = -10
+            }
+            withAnimation(.easeInOut(duration: 2.1).repeatForever(autoreverses: true).delay(0.4)) {
+                sparkleOffset2 = -8
+            }
+            withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true).delay(0.8)) {
+                sparkleOffset3 = 10
+            }
+        }
+
+        if state == .spiraling {
+            startShake()
+        }
+    }
+
+    private func restartAnimations() {
+        glowPulse = false
+        sparkleOffset1 = 0
+        sparkleOffset2 = 0
+        sparkleOffset3 = 0
+        shakeOffset = 0
+        // Let layout settle before restarting
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            startAnimations()
+        }
+    }
+
+    private func startShake() {
+        let shakeAnimation = Animation.easeInOut(duration: 0.08).repeatCount(6, autoreverses: true)
+        withAnimation(shakeAnimation) {
+            shakeOffset = 6
+        }
+        // Re-trigger shake every ~3 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            guard state == .spiraling else { return }
+            shakeOffset = 0
+            startShake()
+        }
     }
 }

@@ -68,15 +68,10 @@ struct OnboardingView: View {
         VStack(spacing: 32) {
             Spacer()
 
-            ZStack {
-                Circle()
-                    .fill(AdKanTheme.primaryGradient)
-                    .frame(width: 120, height: 120)
-
-                Image(systemName: "brain.head.profile.fill")
-                    .font(.system(size: 56))
-                    .foregroundStyle(.white)
-            }
+            Image("adkan_logo_text")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 180, height: 180)
 
             VStack(spacing: 12) {
                 Text("onboarding.welcome.title")
