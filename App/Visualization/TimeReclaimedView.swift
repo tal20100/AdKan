@@ -3,14 +3,14 @@ import SwiftUI
 struct TimeReclaimedView: View {
     let savedMinutes: Int
     let goalMinutes: Int
+    let todayMinutes: Int
     @EnvironmentObject private var languageManager: LanguageManager
     @State private var comparisons: [ResolvedComparison] = []
     @State private var animateNumber = false
     @State private var showConfetti = false
 
-    private var metGoal: Bool { savedMinutes >= goalMinutes }
-    private var hours: Int { savedMinutes / 60 }
-    private var mins: Int { savedMinutes % 60 }
+    private var underGoal: Bool { todayMinutes <= goalMinutes }
+    private var overMinutes: Int { max(0, todayMinutes - goalMinutes) }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -25,7 +25,7 @@ struct TimeReclaimedView: View {
             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
                 animateNumber = true
             }
-            if metGoal {
+            if underGoal {
                 withAnimation(.easeIn.delay(1.0)) { showConfetti = true }
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
@@ -33,26 +33,36 @@ struct TimeReclaimedView: View {
     }
 
     private var heroCard: some View {
-        GradientCard(gradient: metGoal ? goalMetGradient : defaultGradient) {
-            VStack(spacing: 8) {
-                Text(timeString)
+        GradientCard(gradient: underGoal ? goalMetGradient : defaultGradient) {
+            VStack(spacing: 12) {
+                Text(formatMinutes(todayMinutes))
                     .font(AdKanTheme.heroNumber)
                     .foregroundStyle(.white)
                     .scaleEffect(animateNumber ? 1.0 : 0.5)
                     .opacity(animateNumber ? 1.0 : 0)
 
-                Text(savedMinutes > 0 ? "home.savedToday" : "home.putPhoneDown")
+                Text("home.minToday")
                     .font(AdKanTheme.heroLabel)
                     .foregroundStyle(.white.opacity(0.8))
 
-                if metGoal {
+                usageProgressBar
+
+                if underGoal && savedMinutes > 0 {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.seal.fill")
-                        Text("home.goalReached")
+                        Text("home.minutesLeft \(formatMinutes(savedMinutes))" as LocalizedStringKey)
                     }
                     .font(.subheadline.bold())
                     .foregroundStyle(.yellow)
-                    .padding(.top, 4)
+                    .padding(.top, 2)
+                } else if !underGoal {
+                    HStack(spacing: 6) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                        Text("home.overGoal \(formatMinutes(overMinutes))" as LocalizedStringKey)
+                    }
+                    .font(.subheadline.bold())
+                    .foregroundStyle(Color(red: 1.0, green: 0.6, blue: 0.6))
+                    .padding(.top, 2)
                 }
             }
             .overlay {
@@ -61,6 +71,29 @@ struct TimeReclaimedView: View {
                 }
             }
         }
+    }
+
+    private var usageProgressBar: some View {
+        GeometryReader { geo in
+            let ratio = min(CGFloat(todayMinutes) / CGFloat(max(goalMinutes, 1)), 1.5)
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.white.opacity(0.2))
+
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(underGoal ? Color.white.opacity(0.9) : Color(red: 1.0, green: 0.6, blue: 0.6))
+                    .frame(width: geo.size.width * min(ratio, 1.0))
+
+                if goalMinutes > 0 {
+                    Rectangle()
+                        .fill(Color.white.opacity(0.5))
+                        .frame(width: 2)
+                        .offset(x: geo.size.width * min(CGFloat(goalMinutes) / CGFloat(max(max(todayMinutes, goalMinutes), 1)), 1.0) - 1)
+                }
+            }
+        }
+        .frame(height: 8)
+        .padding(.horizontal, 4)
     }
 
     private var comparisonCards: some View {
@@ -98,11 +131,11 @@ struct TimeReclaimedView: View {
         }
     }
 
-    private var timeString: String {
-        if hours > 0 {
-            return "\(hours)h \(mins)m"
-        }
-        return "\(mins)m"
+    private func formatMinutes(_ minutes: Int) -> String {
+        let h = minutes / 60
+        let m = minutes % 60
+        if h > 0 { return "\(h)h \(m)m" }
+        return "\(m)m"
     }
 
     private var goalMetGradient: LinearGradient {

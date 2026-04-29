@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var loadError: String?
 
     private var savedMinutes: Int {
-        max(0, (24 * 60) - todayMinutes)
+        max(0, goalMinutes - todayMinutes)
     }
 
     private var favoriteGroup: AdKanGroup? {
@@ -29,7 +29,7 @@ struct HomeView: View {
                     VStack(spacing: AdKanTheme.cardSpacing) {
                         MascotView(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
 
-                        TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes)
+                        TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
                         usageCard
 

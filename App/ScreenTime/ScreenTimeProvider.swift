@@ -68,7 +68,7 @@ struct ScreenTimeFixture: Sendable {
 
     static let zero = ScreenTimeFixture(name: "zero", todayMinutes: 0, yesterdayMinutes: 0)
     static let low = ScreenTimeFixture(name: "low", todayMinutes: 80, yesterdayMinutes: 110)
-    static let goalHit = ScreenTimeFixture(name: "goalHit", todayMinutes: 120, yesterdayMinutes: 130)
+    static let goalHit = ScreenTimeFixture(name: "goalHit", todayMinutes: 95, yesterdayMinutes: 110)
     static let slipping = ScreenTimeFixture(name: "slipping", todayMinutes: 180, yesterdayMinutes: 140)
     static let spiraling = ScreenTimeFixture(name: "spiraling", todayMinutes: 420, yesterdayMinutes: 380)
 
