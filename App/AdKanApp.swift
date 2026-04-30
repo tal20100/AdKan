@@ -8,6 +8,7 @@ struct AdKanApp: App {
     @StateObject private var languageManager = LanguageManager()
     @StateObject private var storeManager = StoreManager()
     @StateObject private var streakTracker = StreakTracker()
+    @StateObject private var blockingRuleStore = BlockingRuleStore()
 
     var body: some Scene {
         WindowGroup {
@@ -17,6 +18,7 @@ struct AdKanApp: App {
                 .environmentObject(languageManager)
                 .environmentObject(storeManager)
                 .environmentObject(streakTracker)
+                .environmentObject(blockingRuleStore)
                 .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
                 .environment(\.locale, languageManager.locale)
                 .environment(\.layoutDirection, languageManager.layoutDirection)

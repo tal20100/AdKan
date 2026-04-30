@@ -53,6 +53,8 @@ struct HomeView: View {
                         FavoriteGroupCard(group: favoriteGroup)
 
                         WeeklySummaryCard()
+
+                        MonthlySummaryCard()
                     }
                     .padding(.horizontal, AdKanTheme.screenPadding)
                     .padding(.top, 8)

@@ -15,7 +15,12 @@ final class StoreManager: ObservableObject {
     static let premiumGroupMemberLimit = 30
 
     func canAccess(_ feature: PremiumFeature) -> Bool {
-        isPremium
+        switch feature {
+        case .unlimitedGroups, .largeGroups:
+            return isPremium
+        default:
+            return isPremium
+        }
     }
 
     var groupMemberLimit: Int {
