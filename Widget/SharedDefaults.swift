@@ -1,1 +1,1 @@
-// SharedDefaults lives in App/Models/SharedDefaults.swift — included in both targets via project.yml
+// intentionally empty — SharedDefaults.swift lives in App/Models/ and is included via project.yml
