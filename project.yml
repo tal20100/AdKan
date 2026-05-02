@@ -53,6 +53,7 @@ targets:
     platform: iOS
     sources:
       - path: Widget
+      - path: App/Models/SharedDefaults.swift
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan.AdKanWidget
