@@ -79,9 +79,12 @@ struct MascotView: View {
         switch genderPreference {
         case 2:  return "mascot.spiraling.female"
         case 0:  return "mascot.spiraling.neutral"
-        default: return "mascot.spiraling"
+        default: return "mascot.spiraling"   // male
         }
     }
+
+    // mascot.spiraling variants have no format args so LocalizedStringKey works directly
+
 
     @State private var glowPulse = false
     @State private var sparkleOffset1: CGFloat = 0

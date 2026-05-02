@@ -403,13 +403,19 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — אתה שולט!" } }
       }
     },
-    "home.minutesLeft.female %@" : {
+    "home.minutesLeft.male" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — אתה שולט!" } }
+      }
+    },
+    "home.minutesLeft.female" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — את שולטת!" } }
       }
     },
-    "home.minutesLeft.neutral %@" : {
+    "home.minutesLeft.neutral" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — שולטים!" } }

@@ -51,7 +51,7 @@ struct TimeReclaimedView: View {
                 if underGoal && savedMinutes > 0 {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.seal.fill")
-                        Text(minutesLeftKey(formatMinutes(savedMinutes)))
+                        Text(verbatim: minutesLeftString(formatMinutes(savedMinutes)))
                     }
                     .font(.subheadline.bold())
                     .foregroundStyle(.yellow)
@@ -132,12 +132,14 @@ struct TimeReclaimedView: View {
         }
     }
 
-    private func minutesLeftKey(_ formatted: String) -> LocalizedStringKey {
+    private func minutesLeftString(_ formatted: String) -> String {
+        let key: String
         switch genderPreference {
-        case 2:  return "home.minutesLeft.female \(formatted)" as LocalizedStringKey
-        case 0:  return "home.minutesLeft.neutral \(formatted)" as LocalizedStringKey
-        default: return "home.minutesLeft \(formatted)" as LocalizedStringKey
+        case 2:  key = "home.minutesLeft.female"
+        case 0:  key = "home.minutesLeft.neutral"
+        default: key = "home.minutesLeft.male"
         }
+        return String(format: NSLocalizedString(key, comment: ""), formatted)
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
