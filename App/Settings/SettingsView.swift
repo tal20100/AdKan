@@ -62,7 +62,7 @@ struct SettingsView: View {
                         }
                     }
                     .tint(AdKanTheme.primary)
-                    .onChange(of: eveningReminder) { enabled in
+                    .onChange(of: eveningReminder) { _, enabled in
                         Task {
                             if enabled {
                                 let granted = await NotificationManager.shared.requestPermission()
@@ -86,7 +86,7 @@ struct SettingsView: View {
                         }
                     }
                     .tint(AdKanTheme.primary)
-                    .onChange(of: weeklyCheckin) { enabled in
+                    .onChange(of: weeklyCheckin) { _, enabled in
                         if enabled {
                             NotificationManager.shared.scheduleWeeklyCheckIn(friendName: nil)
                         } else {
@@ -190,6 +190,37 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+
+                #if DEBUG
+                Section("🛠 Debug") {
+                    Button(storeManager.isPremium ? "Disable Premium" : "Enable Premium") {
+                        storeManager.isPremium.toggle()
+                    }
+                    .foregroundStyle(storeManager.isPremium ? .red : .green)
+
+                    Button("Trigger 7-day Milestone Card") {
+                        UserDefaults.standard.removeObject(forKey: "shownMilestonesV1")
+                        // Force streak to 7 so HomeView shows the share card on next load
+                        var dates: [Date] = []
+                        for i in 0..<7 {
+                            if let d = Calendar.current.date(byAdding: .day, value: -i, to: Date()) {
+                                dates.append(Calendar.current.startOfDay(for: d))
+                            }
+                        }
+                        if let data = try? JSONEncoder().encode(dates) {
+                            UserDefaults.standard.set(data, forKey: "streakGoalMetDates")
+                        }
+                    }
+                    .foregroundStyle(.orange)
+
+                    Button("Reset Streak") {
+                        UserDefaults.standard.removeObject(forKey: "streakGoalMetDates")
+                        UserDefaults.standard.removeObject(forKey: "streakLongest")
+                        UserDefaults.standard.removeObject(forKey: "shownMilestonesV1")
+                    }
+                    .foregroundStyle(.red)
+                }
+                #endif
             }
             .navigationTitle(Text("settings.title"))
             .sheet(isPresented: $showPaywall) {

@@ -8,6 +8,7 @@ struct AdKanApp: App {
     @StateObject private var languageManager = LanguageManager()
     @StateObject private var storeManager = StoreManager()
     @StateObject private var streakTracker = StreakTracker()
+    @StateObject private var blockingRuleStore = BlockingRuleStore()
 
     var body: some Scene {
         WindowGroup {
@@ -17,10 +18,17 @@ struct AdKanApp: App {
                 .environmentObject(languageManager)
                 .environmentObject(storeManager)
                 .environmentObject(streakTracker)
+                .environmentObject(blockingRuleStore)
                 .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
                 .environment(\.locale, languageManager.locale)
                 .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
+                .onOpenURL { url in
+                    guard url.scheme == "adkan", url.host == "join" else { return }
+                    let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                    guard let groupId = components?.queryItems?.first(where: { $0.name == "group" })?.value else { return }
+                    router.navigate(to: .groupDetail(groupId: groupId))
+                }
                 .task {
                     await NotificationManager.shared.checkStatus()
                 }

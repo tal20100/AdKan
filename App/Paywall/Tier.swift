@@ -49,6 +49,10 @@ enum PremiumFeature: String, CaseIterable {
     case premiumBadges
     case enhancedRecap
     case customThemes
+    case hardMode
+    case monthlySummary
+    case timeBasedBlocking
+    case globalLimitRule
 
     var titleKey: String { "premium.feature.\(rawValue).title" }
     var descriptionKey: String { "premium.feature.\(rawValue).desc" }
@@ -62,6 +66,10 @@ enum PremiumFeature: String, CaseIterable {
         case .premiumBadges: return "medal.fill"
         case .enhancedRecap: return "chart.bar.fill"
         case .customThemes: return "paintpalette.fill"
+        case .hardMode: return "hand.raised.fill"
+        case .monthlySummary: return "calendar.badge.clock"
+        case .timeBasedBlocking: return "clock.badge.xmark"
+        case .globalLimitRule: return "gauge.with.dots.needle.67percent"
         }
     }
 

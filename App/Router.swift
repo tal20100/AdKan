@@ -8,6 +8,7 @@ enum Route: Hashable {
     case groupDetail(groupId: String)
     case createGroup
     case addFriend(groupId: String)
+    case monthlySummary
 }
 
 final class Router: ObservableObject {

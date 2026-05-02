@@ -50,6 +50,13 @@ struct FavoriteGroupCard: View {
                                     .font(.subheadline.weight(.semibold))
                                     .foregroundStyle(AdKanTheme.minutesColor(minutes))
                             }
+
+                            if let currentRank = member.rank {
+                                RankChangeIndicator(
+                                    previousRank: RankHistoryStore.shared.previousRank(for: member.userId, groupId: group.id),
+                                    currentRank: currentRank
+                                )
+                            }
                         }
                     }
                 }

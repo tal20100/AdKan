@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
@@ -10,6 +11,14 @@ struct HomeView: View {
     @State private var groups: [AdKanGroup] = []
     @State private var isLoading = true
     @State private var loadError: String?
+    @State private var pendingMilestone: Int? = nil
+
+    private static let milestoneDays = [7, 14, 30, 100]
+    private let shownMilestonesKey = "shownMilestonesV1"
+
+    private var shownMilestones: Set<Int> {
+        Set(UserDefaults.standard.array(forKey: shownMilestonesKey) as? [Int] ?? [])
+    }
 
     private var savedMinutes: Int {
         max(0, goalMinutes - todayMinutes)
@@ -17,6 +26,10 @@ struct HomeView: View {
 
     private var favoriteGroup: AdKanGroup? {
         groups.first { $0.isFavorite }
+    }
+
+    private var currentUserRank: Int? {
+        favoriteGroup?.members.first(where: { $0.isCurrentUser })?.rank
     }
 
     var body: some View {
@@ -31,11 +44,13 @@ struct HomeView: View {
 
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
+                        if let rank = currentUserRank, let group = favoriteGroup {
+                            rankChip(rank: rank, groupName: group.name, groupId: group.id)
+                        }
+
                         usageCard
 
-                        if streakTracker.currentStreak > 0 {
-                            streakCard
-                        }
+                        StreakCalendarView()
 
                         PlainCard {
                             VStack(spacing: 8) {
@@ -52,7 +67,13 @@ struct HomeView: View {
 
                         FavoriteGroupCard(group: favoriteGroup)
 
+                        if let group = favoriteGroup {
+                            WeeklyLeaderboardCard(group: group)
+                        }
+
                         WeeklySummaryCard()
+
+                        MonthlySummaryCard()
                     }
                     .padding(.horizontal, AdKanTheme.screenPadding)
                     .padding(.top, 8)
@@ -61,6 +82,27 @@ struct HomeView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AdKan")
+            .overlay {
+                if let milestone = pendingMilestone {
+                    MilestoneShareSheet(streakDays: milestone) {
+                        // Mark as shown so it doesn't re-appear
+                        var shown = shownMilestones
+                        shown.insert(milestone)
+                        UserDefaults.standard.set(Array(shown), forKey: shownMilestonesKey)
+                        pendingMilestone = nil
+                    }
+                    .transition(.opacity)
+                    .zIndex(10)
+                }
+            }
+            .onChange(of: todayMinutes) { _, _ in
+                NotificationManager.shared.rescheduleStreakAtRisk(
+                    streak: streakTracker.currentStreak,
+                    todayMinutes: todayMinutes,
+                    goalMinutes: goalMinutes
+                )
+                updateWidget()
+            }
             .refreshable {
                 await refreshData()
             }
@@ -75,13 +117,30 @@ struct HomeView: View {
                 if todayMinutes <= goalMinutes && todayMinutes > 0 {
                     streakTracker.recordGoalMet()
                     let streak = streakTracker.currentStreak
-                    if [3, 7, 14, 30].contains(streak) {
-                        NotificationManager.shared.sendStreakMilestone(days: streak)
+                    let allMilestones = [3] + HomeView.milestoneDays
+                    if allMilestones.contains(streak) {
+                        // Day-3: local notification only (not worth a share card)
+                        // Day 7/14/30/100: show in-app share card (once per milestone)
+                        if HomeView.milestoneDays.contains(streak) {
+                            if !shownMilestones.contains(streak) {
+                                pendingMilestone = streak
+                            }
+                        } else {
+                            NotificationManager.shared.sendStreakMilestone(days: streak)
+                        }
                     }
                 }
+                updateWidget()
                 isLoading = false
             }
         }
+    }
+
+    private func updateWidget() {
+        SharedDefaults.todayMinutes = todayMinutes
+        SharedDefaults.goalMinutes = goalMinutes
+        SharedDefaults.currentStreak = streakTracker.currentStreak
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func refreshData() async {
@@ -90,31 +149,26 @@ struct HomeView: View {
         groups = (try? await services.groups.fetchMyGroups()) ?? groups
     }
 
-    private var streakCard: some View {
-        PlainCard {
-            HStack(spacing: 16) {
-                Text("🔥")
-                    .font(.system(size: 36))
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("home.streak \(streakTracker.currentStreak)")
-                        .font(AdKanTheme.cardTitle)
-                    if streakTracker.longestStreak > streakTracker.currentStreak {
-                        Text("home.streakBest \(streakTracker.longestStreak)")
-                            .font(AdKanTheme.cardBody)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
+    @ViewBuilder
+    private func rankChip(rank: Int, groupName: String, groupId: String) -> some View {
+        NavigationLink(value: Route.groupDetail(groupId: groupId)) {
+            HStack(spacing: 8) {
+                Text("🏆")
+                    .font(.system(size: 16))
+                Text(String(format: NSLocalizedString("home.rankChip", comment: ""), rank, groupName))
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.primary)
                 Spacer()
-
-                if streakTracker.currentStreak >= 7 {
-                    Image(systemName: "medal.fill")
-                        .font(.title2)
-                        .foregroundStyle(.yellow)
-                }
+                Image(systemName: "chevron.right")
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(Color(.secondarySystemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.cardCornerRadius))
         }
+        .buttonStyle(.plain)
     }
 
     private var usageCard: some View {

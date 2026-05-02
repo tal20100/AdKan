@@ -68,10 +68,23 @@ enum MascotState {
 struct MascotView: View {
     let todayMinutes: Int
     let goalMinutes: Int
+    @AppStorage("genderPreference") private var genderPreference: Int = 0
 
     private var state: MascotState {
         MascotState(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
     }
+
+    private var messageKey: String {
+        guard state == .spiraling else { return state.messageKey }
+        switch genderPreference {
+        case 2:  return "mascot.spiraling.female"
+        case 0:  return "mascot.spiraling.neutral"
+        default: return "mascot.spiraling"   // male
+        }
+    }
+
+    // mascot.spiraling variants have no format args so LocalizedStringKey works directly
+
 
     @State private var glowPulse = false
     @State private var sparkleOffset1: CGFloat = 0
@@ -83,14 +96,14 @@ struct MascotView: View {
         VStack(spacing: 16) {
             mascotStack
             stateDots
-            Text(LocalizedStringKey(state.messageKey))
+            Text(LocalizedStringKey(messageKey))
                 .font(AdKanTheme.cardBody)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-                .animation(.easeInOut, value: state.messageKey)
+                .animation(.easeInOut, value: messageKey)
         }
         .padding(.vertical, 12)
-        .onChange(of: state.messageKey) { _ in
+        .onChange(of: messageKey) { _ in
             restartAnimations()
         }
         .onAppear {

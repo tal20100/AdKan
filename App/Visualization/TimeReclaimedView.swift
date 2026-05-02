@@ -5,6 +5,7 @@ struct TimeReclaimedView: View {
     let goalMinutes: Int
     let todayMinutes: Int
     @EnvironmentObject private var languageManager: LanguageManager
+    @AppStorage("genderPreference") private var genderPreference: Int = 0
     @State private var comparisons: [ResolvedComparison] = []
     @State private var animateNumber = false
     @State private var showConfetti = false
@@ -15,13 +16,13 @@ struct TimeReclaimedView: View {
     var body: some View {
         VStack(spacing: 0) {
             heroCard
-            if !comparisons.isEmpty {
+            if todayMinutes > 0 {
                 comparisonCards
                     .padding(.top, AdKanTheme.cardSpacing)
             }
         }
         .onAppear {
-            comparisons = ComparisonBank.random(savedMinutes: savedMinutes, count: 3)
+            comparisons = ComparisonBank.random(savedMinutes: todayMinutes, count: 3)
             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
                 animateNumber = true
             }
@@ -50,7 +51,7 @@ struct TimeReclaimedView: View {
                 if underGoal && savedMinutes > 0 {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.seal.fill")
-                        Text("home.minutesLeft \(formatMinutes(savedMinutes))" as LocalizedStringKey)
+                        Text(verbatim: minutesLeftString(formatMinutes(savedMinutes)))
                     }
                     .font(.subheadline.bold())
                     .foregroundStyle(.yellow)
@@ -98,7 +99,7 @@ struct TimeReclaimedView: View {
 
     private var comparisonCards: some View {
         VStack(spacing: 10) {
-            Text("home.couldve")
+            Text(underGoal ? "home.couldve" : "home.couldveUsed")
                 .font(AdKanTheme.cardBody)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -127,8 +128,18 @@ struct TimeReclaimedView: View {
     private func refreshComparisons() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         withAnimation(.spring(response: 0.4)) {
-            comparisons = ComparisonBank.random(savedMinutes: savedMinutes, count: 3)
+            comparisons = ComparisonBank.random(savedMinutes: todayMinutes, count: 3)
         }
+    }
+
+    private func minutesLeftString(_ formatted: String) -> String {
+        let key: String
+        switch genderPreference {
+        case 2:  key = "home.minutesLeft.female"
+        case 0:  key = "home.minutesLeft.neutral"
+        default: key = "home.minutesLeft.male"
+        }
+        return String(format: NSLocalizedString(key, comment: ""), formatted)
     }
 
     private func formatMinutes(_ minutes: Int) -> String {

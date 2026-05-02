@@ -5,6 +5,7 @@ struct GroupDetailView: View {
     @EnvironmentObject private var services: ServiceContainer
     @EnvironmentObject private var storeManager: StoreManager
     @State private var group: AdKanGroup?
+    @State private var previousRanks: [String: Int] = [:]
     @State private var showAddFriend = false
     @State private var showPaywall = false
     @State private var isLoading = true
@@ -121,7 +122,7 @@ struct GroupDetailView: View {
                             .foregroundStyle(AdKanTheme.minutesColor(minutes))
                     }
 
-                    RankChangeIndicator(previousRank: nil, currentRank: member.rank ?? 0)
+                    RankChangeIndicator(previousRank: previousRanks[member.userId], currentRank: member.rank ?? 0)
                 }
                 .padding(.vertical, 4)
             }
@@ -191,7 +192,24 @@ struct GroupDetailView: View {
     private func loadDetail() async {
         loadError = nil
         do {
-            group = try await services.groups.fetchGroupDetail(groupId: groupId)
+            let loaded = try await services.groups.fetchGroupDetail(groupId: groupId)
+            group = loaded
+
+            // Populate previousRanks from yesterday's stored history
+            var prev: [String: Int] = [:]
+            for member in loaded.members {
+                if let r = RankHistoryStore.shared.previousRank(for: member.userId, groupId: groupId) {
+                    prev[member.userId] = r
+                }
+            }
+            previousRanks = prev
+
+            // Persist today's ranks so tomorrow's view can show movement
+            let todayRanks = Dictionary(uniqueKeysWithValues: loaded.members.compactMap { m -> (String, Int)? in
+                guard let r = m.rank else { return nil }
+                return (m.userId, r)
+            })
+            RankHistoryStore.shared.saveRanks(todayRanks, groupId: groupId)
         } catch {
             loadError = error.localizedDescription
         }
