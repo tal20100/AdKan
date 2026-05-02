@@ -24,11 +24,9 @@ struct AdKanApp: App {
                 .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
                 .onOpenURL { url in
-                    guard url.scheme == "adkan",
-                          url.host == "join",
-                          let groupId = URLComponents(url: url, resolvingAgainstBaseURL: false)
-                              ?.queryItems?.first(where: { $0.name == "group" })?.value
-                    else { return }
+                    guard url.scheme == "adkan", url.host == "join" else { return }
+                    let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                    guard let groupId = components?.queryItems?.first(where: { $0.name == "group" })?.value else { return }
                     router.navigate(to: .groupDetail(groupId: groupId))
                 }
                 .task {
