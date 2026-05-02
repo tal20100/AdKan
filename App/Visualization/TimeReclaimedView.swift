@@ -5,6 +5,7 @@ struct TimeReclaimedView: View {
     let goalMinutes: Int
     let todayMinutes: Int
     @EnvironmentObject private var languageManager: LanguageManager
+    @AppStorage("genderPreference") private var genderPreference: Int = 0
     @State private var comparisons: [ResolvedComparison] = []
     @State private var animateNumber = false
     @State private var showConfetti = false
@@ -50,7 +51,7 @@ struct TimeReclaimedView: View {
                 if underGoal && savedMinutes > 0 {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.seal.fill")
-                        Text("home.minutesLeft \(formatMinutes(savedMinutes))" as LocalizedStringKey)
+                        Text(minutesLeftKey(formatMinutes(savedMinutes)))
                     }
                     .font(.subheadline.bold())
                     .foregroundStyle(.yellow)
@@ -128,6 +129,14 @@ struct TimeReclaimedView: View {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         withAnimation(.spring(response: 0.4)) {
             comparisons = ComparisonBank.random(savedMinutes: todayMinutes, count: 3)
+        }
+    }
+
+    private func minutesLeftKey(_ formatted: String) -> LocalizedStringKey {
+        switch genderPreference {
+        case 2:  return "home.minutesLeft.female \(formatted)" as LocalizedStringKey
+        case 0:  return "home.minutesLeft.neutral \(formatted)" as LocalizedStringKey
+        default: return "home.minutesLeft \(formatted)" as LocalizedStringKey
         }
     }
 

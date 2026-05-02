@@ -403,6 +403,18 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — אתה שולט!" } }
       }
     },
+    "home.minutesLeft.female %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — את שולטת!" } }
+      }
+    },
+    "home.minutesLeft.neutral %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — שולטים!" } }
+      }
+    },
     "home.overGoal %@" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ over goal" } },
@@ -1181,6 +1193,19 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שים את הטלפון. ברצינות." } }
+      }
+    },
+    "mascot.spiraling.female" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שימי את הטלפון. ברצינות." } }
+      }
+    },
+    "mascot.spiraling.neutral" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שימו את הטלפון. ברצינות." } }
+      }
       }
     },
     "premium.badge" : {
