@@ -45,12 +45,26 @@ targets:
         SWIFT_EMIT_LOC_STRINGS: "YES"
     dependencies: []
 
+  AdKanTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AdKanTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKanTests
+    dependencies:
+      - target: AdKan
+
 schemes:
   AdKan:
     build:
       targets:
         AdKan: all
+        AdKanTests: [test]
     run:
       config: Debug
     test:
       config: Debug
+      targets:
+        - AdKanTests

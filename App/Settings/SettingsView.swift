@@ -62,7 +62,7 @@ struct SettingsView: View {
                         }
                     }
                     .tint(AdKanTheme.primary)
-                    .onChange(of: eveningReminder) { enabled in
+                    .onChange(of: eveningReminder) { _, enabled in
                         Task {
                             if enabled {
                                 let granted = await NotificationManager.shared.requestPermission()
@@ -86,7 +86,7 @@ struct SettingsView: View {
                         }
                     }
                     .tint(AdKanTheme.primary)
-                    .onChange(of: weeklyCheckin) { enabled in
+                    .onChange(of: weeklyCheckin) { _, enabled in
                         if enabled {
                             NotificationManager.shared.scheduleWeeklyCheckIn(friendName: nil)
                         } else {
