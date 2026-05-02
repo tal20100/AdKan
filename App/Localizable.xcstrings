@@ -1212,7 +1212,6 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שימו את הטלפון. ברצינות." } }
       }
-      }
     },
     "premium.badge" : {
       "localizations" : {
