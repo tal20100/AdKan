@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
@@ -27,6 +28,10 @@ struct HomeView: View {
         groups.first { $0.isFavorite }
     }
 
+    private var currentUserRank: Int? {
+        favoriteGroup?.members.first(where: { $0.isCurrentUser })?.rank
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -39,11 +44,13 @@ struct HomeView: View {
 
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
+                        if let rank = currentUserRank, let group = favoriteGroup {
+                            rankChip(rank: rank, groupName: group.name, groupId: group.id)
+                        }
+
                         usageCard
 
-                        if streakTracker.currentStreak > 0 {
-                            streakCard
-                        }
+                        StreakCalendarView()
 
                         PlainCard {
                             VStack(spacing: 8) {
@@ -59,6 +66,10 @@ struct HomeView: View {
                         }
 
                         FavoriteGroupCard(group: favoriteGroup)
+
+                        if let group = favoriteGroup {
+                            WeeklyLeaderboardCard(group: group)
+                        }
 
                         WeeklySummaryCard()
 
@@ -90,6 +101,7 @@ struct HomeView: View {
                     todayMinutes: todayMinutes,
                     goalMinutes: goalMinutes
                 )
+                updateWidget()
             }
             .refreshable {
                 await refreshData()
@@ -118,9 +130,17 @@ struct HomeView: View {
                         }
                     }
                 }
+                updateWidget()
                 isLoading = false
             }
         }
+    }
+
+    private func updateWidget() {
+        SharedDefaults.todayMinutes = todayMinutes
+        SharedDefaults.goalMinutes = goalMinutes
+        SharedDefaults.currentStreak = streakTracker.currentStreak
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func refreshData() async {
@@ -129,31 +149,26 @@ struct HomeView: View {
         groups = (try? await services.groups.fetchMyGroups()) ?? groups
     }
 
-    private var streakCard: some View {
-        PlainCard {
-            HStack(spacing: 16) {
-                Text("🔥")
-                    .font(.system(size: 36))
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("home.streak \(streakTracker.currentStreak)")
-                        .font(AdKanTheme.cardTitle)
-                    if streakTracker.longestStreak > streakTracker.currentStreak {
-                        Text("home.streakBest \(streakTracker.longestStreak)")
-                            .font(AdKanTheme.cardBody)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
+    @ViewBuilder
+    private func rankChip(rank: Int, groupName: String, groupId: String) -> some View {
+        NavigationLink(value: Route.groupDetail(groupId: groupId)) {
+            HStack(spacing: 8) {
+                Text("🏆")
+                    .font(.system(size: 16))
+                Text(String(format: NSLocalizedString("home.rankChip", comment: ""), rank, groupName))
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.primary)
                 Spacer()
-
-                if streakTracker.currentStreak >= 7 {
-                    Image(systemName: "medal.fill")
-                        .font(.title2)
-                        .foregroundStyle(.yellow)
-                }
+                Image(systemName: "chevron.right")
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(Color(.secondarySystemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.cardCornerRadius))
         }
+        .buttonStyle(.plain)
     }
 
     private var usageCard: some View {

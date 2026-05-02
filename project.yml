@@ -43,7 +43,29 @@ targets:
         SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         TARGETED_DEVICE_FAMILY: "1"
         SWIFT_EMIT_LOC_STRINGS: "YES"
-    dependencies: []
+        INFOPLIST_KEY_CFBundleURLTypes: "[{CFBundleURLSchemes = (adkan);}]"
+    dependencies:
+      - target: AdKanWidget
+        embed: true
+
+  AdKanWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan.AdKanWidget
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: "5.9"
+        GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_KEY_CFBundleDisplayName: AdKan
+    dependencies:
+      - framework: WidgetKit.framework
+        weak: true
+      - framework: SwiftUI.framework
+        weak: true
 
   AdKanTests:
     type: bundle.unit-test

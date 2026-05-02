@@ -23,6 +23,14 @@ struct AdKanApp: App {
                 .environment(\.locale, languageManager.locale)
                 .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)
+                .onOpenURL { url in
+                    guard url.scheme == "adkan",
+                          url.host == "join",
+                          let groupId = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                              ?.queryItems?.first(where: { $0.name == "group" })?.value
+                    else { return }
+                    router.navigate(to: .groupDetail(groupId: groupId))
+                }
                 .task {
                     await NotificationManager.shared.checkStatus()
                 }

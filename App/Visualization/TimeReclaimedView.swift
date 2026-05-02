@@ -15,13 +15,13 @@ struct TimeReclaimedView: View {
     var body: some View {
         VStack(spacing: 0) {
             heroCard
-            if !comparisons.isEmpty {
+            if todayMinutes > 0 {
                 comparisonCards
                     .padding(.top, AdKanTheme.cardSpacing)
             }
         }
         .onAppear {
-            comparisons = ComparisonBank.random(savedMinutes: savedMinutes, count: 3)
+            comparisons = ComparisonBank.random(savedMinutes: todayMinutes, count: 3)
             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
                 animateNumber = true
             }
@@ -98,7 +98,7 @@ struct TimeReclaimedView: View {
 
     private var comparisonCards: some View {
         VStack(spacing: 10) {
-            Text("home.couldve")
+            Text(underGoal ? "home.couldve" : "home.couldveUsed")
                 .font(AdKanTheme.cardBody)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -127,7 +127,7 @@ struct TimeReclaimedView: View {
     private func refreshComparisons() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         withAnimation(.spring(response: 0.4)) {
-            comparisons = ComparisonBank.random(savedMinutes: savedMinutes, count: 3)
+            comparisons = ComparisonBank.random(savedMinutes: todayMinutes, count: 3)
         }
     }
 

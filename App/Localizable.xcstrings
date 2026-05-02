@@ -415,6 +415,12 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "בזמן הזה אפשר היה..." } }
       }
     },
+    "home.couldveUsed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "With today's screen time you could've..." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בזמן המסך של היום אפשר היה..." } }
+      }
+    },
     "home.more" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "More" } },
@@ -423,8 +429,8 @@
     },
     "home.minToday" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "min today" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "דקות היום" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "used today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נוצלו היום" } }
       }
     },
     "home.vsYesterday" : {
@@ -491,6 +497,30 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "See all" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "הכל" } }
+      }
+    },
+    "home.rankChip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "#%lld in %@ today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "#%lld ב%@ היום" } }
+      }
+    },
+    "home.weeklyLeaderboard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This Week's Race" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מרוץ השבוע" } }
+      }
+    },
+    "home.weeklyLeaderboard.resets" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Resets every Sunday" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתאפס כל ראשון" } }
+      }
+    },
+    "home.weeklyLeaderboard.total" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lldm this week" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld ד׳ השבוע" } }
       }
     },
     "home.noGroups.title" : {
@@ -947,6 +977,12 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily Goal" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "יעד יומי" } }
+      }
+    },
+    "home.streakCalendar.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Focus Streak" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "רצף הריכוז" } }
       }
     },
     "home.streak %lld" : {

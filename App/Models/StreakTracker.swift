@@ -41,14 +41,18 @@ final class StreakTracker: ObservableObject {
         }
     }
 
-    private func loadDates() -> [Date] {
+    var goalMetDays: Set<Date> {
+        Set(loadDates().map { calendar.startOfDay(for: $0) })
+    }
+
+    func loadDates() -> [Date] {
         guard let data = UserDefaults.standard.data(forKey: datesKey),
               let dates = try? JSONDecoder().decode([Date].self, from: data)
         else { return [] }
         return dates
     }
 
-    private func saveDates(_ dates: [Date]) {
+    func saveDates(_ dates: [Date]) {
         if let data = try? JSONEncoder().encode(dates) {
             UserDefaults.standard.set(data, forKey: datesKey)
         }

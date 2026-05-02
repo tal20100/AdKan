@@ -80,8 +80,10 @@ struct AddFriendView: View {
     }
 
     private func shareInviteLink() {
-        let text = NSLocalizedString("invite.shareText", comment: "")
-        let av = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        let baseText = NSLocalizedString("invite.shareText", comment: "")
+        let deepLink = "adkan://join?group=\(groupId)"
+        let fullText = "\(baseText)\n\(deepLink)"
+        let av = UIActivityViewController(activityItems: [fullText], applicationActivities: nil)
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let root = scene.keyWindow?.rootViewController {
             root.present(av, animated: true)
