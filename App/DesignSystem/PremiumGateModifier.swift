@@ -35,7 +35,7 @@ struct PremiumGateModifier: ViewModifier {
         HStack(spacing: 5) {
             Image(systemName: "lock.fill")
                 .font(.system(size: 10, weight: .bold))
-            Text("Premium")
+            Text("premium.badge")
                 .font(.system(size: 11, weight: .bold))
         }
         .foregroundStyle(.white)
@@ -44,6 +44,7 @@ struct PremiumGateModifier: ViewModifier {
         .background(AdKanTheme.premiumGradient)
         .clipShape(Capsule())
         .shadow(color: AdKanTheme.brandPurple.opacity(0.3), radius: 6, y: 2)
+        .accessibilityLabel(Text("premium.badge.accessibility"))
     }
 }
 

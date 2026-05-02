@@ -10,6 +10,14 @@ struct HomeView: View {
     @State private var groups: [AdKanGroup] = []
     @State private var isLoading = true
     @State private var loadError: String?
+    @State private var pendingMilestone: Int? = nil
+
+    private static let milestoneDays = [7, 14, 30, 100]
+    private let shownMilestonesKey = "shownMilestonesV1"
+
+    private var shownMilestones: Set<Int> {
+        Set(UserDefaults.standard.array(forKey: shownMilestonesKey) as? [Int] ?? [])
+    }
 
     private var savedMinutes: Int {
         max(0, goalMinutes - todayMinutes)
@@ -63,6 +71,26 @@ struct HomeView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AdKan")
+            .overlay {
+                if let milestone = pendingMilestone {
+                    MilestoneShareSheet(streakDays: milestone) {
+                        // Mark as shown so it doesn't re-appear
+                        var shown = shownMilestones
+                        shown.insert(milestone)
+                        UserDefaults.standard.set(Array(shown), forKey: shownMilestonesKey)
+                        pendingMilestone = nil
+                    }
+                    .transition(.opacity)
+                    .zIndex(10)
+                }
+            }
+            .onChange(of: todayMinutes) { _, _ in
+                NotificationManager.shared.rescheduleStreakAtRisk(
+                    streak: streakTracker.currentStreak,
+                    todayMinutes: todayMinutes,
+                    goalMinutes: goalMinutes
+                )
+            }
             .refreshable {
                 await refreshData()
             }
@@ -77,8 +105,17 @@ struct HomeView: View {
                 if todayMinutes <= goalMinutes && todayMinutes > 0 {
                     streakTracker.recordGoalMet()
                     let streak = streakTracker.currentStreak
-                    if [3, 7, 14, 30].contains(streak) {
-                        NotificationManager.shared.sendStreakMilestone(days: streak)
+                    let allMilestones = [3] + HomeView.milestoneDays
+                    if allMilestones.contains(streak) {
+                        // Day-3: local notification only (not worth a share card)
+                        // Day 7/14/30/100: show in-app share card (once per milestone)
+                        if HomeView.milestoneDays.contains(streak) {
+                            if !shownMilestones.contains(streak) {
+                                pendingMilestone = streak
+                            }
+                        } else {
+                            NotificationManager.shared.sendStreakMilestone(days: streak)
+                        }
                     }
                 }
                 isLoading = false

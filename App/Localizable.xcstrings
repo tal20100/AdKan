@@ -1033,6 +1033,54 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "אפשר לסיים את היום חזק." } }
       }
     },
+    "notif.streakAtRisk.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "🔥 Streak at risk" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "🔥 הסטריק בסכנה" } }
+      }
+    },
+    "notif.streakAtRisk.body.atRisk" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your %lld-day streak is at risk — %lld minutes left today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הסטריק של %lld ימים בסכנה — נשארו %lld דקות להיום" } }
+      }
+    },
+    "notif.streakAtRisk.body.broken" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your %lld-day streak is broken — start fresh tomorrow 💪" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הסטריק של %lld ימים נשבר — מתחילים מחדש מחר 💪" } }
+      }
+    },
+    "milestone.share.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share Your Streak" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שתף את הסטריק שלך" } }
+      }
+    },
+    "milestone.share.cardLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "days of focus" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ימים של ריכוז" } }
+      }
+    },
+    "milestone.share.cta" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שתף" } }
+      }
+    },
+    "milestone.share.later" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Later" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אחר כך" } }
+      }
+    },
+    "milestone.share.brand" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AdKan • עד כאן" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד כאן • AdKan" } }
+      }
+    },
     "settings.notifications" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications" } },
@@ -1097,6 +1145,18 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שים את הטלפון. ברצינות." } }
+      }
+    },
+    "premium.badge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרימיום" } }
+      }
+    },
+    "premium.badge.accessibility" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Premium feature" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תכונה פרימיום" } }
       }
     },
     "premium.feature.unlimitedGroups.title" : {

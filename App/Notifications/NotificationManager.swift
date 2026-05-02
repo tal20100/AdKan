@@ -90,6 +90,42 @@ final class NotificationManager: ObservableObject {
         center.removePendingNotificationRequests(withIdentifiers: ["evening_reminder"])
     }
 
+    // MARK: - Streak-at-Risk (rescheduled each time screen time updates)
+
+    /// Call this whenever today's screen-time reading changes.
+    /// Schedules (or cancels) an 8:30 PM notification based on whether the streak is at risk.
+    func rescheduleStreakAtRisk(streak: Int, todayMinutes: Int, goalMinutes: Int) {
+        center.removePendingNotificationRequests(withIdentifiers: ["streak_at_risk"])
+
+        // Only warn when there's a streak worth protecting
+        guard streak > 0 else { return }
+
+        let content = UNMutableNotificationContent()
+        content.sound = .default
+
+        if todayMinutes > goalMinutes {
+            // Already over — streak is broken
+            content.title = NSLocalizedString("notif.streakAtRisk.title", comment: "")
+            content.body = String(format: NSLocalizedString("notif.streakAtRisk.body.broken", comment: ""), streak)
+        } else if todayMinutes >= Int(Double(goalMinutes) * 0.75) {
+            // At 75%+ of budget — warn while there's still time to course-correct
+            let remaining = goalMinutes - todayMinutes
+            content.title = NSLocalizedString("notif.streakAtRisk.title", comment: "")
+            content.body = String(format: NSLocalizedString("notif.streakAtRisk.body.atRisk", comment: ""), streak, remaining)
+        } else {
+            // User is well under budget — no need to interrupt
+            return
+        }
+
+        var dateComponents = DateComponents()
+        dateComponents.hour = 20
+        dateComponents.minute = 30
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let request = UNNotificationRequest(identifier: "streak_at_risk", content: content, trigger: trigger)
+        center.add(request)
+    }
+
     func cancelAll() {
         center.removeAllPendingNotificationRequests()
     }
