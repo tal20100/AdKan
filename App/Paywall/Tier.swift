@@ -7,9 +7,9 @@ enum Tier: String, CaseIterable {
 
     var productID: String {
         switch self {
-        case .lifetime: return "com.taltalhayun.adkan.lifetime"
-        case .annual: return "com.taltalhayun.adkan.subscription.annual"
-        case .monthly: return "com.taltalhayun.adkan.subscription.monthly"
+        case .lifetime: return "com.talhayun.AdKan.lifetime"
+        case .annual: return "com.talhayun.AdKan.subscription.annual"
+        case .monthly: return "com.talhayun.AdKan.subscription.monthly"
         }
     }
 

@@ -6,7 +6,7 @@ import DeviceActivity
 
 final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     private let center = AuthorizationCenter.shared
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.taltalhayun.adkan")
+    private let sharedDefaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
 
     var authorizationStatus: AuthorizationStatus {
         get async {

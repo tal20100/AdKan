@@ -1,5 +1,5 @@
 {
-  "identifier" : "com.taltalhayun.adkan.products",
+  "identifier" : "com.talhayun.AdKan.products",
   "nonRenewableSubscriptions" : [
 
   ],
@@ -20,7 +20,7 @@
           "locale" : "he"
         }
       ],
-      "productID" : "com.taltalhayun.adkan.lifetime",
+      "productID" : "com.talhayun.AdKan.lifetime",
       "referenceName" : "Lifetime",
       "type" : "NonConsumable"
     }
@@ -61,7 +61,7 @@
               "locale" : "he"
             }
           ],
-          "productID" : "com.taltalhayun.adkan.annual",
+          "productID" : "com.talhayun.AdKan.annual",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Annual",
           "subscriptionGroupID" : "premium",
@@ -91,7 +91,7 @@
               "locale" : "he"
             }
           ],
-          "productID" : "com.taltalhayun.adkan.monthly",
+          "productID" : "com.talhayun.AdKan.monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Monthly",
           "subscriptionGroupID" : "premium",

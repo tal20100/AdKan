@@ -25,13 +25,17 @@ This file is auto-loaded at the start of every Claude Code session. It stays sho
 ## Founder-confirmed decisions (locked)
 
 - App name: **AdKan** / **עד כאן**
-- Bundle ID: `com.taltalhayun.adkan`
-- Deployment target: **iOS 16.0+**, iPhone only in v1
+- Bundle ID: `com.talhayun.AdKan` (as in `project.yml` — source of truth for builds)
+- Widget bundle ID: `com.talhayun.AdKan.AdKanWidget`
+- App Group ID: `group.com.talhayun.AdKan`
+- Deployment target: **iOS 17.0+**, iPhone only in v1
 - Auth: **Apple Sign-In only** (no phone OTP, no email+password)
 - Dev account: **Individual** (personal name on App Store listing; VAT collected by Apple)
+- **Apple Developer Program enrolled** (2026-05-03), pending approval
 - **Founder has a physical iPhone** (confirmed 2026-04-19). Tier-1 validation = simulator + `StubScreenTimeProvider`; Tier-2 = founder's own iPhone via TestFlight. External testers optional/later.
 - **Mac deferred** — Xcode Cloud (25 free hrs/mo with Developer Program) is the primary CI path
-- MVP = **TestFlight-quality, not App Store submitted**. Submission is a later milestone.
+- Backend: **Supabase** (PostgreSQL + Auth + REST), EU Frankfurt region
+- Payments: **StoreKit 2** — monthly ₪12.90, annual ₪69, lifetime ₪99
 
 ---
 
@@ -92,4 +96,4 @@ Plus **orchestrator** (the main Claude Code session you're reading now).
 
 ## Current phase
 
-**Build — Day 1.** See `/plan/status.md` for live state, last commit, open blockers, and next action.
+**Build — active development.** Core features implemented. Developer Program enrolled, pending approval. Next: Supabase setup, Apple Sign-In config, first TestFlight build. See `/plan/production-checklist.md` for full status.
