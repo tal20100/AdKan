@@ -103,7 +103,7 @@ struct MascotView: View {
                 .animation(.easeInOut, value: messageKey)
         }
         .padding(.vertical, 12)
-        .onChange(of: messageKey) { _ in
+        .onChange(of: messageKey) {
             restartAnimations()
         }
         .onAppear {
