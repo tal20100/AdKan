@@ -116,6 +116,8 @@ targets:
     dependencies:
       - framework: DeviceActivity.framework
         weak: true
+      - framework: FamilyControls.framework
+        weak: true
       - framework: ManagedSettings.framework
         weak: true
 
