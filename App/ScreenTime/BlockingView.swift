@@ -3,7 +3,7 @@ import SwiftUI
 
 // MARK: - Model
 
-struct BlockableApp: Codable, Identifiable, Hashable {
+struct BlockableApp: Codable, Identifiable, Hashable, Equatable {
     let id: String
     let nameKey: String
     let icon: String
@@ -11,7 +11,6 @@ struct BlockableApp: Codable, Identifiable, Hashable {
     var customLimitMinutes: Int?
 
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
-    static func == (lhs: BlockableApp, rhs: BlockableApp) -> Bool { lhs.id == rhs.id }
 }
 
 // MARK: - Default app catalogue
