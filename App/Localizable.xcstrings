@@ -9,8 +9,14 @@
     },
     "onboarding.welcome.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "This is AdKan" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "זה עד כאן" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to AdKan!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברוכים הבאים לעד כאן!" } }
+      }
+    },
+    "onboarding.welcome.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "It's time to take back control of your screen time. Compete with friends, build streaks, and win back your day." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגיע הזמן לקחת שליטה על זמן המסך. התחרו עם חברים, בנו רצפים, ותחזרו לעצמכם את היום." } }
       }
     },
     "onboarding.welcome.cta" : {
@@ -719,6 +725,24 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "members" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "חברים" } }
+      }
+    },
+    "groups.rename.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rename Group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שינוי שם קבוצה" } }
+      }
+    },
+    "groups.rename.placeholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Group name" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שם הקבוצה" } }
+      }
+    },
+    "common.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שמירה" } }
       }
     },
     "groups.leaderboard" : {

@@ -245,12 +245,13 @@ struct BlockingView: View {
                             .foregroundStyle(AdKanTheme.primary)
                             .font(.body)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.borderless)
                 }
 
                 Toggle("", isOn: appBlockedBinding(index: index))
                 .labelsHidden()
                 .tint(AdKanTheme.successGreen)
+                .buttonStyle(.borderless)
             }
             .padding(.vertical, 4)
 

@@ -7,6 +7,7 @@ protocol GroupService: Sendable {
     func addMember(groupId: String, userId: String) async throws
     func removeMember(groupId: String, userId: String) async throws
     func setFavorite(groupId: String, isFavorite: Bool) async throws
+    func renameGroup(groupId: String, newName: String) async throws
 }
 
 final class StubGroupService: GroupService, @unchecked Sendable {
@@ -64,6 +65,11 @@ final class StubGroupService: GroupService, @unchecked Sendable {
         }
         guard let idx = storedGroups.firstIndex(where: { $0.id == groupId }) else { return }
         storedGroups[idx].isFavorite = isFavorite
+    }
+
+    func renameGroup(groupId: String, newName: String) async throws {
+        guard let idx = storedGroups.firstIndex(where: { $0.id == groupId }) else { return }
+        storedGroups[idx].name = newName
     }
 }
 
@@ -188,6 +194,26 @@ struct SupabaseGroupService: GroupService {
 
         let body: [String: Any] = ["target_group_id": groupId, "is_favorite": isFavorite]
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
+    }
+
+    func renameGroup(groupId: String, newName: String) async throws {
+        let headers = await authHeaders()
+
+        let base = URL(string: baseURL)!
+        var components = URLComponents(url: base.appendingPathComponent("rest/v1/groups"), resolvingAgainstBaseURL: false)!
+        components.queryItems = [URLQueryItem(name: "id", value: "eq.\(groupId)")]
+
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "PATCH"
+        applyHeaders(&request, headers: headers)
+
+        let body = ["name": newName]
+        request.httpBody = try JSONEncoder().encode(body)
 
         let (_, response) = try await URLSession.shared.data(for: request)
         guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {

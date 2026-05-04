@@ -36,10 +36,15 @@ struct SettingsView: View {
                 Section {
                     LabeledContent {
                         Picker("", selection: $goalMinutes) {
+                            Text("30m").tag(30)
+                            Text("45m").tag(45)
                             Text("1h").tag(60)
                             Text("1.5h").tag(90)
                             Text("2h").tag(120)
+                            Text("2.5h").tag(150)
                             Text("3h").tag(180)
+                            Text("4h").tag(240)
+                            Text("5h").tag(300)
                         }
                         .pickerStyle(.menu)
                     } label: {
