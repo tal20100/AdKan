@@ -78,7 +78,7 @@ struct OnboardingView: View {
                     .font(.largeTitle.bold())
                     .multilineTextAlignment(.center)
 
-                Text("permission.prompt.body")
+                Text("onboarding.welcome.body")
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)

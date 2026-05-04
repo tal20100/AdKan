@@ -2,25 +2,26 @@
   "appName": "AdKan",
   "appNameHe": "עד כאן",
   "meaning": "AdKan transliterates the Hebrew idiom 'עד כאן' (ad kan) — 'enough, stop right there'. Chosen to align product intent with language: an Israeli-native commitment device, not an imported American productivity frame.",
-  "bundleId": "com.taltalhayun.adkan",
-  "appGroupId": "group.com.taltalhayun.adkan",
+  "bundleId": "com.talhayun.AdKan",
+  "appGroupId": "group.com.talhayun.AdKan",
   "extensionBundleIds": {
-    "deviceActivityMonitor": "com.taltalhayun.adkan.deviceactivitymonitor",
-    "shieldConfiguration": "com.taltalhayun.adkan.shieldconfiguration",
-    "deviceActivityReport": "com.taltalhayun.adkan.deviceactivityreport"
+    "widget": "com.talhayun.AdKan.AdKanWidget",
+    "deviceActivityMonitor": "com.talhayun.AdKan.deviceactivitymonitor",
+    "shieldConfiguration": "com.talhayun.AdKan.shieldconfiguration",
+    "deviceActivityReport": "com.talhayun.AdKan.deviceactivityreport"
   },
   "teamId": "TBD_APPLE_TEAM_ID_FOUNDER_ACTION",
-  "deploymentTargetIOS": "16.0",
+  "deploymentTargetIOS": "17.0",
   "schemeName": "AdKan",
   "productIds": {
-    "monthly": "com.taltalhayun.adkan.subscription.monthly",
-    "annual": "com.taltalhayun.adkan.subscription.annual",
-    "lifetime": "com.taltalhayun.adkan.lifetime"
+    "monthly": "com.talhayun.AdKan.subscription.monthly",
+    "annual": "com.talhayun.AdKan.subscription.annual",
+    "lifetime": "com.talhayun.AdKan.lifetime"
   },
   "pricingIls": {
-    "monthly": 12.90,
-    "annual": 69.00,
-    "lifetime": 99.00
+    "monthly": 7.90,
+    "annual": 59.90,
+    "lifetime": 99.90
   },
   "supportedLanguages": ["he", "en"],
   "primaryLanguage": "he",

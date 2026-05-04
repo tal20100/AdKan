@@ -8,6 +8,8 @@ struct GroupDetailView: View {
     @State private var previousRanks: [String: Int] = [:]
     @State private var showAddFriend = false
     @State private var showPaywall = false
+    @State private var showRenameAlert = false
+    @State private var renameText = ""
     @State private var isLoading = true
     @State private var loadError: String?
 
@@ -56,6 +58,7 @@ struct GroupDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 HStack(spacing: 12) {
+                    renameButton
                     favoriteButton
                     addFriendButton
                 }
@@ -69,6 +72,17 @@ struct GroupDetailView: View {
         }
         .task {
             await loadDetail()
+        }
+        .alert("groups.rename.title", isPresented: $showRenameAlert) {
+            TextField("groups.rename.placeholder", text: $renameText)
+            Button("common.save") {
+                guard !renameText.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+                Task {
+                    try? await services.groups.renameGroup(groupId: groupId, newName: renameText.trimmingCharacters(in: .whitespaces))
+                    group?.name = renameText.trimmingCharacters(in: .whitespaces)
+                }
+            }
+            Button("common.cancel", role: .cancel) {}
         }
     }
 
@@ -160,6 +174,15 @@ struct GroupDetailView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+        }
+    }
+
+    private var renameButton: some View {
+        Button {
+            renameText = group?.name ?? ""
+            showRenameAlert = true
+        } label: {
+            Image(systemName: "pencil")
         }
     }
 

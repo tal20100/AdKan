@@ -3,7 +3,7 @@ import SwiftUI
 
 // MARK: - Model
 
-struct BlockableApp: Codable, Identifiable, Hashable {
+struct BlockableApp: Codable, Identifiable, Hashable, Equatable {
     let id: String
     let nameKey: String
     let icon: String
@@ -11,7 +11,6 @@ struct BlockableApp: Codable, Identifiable, Hashable {
     var customLimitMinutes: Int?
 
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
-    static func == (lhs: BlockableApp, rhs: BlockableApp) -> Bool { lhs.id == rhs.id }
 }
 
 // MARK: - Default app catalogue
@@ -236,21 +235,20 @@ struct BlockingView: View {
                 Spacer()
 
                 if app.isBlocked {
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            expandedAppID = isExpanded ? nil : app.id
+                    Image(systemName: isExpanded ? "chevron.up.circle" : "slider.horizontal.3")
+                        .foregroundStyle(AdKanTheme.primary)
+                        .font(.body)
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                expandedAppID = isExpanded ? nil : app.id
+                            }
                         }
-                    } label: {
-                        Image(systemName: isExpanded ? "chevron.up.circle" : "slider.horizontal.3")
-                            .foregroundStyle(AdKanTheme.primary)
-                            .font(.body)
-                    }
-                    .buttonStyle(.plain)
                 }
 
                 Toggle("", isOn: appBlockedBinding(index: index))
-                .labelsHidden()
-                .tint(AdKanTheme.successGreen)
+                    .labelsHidden()
+                    .tint(AdKanTheme.successGreen)
+                    .fixedSize()
             }
             .padding(.vertical, 4)
 

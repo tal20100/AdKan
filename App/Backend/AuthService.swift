@@ -12,8 +12,8 @@ protocol AuthService: Sendable {
 final class SupabaseAuthService: AuthService, @unchecked Sendable {
     private let baseURL: String
     private let apiKey: String
-    private let tokenKey = "com.taltalhayun.adkan.accessToken"
-    private let userIdKey = "com.taltalhayun.adkan.userId"
+    private let tokenKey = "com.talhayun.AdKan.accessToken"
+    private let userIdKey = "com.talhayun.AdKan.userId"
 
     init(baseURL: String, apiKey: String) {
         self.baseURL = baseURL

@@ -10,7 +10,7 @@ final class StoreManager: ObservableObject {
 
     @AppStorage("isPremium") var isPremium = false
 
-    static let freeGroupLimit = 1
+    static let freeGroupLimit = 3
     static let freeGroupMemberLimit = 3
     static let premiumGroupMemberLimit = 30
 

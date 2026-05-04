@@ -1,11 +1,11 @@
 {
-  "identifier" : "com.taltalhayun.adkan.products",
+  "identifier" : "com.talhayun.AdKan.products",
   "nonRenewableSubscriptions" : [
 
   ],
   "products" : [
     {
-      "displayPrice" : "79.99",
+      "displayPrice" : "99.90",
       "familyShareable" : false,
       "internalID" : "lifetime",
       "localizations" : [
@@ -20,7 +20,7 @@
           "locale" : "he"
         }
       ],
-      "productID" : "com.taltalhayun.adkan.lifetime",
+      "productID" : "com.talhayun.AdKan.lifetime",
       "referenceName" : "Lifetime",
       "type" : "NonConsumable"
     }
@@ -44,7 +44,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "29.99",
+          "displayPrice" : "59.90",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "annual",
@@ -61,7 +61,7 @@
               "locale" : "he"
             }
           ],
-          "productID" : "com.taltalhayun.adkan.annual",
+          "productID" : "com.talhayun.AdKan.annual",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Annual",
           "subscriptionGroupID" : "premium",
@@ -74,7 +74,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "4.99",
+          "displayPrice" : "7.90",
           "familyShareable" : false,
           "groupNumber" : 2,
           "internalID" : "monthly",
@@ -91,7 +91,7 @@
               "locale" : "he"
             }
           ],
-          "productID" : "com.taltalhayun.adkan.monthly",
+          "productID" : "com.talhayun.AdKan.monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Monthly",
           "subscriptionGroupID" : "premium",
