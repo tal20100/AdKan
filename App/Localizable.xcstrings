@@ -141,20 +141,20 @@
     },
     "paywall.tier.lifetime.price" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪99 once — forever" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪99 פעם אחת — לתמיד" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪99.90 once — forever" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪99.90 פעם אחת — לתמיד" } }
       }
     },
     "paywall.tier.annual.price" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪69 / year · 3-day trial" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪69 לשנה · 3 ימים ניסיון" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪59.90 / year · 3-day trial" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪59.90 לשנה · 3 ימים ניסיון" } }
       }
     },
     "paywall.tier.monthly.price" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪12.90 / month · 3-day trial" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪12.90 לחודש · 3 ימים ניסיון" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "₪7.90 / month · 3-day trial" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "₪7.90 לחודש · 3 ימים ניסיון" } }
       }
     },
     "paywall.feature.multipleGroups.title" : {

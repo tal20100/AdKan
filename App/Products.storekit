@@ -5,7 +5,7 @@
   ],
   "products" : [
     {
-      "displayPrice" : "79.99",
+      "displayPrice" : "99.90",
       "familyShareable" : false,
       "internalID" : "lifetime",
       "localizations" : [
@@ -44,7 +44,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "29.99",
+          "displayPrice" : "59.90",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "annual",
@@ -74,7 +74,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "4.99",
+          "displayPrice" : "7.90",
           "familyShareable" : false,
           "groupNumber" : 2,
           "internalID" : "monthly",

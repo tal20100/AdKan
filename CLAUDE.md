@@ -35,7 +35,7 @@ This file is auto-loaded at the start of every Claude Code session. It stays sho
 - **Founder has a physical iPhone** (confirmed 2026-04-19). Tier-1 validation = simulator + `StubScreenTimeProvider`; Tier-2 = founder's own iPhone via TestFlight. External testers optional/later.
 - **Mac deferred** — Xcode Cloud (25 free hrs/mo with Developer Program) is the primary CI path
 - Backend: **Supabase** (PostgreSQL + Auth + REST), EU Frankfurt region
-- Payments: **StoreKit 2** — monthly ₪12.90, annual ₪69, lifetime ₪99
+- Payments: **StoreKit 2** — monthly ₪7.90, annual ₪59.90, lifetime ₪99.90
 
 ---
 

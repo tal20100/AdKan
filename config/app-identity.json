@@ -19,9 +19,9 @@
     "lifetime": "com.talhayun.AdKan.lifetime"
   },
   "pricingIls": {
-    "monthly": 12.90,
-    "annual": 69.00,
-    "lifetime": 99.00
+    "monthly": 7.90,
+    "annual": 59.90,
+    "lifetime": 99.90
   },
   "supportedLanguages": ["he", "en"],
   "primaryLanguage": "he",

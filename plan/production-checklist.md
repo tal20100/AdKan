@@ -134,9 +134,9 @@ Updated: 2026-05-03. Items marked **YOU** need founder action. Items marked **CO
 - [ ] In App Store Connect → My Apps → AdKan → In-App Purchases:
   - Create subscription group "AdKan Premium"
   - Add products:
-    - `com.talhayun.AdKan.subscription.monthly` — Monthly, ₪12.90
-    - `com.talhayun.AdKan.subscription.annual` — Annual, ₪69.00
-    - `com.talhayun.AdKan.lifetime` — Non-consumable, ₪99.00
+    - `com.talhayun.AdKan.subscription.monthly` — Monthly, ₪7.90
+    - `com.talhayun.AdKan.subscription.annual` — Annual, ₪59.90
+    - `com.talhayun.AdKan.lifetime` — Non-consumable, ₪99.90
 - [ ] CODE: Update product IDs in `StoreManager.swift` to match exactly
 - [ ] CODE: Create a `.storekit` configuration file for local testing
 
