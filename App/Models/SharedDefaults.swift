@@ -24,4 +24,41 @@ struct SharedDefaults {
         get { suite.integer(forKey: "widget.currentStreak") }
         set { suite.set(newValue, forKey: "widget.currentStreak") }
     }
+
+    // MARK: - Shield Configuration (read by ShieldConfigurationExtension)
+
+    static var shieldTitle: String {
+        get { suite.string(forKey: "shield.title") ?? "עד כאן" }
+        set { suite.set(newValue, forKey: "shield.title") }
+    }
+
+    static var shieldSubtitle: String {
+        get { suite.string(forKey: "shield.subtitle") ?? "You chose to limit this app. Stay strong!" }
+        set { suite.set(newValue, forKey: "shield.subtitle") }
+    }
+
+    static var shieldPrimaryButton: String {
+        get { suite.string(forKey: "shield.primaryButton") ?? "Close" }
+        set { suite.set(newValue, forKey: "shield.primaryButton") }
+    }
+
+    static var shieldSecondaryButton: String {
+        get { suite.string(forKey: "shield.secondaryButton") ?? "Allow 1 min" }
+        set { suite.set(newValue, forKey: "shield.secondaryButton") }
+    }
+
+    static var shieldIsPremium: Bool {
+        get { suite.bool(forKey: "shield.isPremium") }
+        set { suite.set(newValue, forKey: "shield.isPremium") }
+    }
+
+    static var shieldThemeIndex: Int {
+        get { suite.integer(forKey: "shield.themeIndex") }
+        set { suite.set(newValue, forKey: "shield.themeIndex") }
+    }
+
+    static var blockedAppTokensData: Data? {
+        get { suite.data(forKey: "shield.blockedTokens") }
+        set { suite.set(newValue, forKey: "shield.blockedTokens") }
+    }
 }

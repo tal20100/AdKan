@@ -1381,6 +1381,18 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימה אוטומטית כשזמן המסך הכולל חורג מהמגבלה" } }
       }
     },
+    "premium.feature.customShieldDesign.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom Shield" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מסך חסימה מותאם" } }
+      }
+    },
+    "premium.feature.customShieldDesign.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Personalize your blocking screen with custom text and themes" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התאימו את מסך החסימה עם טקסט וערכות נושא אישיות" } }
+      }
+    },
     "blocking.timeRule.header" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Time-Based Rules" } },
@@ -1571,6 +1583,126 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Add friction before accessing blocked apps" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "הוסיפו חיכוך לפני גישה לאפליקציות חסומות" } }
+      }
+    },
+    "blocking.selectApps" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select Apps to Block" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בחירת אפליקציות לחסימה" } }
+      }
+    },
+    "blocking.selectApps.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Real App Blocking" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימה אמיתית" } }
+      }
+    },
+    "blocking.selectApps.footer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose apps and categories. A blocking screen will appear when you try to open them." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בחרו אפליקציות וקטגוריות. מסך חסימה יופיע כשתנסו לפתוח אותן." } }
+      }
+    },
+    "blocking.selectedCount %lld" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld selected" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld נבחרו" } }
+      }
+    },
+    "blocking.selectApps.simulator" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Real app selection requires a physical device with Screen Time permission." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בחירת אפליקציות אמיתית דורשת מכשיר פיזי עם הרשאת זמן מסך." } }
+      }
+    },
+    "blocking.customizeShield" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Customize Shield" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התאמת מסך חסימה" } }
+      }
+    },
+    "blocking.customizeShield.desc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Change text, colors, and motivational messages" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שנו טקסט, צבעים והודעות מוטיבציה" } }
+      }
+    },
+    "blocking.customizeShield.header" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shield Design" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עיצוב מסך חסימה" } }
+      }
+    },
+    "shield.customize.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Customize Shield" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "התאמת מסך חסימה" } }
+      }
+    },
+    "shield.customize.titleField" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Title" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כותרת" } }
+      }
+    },
+    "shield.customize.titlePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AdKan" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד כאן" } }
+      }
+    },
+    "shield.customize.subtitleField" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subtitle" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תת כותרת" } }
+      }
+    },
+    "shield.customize.subtitlePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stay strong!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תישארו חזקים!" } }
+      }
+    },
+    "shield.customize.theme" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Theme" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ערכת נושא" } }
+      }
+    },
+    "shield.theme.default" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Default" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ברירת מחדל" } }
+      }
+    },
+    "shield.theme.forest" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Forest" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יער" } }
+      }
+    },
+    "shield.theme.purple" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purple" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סגול" } }
+      }
+    },
+    "shield.theme.midnight" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Midnight" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חצות" } }
+      }
+    },
+    "shield.button.close" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Close" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סגירה" } }
+      }
+    },
+    "shield.button.allowOneMin" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow 1 min" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "דקה אחת" } }
       }
     },
     "hardMode.delay.title" : {

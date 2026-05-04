@@ -1,5 +1,8 @@
-// Per-app screen-time blocking UI; FamilyActivityPicker integration point marked below.
+// Per-app screen-time blocking UI with real ManagedSettings enforcement.
 import SwiftUI
+#if canImport(FamilyControls)
+import FamilyControls
+#endif
 
 // MARK: - Model
 
@@ -65,6 +68,11 @@ struct BlockingView: View {
     @State private var editingTimeRule: TimeBlockRule?
     @State private var editingDaySchedule: DayScheduleRule?
     @State private var showHardModePreview = false
+    @State private var showAppPicker = false
+    #if canImport(FamilyControls)
+    @State private var activitySelection = FamilyActivitySelection()
+    #endif
+    @StateObject private var enforcer = BlockingEnforcer.shared
 
     @AppStorage("hardModeConfigJSON") private var hardModeConfigJSON: String = ""
 
@@ -83,18 +91,32 @@ struct BlockingView: View {
                 heroSection
                 masterToggleSection
                 if blockingEnabled {
+                    realAppPickerSection
                     defaultLimitSection
                     appsSection
                     timeBlockSection
                     dayScheduleSection
                     globalLimitSection
                     hardModeSection
+                    shieldCustomizationSection
                     entitlementSection
                 }
             }
             .navigationTitle(Text("blocking.title"))
             .animation(.easeInOut(duration: 0.25), value: blockingEnabled)
-            .onAppear { loadApps() }
+            .onAppear {
+                loadApps()
+                #if canImport(FamilyControls)
+                if let saved = enforcer.loadSavedSelection() {
+                    activitySelection = saved
+                }
+                #endif
+            }
+            .onChange(of: blockingEnabled) { _, enabled in
+                if !enabled {
+                    enforcer.removeAllShields()
+                }
+            }
             .sheet(isPresented: $showTimeRuleEditor) {
                 TimeBlockRuleEditor(editingRule: editingTimeRule)
             }
@@ -147,6 +169,52 @@ struct BlockingView: View {
             .tint(AdKanTheme.successGreen)
         } footer: {
             Text("blocking.toggle.footer")
+                .font(.caption)
+        }
+    }
+
+    private var realAppPickerSection: some View {
+        Section {
+            #if canImport(FamilyControls)
+            Button {
+                showAppPicker = true
+            } label: {
+                Label {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("blocking.selectApps")
+                            .font(.body.weight(.medium))
+                        let count = activitySelection.applicationTokens.count + activitySelection.categoryTokens.count
+                        if count > 0 {
+                            Text("blocking.selectedCount \(count)")
+                                .font(.caption)
+                                .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                } icon: {
+                    Image(systemName: "apps.iphone")
+                        .foregroundStyle(AdKanTheme.primary)
+                }
+            }
+            .foregroundStyle(.primary)
+            .familyActivityPicker(isPresented: $showAppPicker, selection: $activitySelection)
+            .onChange(of: activitySelection) { _, newSelection in
+                enforcer.applyShields(for: newSelection)
+                SharedDefaults.shieldIsPremium = storeManager.isPremium
+            }
+            #else
+            Label {
+                Text("blocking.selectApps.simulator")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } icon: {
+                Image(systemName: "apps.iphone")
+                    .foregroundStyle(.secondary)
+            }
+            #endif
+        } header: {
+            Text("blocking.selectApps.header")
+        } footer: {
+            Text("blocking.selectApps.footer")
                 .font(.caption)
         }
     }
@@ -614,6 +682,34 @@ struct BlockingView: View {
               let str = String(data: data, encoding: .utf8)
         else { return }
         hardModeConfigJSON = str
+    }
+
+    // MARK: - Shield Customization
+
+    private var shieldCustomizationSection: some View {
+        Section {
+            Group {
+                NavigationLink {
+                    ShieldCustomizationView()
+                } label: {
+                    Label {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("blocking.customizeShield")
+                                .font(.body.weight(.medium))
+                            Text("blocking.customizeShield.desc")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "shield.checkered")
+                            .foregroundStyle(AdKanTheme.brandPurple)
+                    }
+                }
+            }
+            .premiumGated(.customShieldDesign)
+        } header: {
+            Text("blocking.customizeShield.header")
+        }
     }
 
     // MARK: - Entitlement Notice
