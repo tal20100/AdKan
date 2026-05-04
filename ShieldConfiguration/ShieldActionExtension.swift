@@ -3,7 +3,7 @@ import ManagedSettingsUI
 
 class AdKanShieldActionExtension: ShieldActionDelegate {
 
-    override func handle(
+    func handle(
         action: ShieldAction,
         for application: Application,
         completionHandler: @escaping (ShieldActionResponse) -> Void
@@ -18,7 +18,7 @@ class AdKanShieldActionExtension: ShieldActionDelegate {
         }
     }
 
-    override func handle(
+    func handle(
         action: ShieldAction,
         for webDomain: WebDomain,
         completionHandler: @escaping (ShieldActionResponse) -> Void
