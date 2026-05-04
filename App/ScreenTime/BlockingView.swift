@@ -236,22 +236,20 @@ struct BlockingView: View {
                 Spacer()
 
                 if app.isBlocked {
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            expandedAppID = isExpanded ? nil : app.id
+                    Image(systemName: isExpanded ? "chevron.up.circle" : "slider.horizontal.3")
+                        .foregroundStyle(AdKanTheme.primary)
+                        .font(.body)
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                expandedAppID = isExpanded ? nil : app.id
+                            }
                         }
-                    } label: {
-                        Image(systemName: isExpanded ? "chevron.up.circle" : "slider.horizontal.3")
-                            .foregroundStyle(AdKanTheme.primary)
-                            .font(.body)
-                    }
-                    .buttonStyle(.borderless)
                 }
 
                 Toggle("", isOn: appBlockedBinding(index: index))
-                .labelsHidden()
-                .tint(AdKanTheme.successGreen)
-                .buttonStyle(.borderless)
+                    .labelsHidden()
+                    .tint(AdKanTheme.successGreen)
+                    .fixedSize()
             }
             .padding(.vertical, 4)
 
