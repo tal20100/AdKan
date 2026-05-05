@@ -25,6 +25,11 @@ struct SharedDefaults {
         set { suite.set(newValue, forKey: "widget.currentStreak") }
     }
 
+    static var yesterdayMinutes: Int {
+        get { suite.integer(forKey: "widget.yesterdayMinutes") }
+        set { suite.set(newValue, forKey: "widget.yesterdayMinutes") }
+    }
+
     // MARK: - Shield Configuration (read by ShieldConfigurationExtension)
 
     static var shieldTitle: String {
