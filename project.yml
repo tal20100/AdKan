@@ -47,6 +47,10 @@ targets:
     dependencies:
       - target: AdKanWidget
         embed: true
+      - target: AdKanShieldConfiguration
+        embed: true
+      - target: AdKanDeviceActivityMonitor
+        embed: true
 
   AdKanWidget:
     type: app-extension
@@ -71,10 +75,53 @@ targets:
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited)"
     dependencies:
       - framework: WidgetKit.framework
         weak: true
       - framework: SwiftUI.framework
+        weak: true
+
+  AdKanShieldConfiguration:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShieldConfiguration
+    info:
+      path: ShieldConfiguration/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan.ShieldConfiguration
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: "5.9"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+    dependencies:
+      - framework: ManagedSettings.framework
+        weak: true
+      - framework: ManagedSettingsUI.framework
+        weak: true
+
+  AdKanDeviceActivityMonitor:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: DeviceActivityMonitor
+    info:
+      path: DeviceActivityMonitor/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan.DeviceActivityMonitor
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: "5.9"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+    dependencies:
+      - framework: DeviceActivity.framework
+        weak: true
+      - framework: FamilyControls.framework
+        weak: true
+      - framework: ManagedSettings.framework
         weak: true
 
   AdKanTests:

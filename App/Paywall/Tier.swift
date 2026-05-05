@@ -53,6 +53,7 @@ enum PremiumFeature: String, CaseIterable {
     case monthlySummary
     case timeBasedBlocking
     case globalLimitRule
+    case customShieldDesign
 
     var titleKey: String { "premium.feature.\(rawValue).title" }
     var descriptionKey: String { "premium.feature.\(rawValue).desc" }
@@ -70,6 +71,7 @@ enum PremiumFeature: String, CaseIterable {
         case .monthlySummary: return "calendar.badge.clock"
         case .timeBasedBlocking: return "clock.badge.xmark"
         case .globalLimitRule: return "gauge.with.dots.needle.67percent"
+        case .customShieldDesign: return "shield.checkered"
         }
     }
 
