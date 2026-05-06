@@ -16,6 +16,14 @@ struct AdKanEntry: TimelineEntry {
 
     var yesterdayDelta: Int { todayMinutes - yesterdayMinutes }
 
+    var statusColor: Color {
+        WidgetTheme.minutesColor(todayMinutes, goal: goalMinutes)
+    }
+
+    var mascotImage: String {
+        WidgetTheme.mascotImage(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+    }
+
     static let placeholder = AdKanEntry(
         date: Date(), todayMinutes: 72, goalMinutes: 120,
         currentStreak: 5, yesterdayMinutes: 90
@@ -74,7 +82,7 @@ struct AdKanWidgetEntryView: View {
                 .stroke(Color.white.opacity(0.2), lineWidth: 4)
             Circle()
                 .trim(from: 0, to: entry.usageRatio)
-                .stroke(ringColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                .stroke(entry.statusColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             Text("\(entry.todayMinutes)m")
                 .font(.system(size: 13, weight: .bold, design: .rounded))
@@ -84,108 +92,100 @@ struct AdKanWidgetEntryView: View {
     // MARK: - Small Widget
 
     private var smallView: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 4) {
             HStack {
-                Image("WidgetBrainIcon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
-                Spacer()
                 if entry.currentStreak > 0 {
                     streakPill
                 }
+                Spacer()
+                Text(formatMinutes(entry.todayMinutes))
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .foregroundStyle(entry.statusColor)
             }
 
             Spacer()
 
-            progressRing(size: 80, lineWidth: 8, fontSize: 18, goalFontSize: 9)
+            Image(entry.mascotImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: 70)
 
             Spacer()
+
+            HStack {
+                Text("of \(formatMinutes(entry.goalMinutes))")
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundStyle(.secondary)
+                Spacer()
+                ProgressView(value: entry.usageRatio)
+                    .tint(entry.statusColor)
+                    .frame(width: 60)
+            }
         }
         .padding(14)
         .containerBackground(for: .widget) {
-            WidgetTheme.background(for: colorScheme)
+            Color(.systemBackground)
         }
     }
 
     // MARK: - Medium Widget
 
     private var mediumView: some View {
-        HStack(spacing: 16) {
-            progressRing(size: 90, lineWidth: 10, fontSize: 20, goalFontSize: 10)
+        HStack(spacing: 12) {
+            Image(entry.mascotImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80, height: 80)
 
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 4) {
-                    Image("WidgetBrainIcon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 18, height: 18)
-                    Text("AdKan")
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
+            VStack(alignment: .leading, spacing: 6) {
+                Text("AdKan")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundStyle(.secondary)
+
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(formatMinutes(entry.todayMinutes))
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundStyle(entry.statusColor)
+                    Text("/ \(formatMinutes(entry.goalMinutes))")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundStyle(.secondary)
                 }
 
-                if entry.currentStreak > 0 {
-                    HStack(spacing: 4) {
-                        Text("🔥")
-                            .font(.system(size: 13))
-                        Text("\(entry.currentStreak) day streak")
-                            .font(.system(size: 13, weight: .medium, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.8))
+                ProgressView(value: entry.usageRatio)
+                    .tint(entry.statusColor)
+
+                HStack(spacing: 12) {
+                    if entry.currentStreak > 0 {
+                        HStack(spacing: 3) {
+                            Text("🔥")
+                                .font(.system(size: 12))
+                            Text("\(entry.currentStreak)")
+                                .font(.system(size: 13, weight: .bold, design: .rounded))
+                        }
+                    }
+
+                    if entry.yesterdayMinutes > 0 {
+                        HStack(spacing: 3) {
+                            Image(systemName: entry.yesterdayDelta <= 0 ? "arrow.down.right" : "arrow.up.right")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundStyle(entry.yesterdayDelta <= 0 ? WidgetTheme.successGreen : WidgetTheme.dangerRed)
+                            Text(deltaText)
+                                .font(.system(size: 11, weight: .medium, design: .rounded))
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
-
-                if entry.yesterdayMinutes > 0 {
-                    HStack(spacing: 4) {
-                        Image(systemName: entry.yesterdayDelta <= 0 ? "arrow.down.right" : "arrow.up.right")
-                            .font(.system(size: 11, weight: .bold))
-                            .foregroundStyle(entry.yesterdayDelta <= 0 ? .white : WidgetTheme.dangerRed)
-                        Text(deltaText)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.7))
-                    }
-                }
-
-                Spacer()
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+
+            Spacer(minLength: 0)
         }
-        .padding(16)
+        .padding(14)
         .containerBackground(for: .widget) {
-            WidgetTheme.background(for: colorScheme)
+            Color(.systemBackground)
         }
     }
 
-    // MARK: - Shared Components
-
-    private func progressRing(size: CGFloat, lineWidth: CGFloat, fontSize: CGFloat, goalFontSize: CGFloat) -> some View {
-        ZStack {
-            Circle()
-                .stroke(WidgetTheme.ringTrack(for: colorScheme), lineWidth: lineWidth)
-            Circle()
-                .trim(from: 0, to: entry.usageRatio)
-                .stroke(
-                    ringColor,
-                    style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
-                )
-                .rotationEffect(.degrees(-90))
-            Circle()
-                .trim(from: 0, to: entry.usageRatio)
-                .stroke(ringColor.opacity(0.35), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .blur(radius: 5)
-
-            VStack(spacing: 1) {
-                Text(formatMinutes(entry.todayMinutes))
-                    .font(.system(size: fontSize, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
-                Text("of \(formatMinutes(entry.goalMinutes))")
-                    .font(.system(size: goalFontSize, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.6))
-            }
-        }
-        .frame(width: size, height: size)
-    }
+    // MARK: - Helpers
 
     private var streakPill: some View {
         HStack(spacing: 3) {
@@ -193,27 +193,19 @@ struct AdKanWidgetEntryView: View {
                 .font(.system(size: 10))
             Text("\(entry.currentStreak)")
                 .font(.system(size: 11, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
         }
         .padding(.horizontal, 7)
         .padding(.vertical, 3)
-        .background(Color.white.opacity(0.2))
+        .background(Color(.secondarySystemBackground))
         .clipShape(Capsule())
-    }
-
-    private var ringColor: Color {
-        if entry.todayMinutes > entry.goalMinutes {
-            return WidgetTheme.dangerRed
-        }
-        return WidgetTheme.ringStroke(for: colorScheme)
     }
 
     private var deltaText: String {
         let abs = abs(entry.yesterdayDelta)
         let formatted = formatMinutes(abs)
         return entry.yesterdayDelta <= 0
-            ? "\(formatted) less than yesterday"
-            : "\(formatted) more than yesterday"
+            ? "\(formatted) less"
+            : "\(formatted) more"
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
