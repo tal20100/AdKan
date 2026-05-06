@@ -9,6 +9,7 @@ struct AdKanApp: App {
     @StateObject private var storeManager = StoreManager()
     @StateObject private var streakTracker = StreakTracker()
     @StateObject private var blockingRuleStore = BlockingRuleStore()
+    @StateObject private var appearanceManager = AppearanceManager()
 
     var body: some Scene {
         WindowGroup {
@@ -19,7 +20,9 @@ struct AdKanApp: App {
                 .environmentObject(storeManager)
                 .environmentObject(streakTracker)
                 .environmentObject(blockingRuleStore)
+                .environmentObject(appearanceManager)
                 .environment(\.screenTimeProvider, Self.makeScreenTimeProvider())
+                .preferredColorScheme(appearanceManager.colorScheme)
                 .environment(\.locale, languageManager.locale)
                 .environment(\.layoutDirection, languageManager.layoutDirection)
                 .id(languageManager.preferredLanguage)

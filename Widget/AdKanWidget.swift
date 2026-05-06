@@ -53,6 +53,7 @@ struct AdKanProvider: TimelineProvider {
 struct AdKanWidgetEntryView: View {
     let entry: AdKanEntry
     @Environment(\.widgetFamily) private var family
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         switch family {
@@ -97,46 +98,13 @@ struct AdKanWidgetEntryView: View {
 
             Spacer()
 
-            ZStack {
-                Circle()
-                    .stroke(Color.white.opacity(0.1), lineWidth: 8)
-                Circle()
-                    .trim(from: 0, to: entry.usageRatio)
-                    .stroke(
-                        WidgetTheme.ringGradient,
-                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                    )
-                    .rotationEffect(.degrees(-90))
-                Circle()
-                    .trim(from: 0, to: entry.usageRatio)
-                    .stroke(ringColor.opacity(0.4), style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .blur(radius: 6)
-
-                VStack(spacing: 1) {
-                    Text(formatMinutes(entry.todayMinutes))
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(.white)
-                    Text("of \(formatMinutes(entry.goalMinutes))")
-                        .font(.system(size: 9, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.5))
-                }
-            }
-            .frame(width: 80, height: 80)
+            progressRing(size: 80, lineWidth: 8, fontSize: 18, goalFontSize: 9)
 
             Spacer()
         }
         .padding(14)
         .containerBackground(for: .widget) {
-            WidgetTheme.heroGradient
-                .overlay(
-                    RadialGradient(
-                        colors: [WidgetTheme.brandGreen.opacity(0.08), .clear],
-                        center: .topLeading,
-                        startRadius: 0,
-                        endRadius: 200
-                    )
-                )
+            WidgetTheme.background(for: colorScheme)
         }
     }
 
@@ -144,32 +112,7 @@ struct AdKanWidgetEntryView: View {
 
     private var mediumView: some View {
         HStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .stroke(Color.white.opacity(0.1), lineWidth: 10)
-                Circle()
-                    .trim(from: 0, to: entry.usageRatio)
-                    .stroke(
-                        WidgetTheme.ringGradient,
-                        style: StrokeStyle(lineWidth: 10, lineCap: .round)
-                    )
-                    .rotationEffect(.degrees(-90))
-                Circle()
-                    .trim(from: 0, to: entry.usageRatio)
-                    .stroke(ringColor.opacity(0.4), style: StrokeStyle(lineWidth: 10, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .blur(radius: 6)
-
-                VStack(spacing: 2) {
-                    Text(formatMinutes(entry.todayMinutes))
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundStyle(.white)
-                    Text("of \(formatMinutes(entry.goalMinutes))")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.5))
-                }
-            }
-            .frame(width: 90, height: 90)
+            progressRing(size: 90, lineWidth: 10, fontSize: 20, goalFontSize: 10)
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 4) {
@@ -196,10 +139,10 @@ struct AdKanWidgetEntryView: View {
                     HStack(spacing: 4) {
                         Image(systemName: entry.yesterdayDelta <= 0 ? "arrow.down.right" : "arrow.up.right")
                             .font(.system(size: 11, weight: .bold))
-                            .foregroundStyle(entry.yesterdayDelta <= 0 ? WidgetTheme.brandGreen : WidgetTheme.dangerRed)
+                            .foregroundStyle(entry.yesterdayDelta <= 0 ? .white : WidgetTheme.dangerRed)
                         Text(deltaText)
                             .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.6))
+                            .foregroundStyle(.white.opacity(0.7))
                     }
                 }
 
@@ -209,19 +152,40 @@ struct AdKanWidgetEntryView: View {
         }
         .padding(16)
         .containerBackground(for: .widget) {
-            WidgetTheme.heroGradient
-                .overlay(
-                    RadialGradient(
-                        colors: [WidgetTheme.brandGreen.opacity(0.08), .clear],
-                        center: .topLeading,
-                        startRadius: 0,
-                        endRadius: 200
-                    )
-                )
+            WidgetTheme.background(for: colorScheme)
         }
     }
 
-    // MARK: - Helpers
+    // MARK: - Shared Components
+
+    private func progressRing(size: CGFloat, lineWidth: CGFloat, fontSize: CGFloat, goalFontSize: CGFloat) -> some View {
+        ZStack {
+            Circle()
+                .stroke(WidgetTheme.ringTrack(for: colorScheme), lineWidth: lineWidth)
+            Circle()
+                .trim(from: 0, to: entry.usageRatio)
+                .stroke(
+                    ringColor,
+                    style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
+                )
+                .rotationEffect(.degrees(-90))
+            Circle()
+                .trim(from: 0, to: entry.usageRatio)
+                .stroke(ringColor.opacity(0.35), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .blur(radius: 5)
+
+            VStack(spacing: 1) {
+                Text(formatMinutes(entry.todayMinutes))
+                    .font(.system(size: fontSize, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
+                Text("of \(formatMinutes(entry.goalMinutes))")
+                    .font(.system(size: goalFontSize, weight: .medium, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.6))
+            }
+        }
+        .frame(width: size, height: size)
+    }
 
     private var streakPill: some View {
         HStack(spacing: 3) {
@@ -233,14 +197,15 @@ struct AdKanWidgetEntryView: View {
         }
         .padding(.horizontal, 7)
         .padding(.vertical, 3)
-        .background(Color.white.opacity(0.12))
+        .background(Color.white.opacity(0.2))
         .clipShape(Capsule())
     }
 
     private var ringColor: Color {
-        entry.todayMinutes <= entry.goalMinutes
-            ? WidgetTheme.brandGreen
-            : WidgetTheme.dangerRed
+        if entry.todayMinutes > entry.goalMinutes {
+            return WidgetTheme.dangerRed
+        }
+        return WidgetTheme.ringStroke(for: colorScheme)
     }
 
     private var deltaText: String {

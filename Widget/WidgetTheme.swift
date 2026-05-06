@@ -7,16 +7,27 @@ enum WidgetTheme {
     static let surfaceDark = Color(red: 0.118, green: 0.122, blue: 0.125)
     static let dangerRed = Color(red: 0.95, green: 0.25, blue: 0.3)
 
-    static let heroGradient = LinearGradient(
+    static let lightGradient = LinearGradient(
+        colors: [brandGreen, brandGreenLight],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    static let darkGradient = LinearGradient(
         colors: [surfaceDark, brandNavy],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
 
-    static let ringGradient = AngularGradient(
-        colors: [brandGreen, brandGreenLight, brandGreen],
-        center: .center,
-        startAngle: .degrees(-90),
-        endAngle: .degrees(270)
-    )
+    static func background(for scheme: ColorScheme) -> LinearGradient {
+        scheme == .dark ? darkGradient : lightGradient
+    }
+
+    static func ringStroke(for scheme: ColorScheme) -> Color {
+        scheme == .dark ? brandGreen : .white
+    }
+
+    static func ringTrack(for scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color.white.opacity(0.1) : Color.white.opacity(0.25)
+    }
 }
