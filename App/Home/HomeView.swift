@@ -12,6 +12,7 @@ struct HomeView: View {
     @State private var isLoading = true
     @State private var loadError: String?
     @State private var pendingMilestone: Int? = nil
+    @State private var cardsAppeared = false
 
     private static let milestoneDays = [7, 14, 30, 100]
     private let shownMilestonesKey = "shownMilestonesV1"
@@ -78,6 +79,9 @@ struct HomeView: View {
                     .padding(.horizontal, AdKanTheme.screenPadding)
                     .padding(.top, 8)
                     .padding(.bottom, 32)
+                    .opacity(cardsAppeared ? 1 : 0)
+                    .offset(y: cardsAppeared ? 0 : 20)
+                    .animation(.spring(response: 0.5, dampingFraction: 0.8), value: cardsAppeared)
                 }
             }
             .background(Color(.systemGroupedBackground))
@@ -132,6 +136,7 @@ struct HomeView: View {
                 }
                 updateWidget()
                 isLoading = false
+                withAnimation { cardsAppeared = true }
             }
         }
     }
@@ -140,6 +145,7 @@ struct HomeView: View {
         SharedDefaults.todayMinutes = todayMinutes
         SharedDefaults.goalMinutes = goalMinutes
         SharedDefaults.currentStreak = streakTracker.currentStreak
+        SharedDefaults.yesterdayMinutes = yesterdayMinutes
         WidgetCenter.shared.reloadAllTimelines()
     }
 

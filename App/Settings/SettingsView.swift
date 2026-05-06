@@ -7,6 +7,7 @@ struct SettingsView: View {
     @EnvironmentObject private var languageManager: LanguageManager
     @EnvironmentObject private var services: ServiceContainer
     @EnvironmentObject private var storeManager: StoreManager
+    @EnvironmentObject private var appearanceManager: AppearanceManager
     @State private var showPaywall = false
     @State private var showSignOutConfirm = false
     @State private var showDeleteConfirm = false
@@ -29,6 +30,24 @@ struct SettingsView: View {
                         } icon: {
                             Image(systemName: "globe")
                                 .foregroundStyle(AdKanTheme.primary)
+                        }
+                    }
+                }
+
+                Section {
+                    LabeledContent {
+                        Picker("", selection: $appearanceManager.mode) {
+                            Label("settings.appearance.light", systemImage: "sun.max.fill").tag("light")
+                            Label("settings.appearance.dark", systemImage: "moon.fill").tag("dark")
+                            Label("settings.appearance.system", systemImage: "circle.lefthalf.filled").tag("system")
+                        }
+                        .pickerStyle(.menu)
+                    } label: {
+                        Label {
+                            Text("settings.appearance")
+                        } icon: {
+                            Image(systemName: "paintbrush.fill")
+                                .foregroundStyle(AdKanTheme.brandPurple)
                         }
                     }
                 }

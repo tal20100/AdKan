@@ -68,14 +68,14 @@ struct OnboardingView: View {
         VStack(spacing: 32) {
             Spacer()
 
-            Image("adkan_logo_text")
+            Image("logo_no_bg")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 180, height: 180)
+                .frame(width: 220, height: 220)
 
             VStack(spacing: 12) {
                 Text("onboarding.welcome.title")
-                    .font(.largeTitle.bold())
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
                     .multilineTextAlignment(.center)
 
                 Text("onboarding.welcome.body")
@@ -100,6 +100,11 @@ struct OnboardingView: View {
     private func questionPage(_ question: SurveyQuestion, index: Int) -> some View {
         VStack(spacing: 24) {
             Spacer()
+
+            Image("logo_no_bg")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
 
             Text(LocalizedStringKey(question.promptKey))
                 .font(.title2.bold())

@@ -889,6 +889,30 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שפה" } }
       }
     },
+    "settings.appearance" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Appearance" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מראה" } }
+      }
+    },
+    "settings.appearance.light" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Light" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בהיר" } }
+      }
+    },
+    "settings.appearance.dark" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dark" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כהה" } }
+      }
+    },
+    "settings.appearance.system" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "System" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מערכת" } }
+      }
+    },
     "permission.maybeLater" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Maybe later" } },
