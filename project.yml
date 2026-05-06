@@ -99,6 +99,8 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+        SUPPORTED_PLATFORMS: iphoneos
+        SUPPORTS_MACCATALYST: false
     dependencies:
       - framework: ManagedSettings.framework
         weak: true
@@ -119,6 +121,8 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+        SUPPORTED_PLATFORMS: iphoneos
+        SUPPORTS_MACCATALYST: false
     dependencies:
       - framework: DeviceActivity.framework
         weak: true
