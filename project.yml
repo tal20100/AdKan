@@ -47,10 +47,9 @@ targets:
     dependencies:
       - target: AdKanWidget
         embed: true
-      - target: AdKanShieldConfiguration
-        embed: true
-      - target: AdKanDeviceActivityMonitor
-        embed: true
+      # AdKanShieldConfiguration and AdKanDeviceActivityMonitor are device-only
+      # extensions that can't run on the simulator. Re-add with embed: true
+      # when building for a physical device with FamilyControls entitlement.
 
   AdKanWidget:
     type: app-extension
@@ -99,8 +98,6 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
-        SUPPORTED_PLATFORMS: iphoneos
-        SUPPORTS_MACCATALYST: false
     dependencies:
       - framework: ManagedSettings.framework
         weak: true
@@ -121,8 +118,6 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
-        SUPPORTED_PLATFORMS: iphoneos
-        SUPPORTS_MACCATALYST: false
     dependencies:
       - framework: DeviceActivity.framework
         weak: true
