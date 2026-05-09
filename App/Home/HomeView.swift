@@ -3,7 +3,9 @@ import WidgetKit
 
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
+    @Environment(\.switchToFocusTab) private var switchToFocusTab
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var languageManager: LanguageManager
     @EnvironmentObject private var streakTracker: StreakTracker
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var todayMinutes: Int = 0
@@ -50,6 +52,8 @@ struct HomeView: View {
                         }
 
                         usageCard
+
+                        focusCTA
 
                         StreakCalendarView()
 
@@ -99,12 +103,17 @@ struct HomeView: View {
                     .zIndex(10)
                 }
             }
-            .onChange(of: todayMinutes) { _, _ in
+            .onChange(of: todayMinutes) { oldValue, _ in
                 NotificationManager.shared.rescheduleStreakAtRisk(
                     streak: streakTracker.currentStreak,
                     todayMinutes: todayMinutes,
                     goalMinutes: goalMinutes
                 )
+                let oldState = MascotState(todayMinutes: oldValue, goalMinutes: goalMinutes)
+                let newState = MascotState(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+                if oldState != newState && (newState == .warning || newState == .spiraling) {
+                    UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                }
                 updateWidget()
             }
             .refreshable {
@@ -181,7 +190,7 @@ struct HomeView: View {
         PlainCard {
             HStack(spacing: 20) {
                 VStack(spacing: 4) {
-                    Text("\(todayMinutes)")
+                    Text(TimeFormatter.format(minutes: todayMinutes, locale: languageManager.preferredLanguage))
                         .font(.system(size: 36, weight: .bold, design: .rounded))
                         .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
                     Text("home.minToday")
@@ -197,7 +206,7 @@ struct HomeView: View {
                     HStack(spacing: 4) {
                         Image(systemName: delta <= 0 ? "arrow.down.right" : "arrow.up.right")
                             .font(.caption.bold())
-                        Text("\(abs(delta))m")
+                        Text(TimeFormatter.format(minutes: abs(delta), locale: languageManager.preferredLanguage))
                             .font(.system(size: 20, weight: .semibold, design: .rounded))
                     }
                     .foregroundStyle(delta <= 0 ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
@@ -213,11 +222,17 @@ struct HomeView: View {
                     Image(systemName: "target")
                         .font(.title2)
                         .foregroundStyle(AdKanTheme.primary)
-                    Text("\(goalMinutes)m")
+                    Text(TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage))
                         .font(.caption.bold())
                         .foregroundStyle(.secondary)
                 }
             }
+        }
+    }
+
+    private var focusCTA: some View {
+        AdKanButton(titleKey: "home.startFocus", style: .primary) {
+            switchToFocusTab()
         }
     }
 }

@@ -100,9 +100,10 @@ struct TimeReclaimedView: View {
     private var comparisonCards: some View {
         VStack(spacing: 10) {
             Text(underGoal ? "home.couldve" : "home.couldveUsed")
-                .font(AdKanTheme.cardBody)
+                .font(.subheadline.bold())
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 8)
 
             ForEach(Array(comparisons.enumerated()), id: \.element.id) { index, comparison in
                 ComparisonRow(comparison: comparison)
@@ -143,10 +144,7 @@ struct TimeReclaimedView: View {
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        if h > 0 { return "\(h)h \(m)m" }
-        return "\(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 
     private var goalMetGradient: LinearGradient {
@@ -168,7 +166,7 @@ private struct ComparisonRow: View {
     var body: some View {
         HStack(spacing: 14) {
             Text(comparison.icon)
-                .font(.title2)
+                .font(.title)
 
             Text(comparison.text(locale: languageManager.preferredLanguage))
                 .font(AdKanTheme.comparisonText)

@@ -113,7 +113,11 @@ struct AdKanWidgetEntryView: View {
             Spacer()
 
             HStack {
-                Text("of \(formatMinutes(entry.goalMinutes))")
+                Text({
+                    let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+                    let goal = formatMinutes(entry.goalMinutes)
+                    return isHebrew ? "מתוך \(goal)" : "of \(goal)"
+                }())
                     .font(.system(size: 11, weight: .medium, design: .rounded))
                     .foregroundStyle(.secondary)
                 Spacer()
@@ -203,16 +207,22 @@ struct AdKanWidgetEntryView: View {
     private var deltaText: String {
         let abs = abs(entry.yesterdayDelta)
         let formatted = formatMinutes(abs)
+        let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+        let less = isHebrew ? "פחות" : "less"
+        let more = isHebrew ? "יותר" : "more"
         return entry.yesterdayDelta <= 0
-            ? "\(formatted) less"
-            : "\(formatted) more"
+            ? "\(formatted) \(less)"
+            : "\(formatted) \(more)"
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
         let h = minutes / 60, m = minutes % 60
-        if h > 0 && m > 0 { return "\(h)h\(m)m" }
-        if h > 0 { return "\(h)h" }
-        return "\(m)m"
+        let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+        let hourUnit = isHebrew ? "שעות" : "h"
+        let minUnit = isHebrew ? "דקות" : "m"
+        if h > 0 && m > 0 { return "\(h) \(hourUnit) \(m) \(minUnit)" }
+        if h > 0 { return "\(h) \(hourUnit)" }
+        return "\(m) \(minUnit)"
     }
 }
 

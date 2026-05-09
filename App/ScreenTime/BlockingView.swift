@@ -61,6 +61,7 @@ struct BlockingView: View {
     @AppStorage("blockedAppsJSON") private var blockedAppsJSON: String = ""
     @EnvironmentObject private var ruleStore: BlockingRuleStore
     @EnvironmentObject private var storeManager: StoreManager
+    @EnvironmentObject private var languageManager: LanguageManager
 
     @State private var apps: [BlockableApp] = []
     @State private var expandedAppID: String? = nil
@@ -135,7 +136,7 @@ struct BlockingView: View {
 
     private var heroSection: some View {
         Section {
-            GradientCard {
+            GradientCard(gradient: AdKanTheme.heroGradient) {
                 VStack(spacing: 12) {
                     Image(systemName: "shield.checkered")
                         .font(.system(size: 40))
@@ -242,11 +243,11 @@ struct BlockingView: View {
                 .tint(AdKanTheme.primary)
 
                 HStack {
-                    Text("15m")
+                    Text(formattedLimit(15))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                     Spacer()
-                    Text("8h")
+                    Text(formattedLimit(480))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }
@@ -369,9 +370,9 @@ struct BlockingView: View {
                 Spacer()
 
                 HStack(spacing: 4) {
-                    Text("15m")
+                    Text(formattedLimit(15))
                     Text("–")
-                    Text("8h")
+                    Text(formattedLimit(480))
                 }
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
@@ -762,10 +763,6 @@ struct BlockingView: View {
     // MARK: - Formatting
 
     private func formattedLimit(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        if h == 0 { return "\(m)m" }
-        if m == 0 { return "\(h)h" }
-        return "\(h)h \(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 }
