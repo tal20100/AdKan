@@ -193,8 +193,9 @@ struct HomeView: View {
         PlainCard {
             HStack(spacing: 20) {
                 VStack(spacing: 4) {
+                    let isHebrew = languageManager.preferredLanguage.hasPrefix("he")
                     Text(TimeFormatter.format(minutes: todayMinutes, locale: languageManager.preferredLanguage))
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
+                        .font(.system(size: isHebrew ? 26 : 36, weight: .bold, design: .rounded))
                         .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
                     Text("home.minToday")
                         .font(AdKanTheme.cardBody)
@@ -206,11 +207,12 @@ struct HomeView: View {
 
                 VStack(spacing: 4) {
                     let delta = todayMinutes - yesterdayMinutes
+                    let isHeb = languageManager.preferredLanguage.hasPrefix("he")
                     HStack(spacing: 4) {
                         Image(systemName: delta <= 0 ? "arrow.down.right" : "arrow.up.right")
                             .font(.caption.bold())
                         Text(TimeFormatter.format(minutes: abs(delta), locale: languageManager.preferredLanguage))
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: isHeb ? 16 : 20, weight: .semibold, design: .rounded))
                     }
                     .foregroundStyle(delta <= 0 ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
 

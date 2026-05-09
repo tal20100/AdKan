@@ -33,10 +33,9 @@ struct ProgressBarView: View {
                 let current = TimeFormatter.format(minutes: currentMinutes, locale: languageManager.preferredLanguage)
                 let goal = TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage)
                 let isHebrew = languageManager.preferredLanguage.hasPrefix("he")
-                Text(isHebrew ? "\(current) / \(goal)" : "\(current) / \(goal)")
+                Text(isHebrew ? "\(goal) / \(current)" : "\(current) / \(goal)")
                     .font(AdKanTheme.cardBody)
                     .foregroundStyle(Color.secondary)
-                    .environment(\.layoutDirection, isHebrew ? .rightToLeft : .leftToRight)
             }
 
             GeometryReader { proxy in

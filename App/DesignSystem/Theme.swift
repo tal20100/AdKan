@@ -20,7 +20,7 @@ enum AdKanTheme {
     // MARK: - Gradients
 
     static let primaryGradient = LinearGradient(
-        colors: [Color(red: 0.25, green: 0.58, blue: 0.22), Color(red: 0.38, green: 0.68, blue: 0.33)],
+        colors: [Color(red: 0.33, green: 0.65, blue: 0.30), Color(red: 0.50, green: 0.76, blue: 0.43)],
         startPoint: .topLeading, endPoint: .bottomTrailing
     )
     static let heroGradient = LinearGradient(

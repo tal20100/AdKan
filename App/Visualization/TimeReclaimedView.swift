@@ -26,7 +26,7 @@ struct TimeReclaimedView: View {
             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
                 animateNumber = true
             }
-            if underGoal {
+            if underGoal && savedMinutes > 0 && todayMinutes > 0 {
                 withAnimation(.easeIn.delay(1.0)) { showConfetti = true }
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
