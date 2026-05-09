@@ -37,7 +37,10 @@ struct TimeReclaimedView: View {
         GradientCard(gradient: underGoal ? goalMetGradient : defaultGradient) {
             VStack(spacing: 12) {
                 Text(formatMinutes(todayMinutes))
-                    .font(AdKanTheme.heroNumber)
+                    .font(.system(size: 38, weight: .bold, design: .rounded))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundStyle(.white)
                     .scaleEffect(animateNumber ? 1.0 : 0.5)
                     .opacity(animateNumber ? 1.0 : 0)
@@ -99,11 +102,19 @@ struct TimeReclaimedView: View {
 
     private var comparisonCards: some View {
         VStack(spacing: 10) {
+            HStack(spacing: 6) {
+                Image(systemName: "lightbulb.fill")
+                    .font(.caption)
+                    .foregroundStyle(AdKanTheme.warningOrange)
+                Text("home.didYouKnow")
+                    .font(AdKanTheme.cardTitle)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
             Text(underGoal ? "home.couldve" : "home.couldveUsed")
-                .font(.subheadline.bold())
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 8)
 
             ForEach(Array(comparisons.enumerated()), id: \.element.id) { index, comparison in
                 ComparisonRow(comparison: comparison)
