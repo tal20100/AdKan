@@ -424,7 +424,7 @@
     "home.minutesLeft.neutral" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — שולטים!" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — אתם שולטים!" } }
       }
     },
     "home.overGoal %@" : {
@@ -1203,8 +1203,8 @@
     },
     "mascot.onTrack" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fully in control" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בשליטה מלאה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Looking good, keep going" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נראה טוב, ממשיכים" } }
       }
     },
     "mascot.slipping" : {

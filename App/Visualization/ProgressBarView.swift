@@ -30,9 +30,13 @@ struct ProgressBarView: View {
     var body: some View {
         VStack(alignment: .trailing, spacing: 4) {
             if !compact {
-                Text("\(TimeFormatter.format(minutes: currentMinutes, locale: languageManager.preferredLanguage)) / \(TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage))")
+                let current = TimeFormatter.format(minutes: currentMinutes, locale: languageManager.preferredLanguage)
+                let goal = TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage)
+                let isHebrew = languageManager.preferredLanguage.hasPrefix("he")
+                Text(isHebrew ? "\(current) / \(goal)" : "\(current) / \(goal)")
                     .font(AdKanTheme.cardBody)
                     .foregroundStyle(Color.secondary)
+                    .environment(\.layoutDirection, isHebrew ? .rightToLeft : .leftToRight)
             }
 
             GeometryReader { proxy in

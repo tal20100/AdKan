@@ -136,7 +136,7 @@ struct BlockingView: View {
 
     private var heroSection: some View {
         Section {
-            GradientCard(gradient: AdKanTheme.heroGradient) {
+            GradientCard(gradient: AdKanTheme.primaryGradient) {
                 VStack(spacing: 12) {
                     Image(systemName: "shield.checkered")
                         .font(.system(size: 40))

@@ -221,11 +221,18 @@ struct AdKanWidgetEntryView: View {
     private func formatMinutes(_ minutes: Int) -> String {
         let h = minutes / 60, m = minutes % 60
         let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
-        let hourUnit = isHebrew ? "שעות" : "h"
-        let minUnit = isHebrew ? "דקות" : "m"
-        if h > 0 && m > 0 { return "\(h) \(hourUnit) \(m) \(minUnit)" }
-        if h > 0 { return "\(h) \(hourUnit)" }
-        return "\(m) \(minUnit)"
+
+        if isHebrew {
+            let hp: String = h == 1 ? "שעה" : h == 2 ? "שעתיים" : "\(h) שעות"
+            let mp: String = m == 1 ? "דקה" : "\(m) דקות"
+            if h > 0 && m > 0 { return "\(hp) ו-\(mp)" }
+            if h > 0 { return hp }
+            return mp
+        } else {
+            if h > 0 && m > 0 { return "\(h)h \(m)m" }
+            if h > 0 { return "\(h)h" }
+            return "\(m)m"
+        }
     }
 }
 
