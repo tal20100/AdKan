@@ -191,49 +191,51 @@ struct HomeView: View {
 
     private var usageCard: some View {
         PlainCard {
-            VStack(spacing: 12) {
+            VStack(spacing: 10) {
                 Text(TimeFormatter.format(minutes: todayMinutes, locale: languageManager.preferredLanguage))
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
-                    .minimumScaleFactor(0.6)
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .minimumScaleFactor(0.5)
                     .lineLimit(1)
+                    .frame(maxWidth: .infinity)
                     .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
 
                 Text("home.minToday")
-                    .font(AdKanTheme.cardBody)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
 
                 Divider()
 
                 HStack {
                     let delta = todayMinutes - yesterdayMinutes
-                    HStack(spacing: 4) {
+                    HStack(spacing: 3) {
                         Image(systemName: delta <= 0 ? "arrow.down.right" : "arrow.up.right")
-                            .font(.caption.bold())
+                            .font(.system(size: 10, weight: .bold))
                         Text(TimeFormatter.format(minutes: abs(delta), locale: languageManager.preferredLanguage))
-                            .font(.subheadline.weight(.semibold))
-                            .minimumScaleFactor(0.7)
+                            .font(.caption.weight(.semibold))
+                            .minimumScaleFactor(0.6)
                             .lineLimit(1)
                     }
                     .foregroundStyle(delta <= 0 ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
 
                     Text("home.vsYesterday")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundStyle(.secondary)
 
                     Spacer()
 
-                    HStack(spacing: 4) {
+                    HStack(spacing: 3) {
                         Image(systemName: "target")
-                            .font(.caption.bold())
+                            .font(.system(size: 10, weight: .bold))
                             .foregroundStyle(AdKanTheme.primary)
                         Text(TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage))
-                            .font(.subheadline.weight(.semibold))
-                            .minimumScaleFactor(0.7)
+                            .font(.caption.weight(.semibold))
+                            .minimumScaleFactor(0.6)
                             .lineLimit(1)
                             .foregroundStyle(.secondary)
                     }
                 }
             }
+            .multilineTextAlignment(.center)
         }
     }
 
