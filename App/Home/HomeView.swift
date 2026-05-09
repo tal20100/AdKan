@@ -51,6 +51,15 @@ struct HomeView: View {
                             rankChip(rank: rank, groupName: group.name, groupId: group.id)
                         }
 
+                        HStack(spacing: 6) {
+                            Image(systemName: "chart.bar.fill")
+                                .font(.caption)
+                                .foregroundStyle(AdKanTheme.primary)
+                            Text("home.todayMetrics")
+                                .font(AdKanTheme.cardTitle)
+                            Spacer()
+                        }
+
                         usageCard
 
                         focusCTA

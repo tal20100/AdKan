@@ -1045,10 +1045,10 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "יעד יומי" } }
       }
     },
-    "home.didYouKnow" : {
+    "home.todayMetrics" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Did You Know?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הידעת?" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's Summary" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום היום" } }
       }
     },
     "home.startFocus" : {

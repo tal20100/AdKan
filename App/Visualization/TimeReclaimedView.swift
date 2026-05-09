@@ -37,7 +37,7 @@ struct TimeReclaimedView: View {
         GradientCard(gradient: underGoal ? goalMetGradient : defaultGradient) {
             VStack(spacing: 12) {
                 Text(formatMinutes(todayMinutes))
-                    .font(.system(size: languageManager.preferredLanguage.hasPrefix("he") ? 32 : 72, weight: .bold, design: .rounded))
+                    .font(.system(size: languageManager.preferredLanguage.hasPrefix("he") ? 36 : 72, weight: .bold, design: .rounded))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -102,17 +102,8 @@ struct TimeReclaimedView: View {
 
     private var comparisonCards: some View {
         VStack(spacing: 10) {
-            HStack(spacing: 6) {
-                Image(systemName: "lightbulb.fill")
-                    .font(.caption)
-                    .foregroundStyle(AdKanTheme.warningOrange)
-                Text("home.didYouKnow")
-                    .font(AdKanTheme.cardTitle)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-
             Text(underGoal ? "home.couldve" : "home.couldveUsed")
-                .font(.subheadline)
+                .font(.subheadline.bold())
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
