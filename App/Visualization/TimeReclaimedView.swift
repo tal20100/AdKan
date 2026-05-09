@@ -37,7 +37,7 @@ struct TimeReclaimedView: View {
         GradientCard(gradient: underGoal ? goalMetGradient : defaultGradient) {
             VStack(spacing: 12) {
                 Text(formatMinutes(todayMinutes))
-                    .font(.system(size: 38, weight: .bold, design: .rounded))
+                    .font(.system(size: languageManager.preferredLanguage.hasPrefix("he") ? 32 : 72, weight: .bold, design: .rounded))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .center)
