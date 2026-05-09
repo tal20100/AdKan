@@ -249,8 +249,8 @@
     },
     "onboarding.q2.options.evening" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Evening on the couch" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "ערב על הספה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "At night before bed" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בלילה לפני השינה" } }
       }
     },
     "onboarding.q2.options.allday" : {
