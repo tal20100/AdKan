@@ -42,6 +42,6 @@ struct AdKanApp: App {
         // RealScreenTimeProvider is excluded from build until the paid
         // Apple Developer account + FamilyControls entitlement are active.
         // Re-add it in project.yml sources and swap this back when ready.
-        return StubScreenTimeProvider.goalHit
+        return StubScreenTimeProvider.slipping
     }
 }

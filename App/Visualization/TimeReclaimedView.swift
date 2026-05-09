@@ -67,7 +67,7 @@ struct TimeReclaimedView: View {
                 }
             }
             .overlay {
-                if showConfetti {
+                if showConfetti && underGoal {
                     ConfettiOverlay()
                 }
             }
