@@ -61,7 +61,7 @@ enum AdKanTheme {
     static let cardPadding: CGFloat = 20
     static let cardCornerRadius: CGFloat = 20
     static let buttonCornerRadius: CGFloat = 16
-    static let cardSpacing: CGFloat = 16
+    static let cardSpacing: CGFloat = 20
     static let progressBarHeightCompact: CGFloat = 8
     static let progressBarHeightExpanded: CGFloat = 12
 }
