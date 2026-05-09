@@ -84,7 +84,10 @@ struct AdKanWidgetEntryView: View {
                 .trim(from: 0, to: entry.usageRatio)
                 .stroke(entry.statusColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-            Text("\(entry.todayMinutes)m")
+            Text({
+                let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+                return "\(entry.todayMinutes)\(isHebrew ? "ד׳" : "m")"
+            }())
                 .font(.system(size: 13, weight: .bold, design: .rounded))
         }
     }

@@ -31,6 +31,6 @@ struct PlainCard<Content: View>: View {
             .frame(maxWidth: .infinity)
             .background(Color(.secondarySystemBackground))
             .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.cardCornerRadius))
-            .shadow(color: .black.opacity(0.04), radius: 8, y: 2)
+            .shadow(color: .black.opacity(0.06), radius: 10, y: 3)
     }
 }

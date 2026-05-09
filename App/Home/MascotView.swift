@@ -96,8 +96,8 @@ struct MascotView: View {
             mascotStack
             stateLabel
             Text(LocalizedStringKey(messageKey))
-                .font(AdKanTheme.cardBody)
-                .foregroundStyle(.secondary)
+                .font(.callout.weight(.medium))
+                .foregroundStyle(.primary.opacity(0.75))
                 .multilineTextAlignment(.center)
                 .animation(.easeInOut, value: messageKey)
         }
@@ -167,10 +167,10 @@ struct MascotView: View {
 
     private var stateLabel: some View {
         Text(LocalizedStringKey(state.labelKey))
-            .font(.caption.bold())
+            .font(.footnote.bold())
             .foregroundStyle(state.glowColor)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 5)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 6)
             .background(state.glowColor.opacity(0.15))
             .clipShape(Capsule())
             .animation(.easeInOut, value: state.labelKey)

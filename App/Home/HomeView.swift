@@ -62,6 +62,9 @@ struct HomeView: View {
                                 HStack {
                                     Image(systemName: "flame.fill")
                                         .foregroundStyle(AdKanTheme.primary)
+                                        .padding(6)
+                                        .background(AdKanTheme.primary.opacity(0.12))
+                                        .clipShape(Circle())
                                     Text("home.dailyGoal")
                                         .font(AdKanTheme.cardTitle)
                                     Spacer()
