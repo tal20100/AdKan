@@ -191,45 +191,47 @@ struct HomeView: View {
 
     private var usageCard: some View {
         PlainCard {
-            HStack(spacing: 20) {
-                VStack(spacing: 4) {
-                    let isHebrew = languageManager.preferredLanguage.hasPrefix("he")
-                    Text(TimeFormatter.format(minutes: todayMinutes, locale: languageManager.preferredLanguage))
-                        .font(.system(size: isHebrew ? 26 : 36, weight: .bold, design: .rounded))
-                        .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
-                    Text("home.minToday")
-                        .font(AdKanTheme.cardBody)
-                        .foregroundStyle(.secondary)
-                }
+            VStack(spacing: 12) {
+                Text(TimeFormatter.format(minutes: todayMinutes, locale: languageManager.preferredLanguage))
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                    .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
+
+                Text("home.minToday")
+                    .font(AdKanTheme.cardBody)
+                    .foregroundStyle(.secondary)
 
                 Divider()
-                    .frame(height: 48)
 
-                VStack(spacing: 4) {
+                HStack {
                     let delta = todayMinutes - yesterdayMinutes
-                    let isHeb = languageManager.preferredLanguage.hasPrefix("he")
                     HStack(spacing: 4) {
                         Image(systemName: delta <= 0 ? "arrow.down.right" : "arrow.up.right")
                             .font(.caption.bold())
                         Text(TimeFormatter.format(minutes: abs(delta), locale: languageManager.preferredLanguage))
-                            .font(.system(size: isHeb ? 16 : 20, weight: .semibold, design: .rounded))
+                            .font(.subheadline.weight(.semibold))
+                            .minimumScaleFactor(0.7)
+                            .lineLimit(1)
                     }
                     .foregroundStyle(delta <= 0 ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
 
                     Text("home.vsYesterday")
-                        .font(AdKanTheme.cardBody)
+                        .font(.caption)
                         .foregroundStyle(.secondary)
-                }
 
-                Spacer()
+                    Spacer()
 
-                VStack(spacing: 4) {
-                    Image(systemName: "target")
-                        .font(.title2)
-                        .foregroundStyle(AdKanTheme.primary)
-                    Text(TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage))
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        Image(systemName: "target")
+                            .font(.caption.bold())
+                            .foregroundStyle(AdKanTheme.primary)
+                        Text(TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage))
+                            .font(.subheadline.weight(.semibold))
+                            .minimumScaleFactor(0.7)
+                            .lineLimit(1)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
         }
