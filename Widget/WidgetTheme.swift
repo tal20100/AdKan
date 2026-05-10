@@ -35,4 +35,26 @@ enum WidgetTheme {
         default: return "mascot_state_1"
         }
     }
+
+    static func mascotGlowColor(todayMinutes: Int, goalMinutes: Int) -> Color {
+        let ratio = Double(todayMinutes) / Double(max(goalMinutes, 1))
+        switch ratio {
+        case ...0.5: return brandGreen
+        case ...1.0: return brandGreen
+        case ...1.5: return warningOrange
+        case ...2.0: return warningOrange
+        default: return dangerRed
+        }
+    }
+
+    static func stateLabel(todayMinutes: Int, goalMinutes: Int) -> String {
+        let ratio = Double(todayMinutes) / Double(max(goalMinutes, 1))
+        switch ratio {
+        case ...0.5: return "mascot.label.thriving"
+        case ...1.0: return "mascot.label.onTrack"
+        case ...1.5: return "mascot.label.slipping"
+        case ...2.0: return "mascot.label.warning"
+        default: return "mascot.label.spiraling"
+        }
+    }
 }

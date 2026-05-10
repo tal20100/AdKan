@@ -136,6 +136,7 @@ struct HomeView: View {
                 if oldState != newState && (newState == .warning || newState == .spiraling) {
                     UINotificationFeedbackGenerator().notificationOccurred(.warning)
                 }
+                scheduleDataDrivenNotifications()
                 updateWidget()
             }
             .refreshable {
@@ -166,6 +167,8 @@ struct HomeView: View {
                     }
                 }
                 updateWidget()
+                scheduleDataDrivenNotifications()
+                detectRankChange()
                 isLoading = false
                 withAnimation { cardsAppeared = true }
             }
@@ -286,6 +289,61 @@ struct HomeView: View {
 
             LeaderboardView(group: group, previousRanks: [:], compact: true)
         }
+    }
+
+    private func scheduleDataDrivenNotifications() {
+        let streak = streakTracker.currentStreak
+
+        if UserDefaults.standard.object(forKey: "goalCelebrationEnabled") as? Bool ?? true {
+            if todayMinutes <= goalMinutes && todayMinutes > 0 {
+                NotificationManager.shared.scheduleGoalCelebration(
+                    savedMinutes: goalMinutes - todayMinutes,
+                    streak: streak
+                )
+            } else {
+                NotificationManager.shared.cancelGoalCelebration()
+            }
+        }
+
+        if UserDefaults.standard.bool(forKey: "eveningReminderEnabled") {
+            NotificationManager.shared.scheduleEveningReminder(
+                todayMinutes: todayMinutes,
+                goalMinutes: goalMinutes
+            )
+        }
+
+        if UserDefaults.standard.object(forKey: "inactivityReminderEnabled") as? Bool ?? true {
+            NotificationManager.shared.scheduleInactivityReengagement(
+                groupName: favoriteGroup?.name,
+                lastRank: currentUserRank,
+                streak: streak
+            )
+        }
+
+        let weeklyEnabled = UserDefaults.standard.object(forKey: "weeklyCheckinEnabled") as? Bool ?? true
+        if weeklyEnabled {
+            NotificationManager.shared.scheduleWeeklyCheckIn(
+                friendName: nil,
+                streak: streak,
+                groupName: favoriteGroup?.name
+            )
+        }
+    }
+
+    private func detectRankChange() {
+        guard let group = favoriteGroup,
+              let userId = services.auth.currentUserId,
+              let member = group.members.first(where: { $0.userId == userId }),
+              let currentRank = member.rank else { return }
+
+        let previousRank = RankHistoryStore.shared.previousRank(for: userId, groupId: group.id)
+        guard let oldRank = previousRank, oldRank != currentRank else { return }
+
+        NotificationManager.shared.sendRankChangeAlert(
+            groupName: group.name,
+            oldRank: oldRank,
+            newRank: currentRank
+        )
     }
 
     private var noGroupsCTA: some View {

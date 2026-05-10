@@ -119,6 +119,10 @@ Updated: 2026-05-03. Items marked **YOU** need founder action. Items marked **CO
 - [x] Milestone share cards (7/14/30/100 day)
 - [x] Gender-aware Hebrew strings
 - [x] Debug tools in Settings (toggle premium, trigger milestones)
+- [x] Data-driven notification system (rank change, goal celebration, inactivity, enhanced evening + weekly)
+- [x] Widget redesign (mascot-hero small, enhanced medium with state-aware glow)
+- [x] Social competition system (groups, leaderboard, podium, rank tracking)
+- [x] Premium enforcement (trial vs paid, server-side RPCs, soft degrade on lapse)
 - [ ] Landing page (separate repo — see `plan/landing-page-prompt.md`)
 - [ ] Final Hebrew copy review pass
 - [ ] Empty states polish (what users see before they have groups/data)
@@ -126,6 +130,8 @@ Updated: 2026-05-03. Items marked **YOU** need founder action. Items marked **CO
 - [ ] App Store review compliance scan (usage description strings, etc.)
 - [ ] StoreKit 2 product configuration in App Store Connect
 - [ ] Onboarding flow polish
+- [ ] Push notifications via APNs (server-side rank change, social nudge) — requires Edge Function + .p8
+- [ ] Push token registration (send to `users.push_token` in Supabase)
 
 ---
 

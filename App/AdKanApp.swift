@@ -34,6 +34,13 @@ struct AdKanApp: App {
                 }
                 .task {
                     await NotificationManager.shared.checkStatus()
+                    if UserDefaults.standard.object(forKey: "inactivityReminderEnabled") as? Bool ?? true {
+                        NotificationManager.shared.scheduleInactivityReengagement(
+                            groupName: nil,
+                            lastRank: nil,
+                            streak: 0
+                        )
+                    }
                 }
         }
     }

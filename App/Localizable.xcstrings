@@ -1153,6 +1153,204 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "הסטריק של %lld ימים נשבר — מתחילים מחדש מחר 💪" } }
       }
     },
+    "notif.rankChange.improved.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "⬆ You climbed" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "⬆ קפצת במדרגות" } }
+      }
+    },
+    "notif.rankChange.improved.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You moved to #%lld in %@. Don't blow it." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עלית למקום %lld ב%@. אל תתחרפן." } }
+      }
+    },
+    "notif.rankChange.improved.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Jumped from #%lld to #%lld in %@. Don't blow it." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קפצת ממקום %lld ל-%lld ב%@. אל תתחרפן." } }
+      }
+    },
+    "notif.rankChange.dropped.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "⬇ You got passed" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "⬇ מישהו עקף אותך" } }
+      }
+    },
+    "notif.rankChange.dropped.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dropped from #%lld to #%lld in %@. What's going on?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ירדת מ-%lld ל-%lld ב%@. מה קורה שם?" } }
+      }
+    },
+    "notif.rankChange.dropped.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're #%lld in %@. Time to fight back." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ירדת למקום %lld ב%@. הגיע הזמן להילחם." } }
+      }
+    },
+    "notif.rankChange.first.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "👑 You're first" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "👑 אתה ראשון" } }
+      }
+    },
+    "notif.rankChange.first.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're #1 in %@. 👑" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתה #1 ב%@. 👑" } }
+      }
+    },
+    "notif.rankChange.first.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "#1 in %@. Just don't blow it before midnight." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ראשון ב%@. עכשיו רק לא לפשל עד חצות." } }
+      }
+    },
+    "notif.goalCelebration.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You did it today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל הכבוד על היום" } }
+      }
+    },
+    "notif.goalCelebration.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved %lld min under goal. %lld days in a row." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסכת %lld דק מהיעד. %lld ימים ברצף." } }
+      }
+    },
+    "notif.goalCelebration.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld minutes you took back today. Streak: %lld. Same again tomorrow." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld דקות שהחזרת לעצמך היום. רצף של %lld. מחר גם." } }
+      }
+    },
+    "notif.goalCelebration.c" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld days under goal. Not easy. But it shows." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld ימים ברצף מתחת ליעד. לא קל. אבל ניכר." } }
+      }
+    },
+    "notif.inactivity.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ moved without you" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%@ זזה בלעדיך" } }
+      }
+    },
+    "notif.inactivity.title.noGroup" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Two days without opening" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יומיים בלי לפתוח" } }
+      }
+    },
+    "notif.inactivity.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Two days gone. You were #%lld — that's probably changed by now." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברו יומיים. היית במקום %lld, אבל זה כנראה כבר השתנה." } }
+      }
+    },
+    "notif.inactivity.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your streak is at risk. %@ didn't stop to wait." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הרצף שלך בסכנה. %@ לא עצרה לחכות." } }
+      }
+    },
+    "notif.inactivity.c" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Two days closed. Someone probably passed you. Maybe not. Check." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יומיים בלי לפתוח. מישהו בטח עקף אותך. אולי לא. תבדוק." } }
+      }
+    },
+    "notif.evening.under.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Still in the clear" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עוד זמן ליעד" } }
+      }
+    },
+    "notif.evening.under.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld min so far. %lld min left. Stay there." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld דק עד עכשיו. נשארו %lld דק ליעד. תישאר שם." } }
+      }
+    },
+    "notif.evening.under.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good so far. %lld min. Keep it there until midnight." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עד עכשיו בסדר. %lld דק. תשמור על זה עד חצות." } }
+      }
+    },
+    "notif.evening.close.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting close" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתקרב ליעד" } }
+      }
+    },
+    "notif.evening.close.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld min. %lld min left. Tonight decides it." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld דק. נשארו %lld דק ליעד. הלילה יקבע." } }
+      }
+    },
+    "notif.evening.close.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld min until you cross your goal. Easy tonight." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld דק ואתה חוצה את היעד. קל עם הטלפון הערב." } }
+      }
+    },
+    "notif.evening.over.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Over goal" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברת את היעד" } }
+      }
+    },
+    "notif.evening.over.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld min. Past your %lld min goal. Fresh start tomorrow." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%lld דק. עברת את ה-%lld. מחר מתאפסים." } }
+      }
+    },
+    "notif.evening.over.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "It happens. %lld min. Not your whole career. Tomorrow." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קרה. %lld דק. לא קריירה. מחר שוב." } }
+      }
+    },
+    "notif.weekly.title.v2" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New week. What's the story?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שבוע חדש. מה הסיפור?" } }
+      }
+    },
+    "notif.weekly.a" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This week: %@. #%lld in %@. %@ already started." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "השבוע עמדת על %@. מקום %lld ב%@. %@ כבר התחילה." } }
+      }
+    },
+    "notif.weekly.b" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ on screen. Streak: %lld days. Will next week be better?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "%@ על המסך השבוע. רצף: %lld ימים. השבוע הבא יהיה יותר טוב?" } }
+      }
+    },
+    "notif.weekly.fallback" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "New week. Good time to start clean." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שבוע חדש. כדאי להתחיל נקי." } }
+      }
+    },
+    "settings.notifications.goalCelebration" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Goal celebration" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חגיגת יעד" } }
+      }
+    },
+    "settings.notifications.inactivity" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Come-back reminder" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "תזכורת חזרה" } }
+      }
+    },
     "milestone.share.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Share Your Streak" } },
