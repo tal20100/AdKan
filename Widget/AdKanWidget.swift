@@ -24,6 +24,14 @@ struct AdKanEntry: TimelineEntry {
         WidgetTheme.mascotImage(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
     }
 
+    var mascotGlowColor: Color {
+        WidgetTheme.mascotGlowColor(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+    }
+
+    var stateLabelKey: String {
+        WidgetTheme.stateLabel(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+    }
+
     static let placeholder = AdKanEntry(
         date: Date(), todayMinutes: 72, goalMinutes: 120,
         currentStreak: 5, yesterdayMinutes: 90
@@ -92,7 +100,7 @@ struct AdKanWidgetEntryView: View {
         }
     }
 
-    // MARK: - Small Widget
+    // MARK: - Small Widget (Mascot Hero)
 
     private var smallView: some View {
         VStack(spacing: 4) {
@@ -102,47 +110,63 @@ struct AdKanWidgetEntryView: View {
                 }
                 Spacer()
                 Text(formatMinutes(entry.todayMinutes))
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
                     .foregroundStyle(entry.statusColor)
             }
 
             Spacer()
 
-            Image(entry.mascotImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxHeight: 70)
+            ZStack {
+                Circle()
+                    .fill(entry.mascotGlowColor.opacity(0.15))
+                    .frame(width: 85, height: 85)
+
+                Image(entry.mascotImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 75)
+            }
 
             Spacer()
 
-            HStack {
-                Text({
-                    let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
-                    let goal = formatMinutes(entry.goalMinutes)
-                    return isHebrew ? "מתוך \(goal)" : "of \(goal)"
-                }())
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
-                    .foregroundStyle(.secondary)
-                Spacer()
-                ProgressView(value: entry.usageRatio)
-                    .tint(entry.statusColor)
-                    .frame(width: 60)
-            }
+            Text(LocalizedStringKey(entry.stateLabelKey))
+                .font(.system(size: 10, weight: .bold, design: .rounded))
+                .foregroundStyle(entry.mascotGlowColor)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(entry.mascotGlowColor.opacity(0.12))
+                .clipShape(Capsule())
         }
         .padding(14)
         .containerBackground(for: .widget) {
-            Color(.systemBackground)
+            entry.mascotGlowColor.opacity(0.04)
         }
     }
 
-    // MARK: - Medium Widget
+    // MARK: - Medium Widget (Brain + Metrics)
 
     private var mediumView: some View {
         HStack(spacing: 12) {
-            Image(entry.mascotImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 80, height: 80)
+            VStack(spacing: 6) {
+                ZStack {
+                    Circle()
+                        .fill(entry.mascotGlowColor.opacity(0.15))
+                        .frame(width: 80, height: 80)
+
+                    Image(entry.mascotImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 68, height: 68)
+                }
+
+                Text(LocalizedStringKey(entry.stateLabelKey))
+                    .font(.system(size: 9, weight: .bold, design: .rounded))
+                    .foregroundStyle(entry.mascotGlowColor)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(entry.mascotGlowColor.opacity(0.12))
+                    .clipShape(Capsule())
+            }
 
             VStack(alignment: .leading, spacing: 6) {
                 Text("AdKan")
@@ -188,7 +212,7 @@ struct AdKanWidgetEntryView: View {
         }
         .padding(14)
         .containerBackground(for: .widget) {
-            Color(.systemBackground)
+            entry.mascotGlowColor.opacity(0.04)
         }
     }
 
@@ -256,4 +280,30 @@ struct AdKanWidget: Widget {
         .description("See your screen time at a glance.")
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryCircular])
     }
+}
+
+// MARK: - Previews
+
+#Preview("Small — Thriving", as: .systemSmall) {
+    AdKanWidget()
+} timeline: {
+    AdKanEntry(date: Date(), todayMinutes: 40, goalMinutes: 120, currentStreak: 14, yesterdayMinutes: 55)
+}
+
+#Preview("Small — Spiraling", as: .systemSmall) {
+    AdKanWidget()
+} timeline: {
+    AdKanEntry(date: Date(), todayMinutes: 420, goalMinutes: 120, currentStreak: 0, yesterdayMinutes: 380)
+}
+
+#Preview("Medium — On Track", as: .systemMedium) {
+    AdKanWidget()
+} timeline: {
+    AdKanEntry(date: Date(), todayMinutes: 95, goalMinutes: 120, currentStreak: 5, yesterdayMinutes: 110)
+}
+
+#Preview("Lock Screen", as: .accessoryCircular) {
+    AdKanWidget()
+} timeline: {
+    AdKanEntry(date: Date(), todayMinutes: 72, goalMinutes: 120, currentStreak: 5, yesterdayMinutes: 90)
 }

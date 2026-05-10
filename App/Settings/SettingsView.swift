@@ -13,6 +13,8 @@ struct SettingsView: View {
     @State private var showDeleteConfirm = false
     @AppStorage("eveningReminderEnabled") private var eveningReminder = false
     @AppStorage("weeklyCheckinEnabled") private var weeklyCheckin = true
+    @AppStorage("goalCelebrationEnabled") private var goalCelebration = true
+    @AppStorage("inactivityReminderEnabled") private var inactivityReminder = true
     @AppStorage("profileDisplayName") private var displayName = ""
     @AppStorage("profileAvatarEmoji") private var avatarEmoji = ""
     @State private var showProfileEdit = false
@@ -146,6 +148,36 @@ struct SettingsView: View {
                         } else {
                             UNUserNotificationCenter.current()
                                 .removePendingNotificationRequests(withIdentifiers: ["weekly_checkin"])
+                        }
+                    }
+
+                    Toggle(isOn: $goalCelebration) {
+                        Label {
+                            Text("settings.notifications.goalCelebration")
+                        } icon: {
+                            Image(systemName: "party.popper.fill")
+                                .foregroundStyle(.orange)
+                        }
+                    }
+                    .tint(AdKanTheme.primary)
+                    .onChange(of: goalCelebration) { _, enabled in
+                        if !enabled {
+                            NotificationManager.shared.cancelGoalCelebration()
+                        }
+                    }
+
+                    Toggle(isOn: $inactivityReminder) {
+                        Label {
+                            Text("settings.notifications.inactivity")
+                        } icon: {
+                            Image(systemName: "arrow.counterclockwise.circle.fill")
+                                .foregroundStyle(AdKanTheme.brandPurple)
+                        }
+                    }
+                    .tint(AdKanTheme.primary)
+                    .onChange(of: inactivityReminder) { _, enabled in
+                        if !enabled {
+                            NotificationManager.shared.cancelInactivityReengagement()
                         }
                     }
                 }
