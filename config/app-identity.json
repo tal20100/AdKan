@@ -10,7 +10,7 @@
     "shieldConfiguration": "com.talhayun.AdKan.shieldconfiguration",
     "deviceActivityReport": "com.talhayun.AdKan.deviceactivityreport"
   },
-  "teamId": "TBD_APPLE_TEAM_ID_FOUNDER_ACTION",
+  "teamId": "STJA5GH4Y9",
   "deploymentTargetIOS": "17.0",
   "schemeName": "AdKan",
   "productIds": {
