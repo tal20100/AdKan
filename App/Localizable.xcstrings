@@ -507,8 +507,8 @@
     },
     "tab.groups" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Friends" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חברים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות" } }
       }
     },
     "tab.blocking" : {
@@ -705,8 +705,26 @@
     },
     "groups.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "My Groups" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הקבוצות שלי" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות" } }
+      }
+    },
+    "groups.featured" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pinned Group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצה נעוצה" } }
+      }
+    },
+    "groups.noFavorite" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Star a group to pin it here" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סמנו קבוצה בכוכב כדי להצמיד אותה כאן" } }
+      }
+    },
+    "groups.allGroups" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל הקבוצות" } }
       }
     },
     "groups.upgradeCta" : {
