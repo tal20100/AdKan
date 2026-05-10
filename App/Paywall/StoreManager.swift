@@ -9,26 +9,29 @@ final class StoreManager: ObservableObject {
     @Published var errorMessage: String?
 
     @AppStorage("isPremium") var isPremium = false
+    @AppStorage("isTrial") var isTrial = false
+
+    var canExpandGroups: Bool { isPremium && !isTrial }
 
     static let freeGroupLimit = 3
     static let freeGroupMemberLimit = 3
-    static let premiumGroupMemberLimit = 30
+    static let premiumGroupMemberLimit = 40
 
     func canAccess(_ feature: PremiumFeature) -> Bool {
         switch feature {
         case .unlimitedGroups, .largeGroups:
-            return isPremium
+            return canExpandGroups
         default:
             return isPremium
         }
     }
 
     var groupMemberLimit: Int {
-        isPremium ? Self.premiumGroupMemberLimit : Self.freeGroupMemberLimit
+        canExpandGroups ? Self.premiumGroupMemberLimit : Self.freeGroupMemberLimit
     }
 
     var groupLimit: Int {
-        isPremium ? .max : Self.freeGroupLimit
+        canExpandGroups ? .max : Self.freeGroupLimit
     }
 
     private var updateTask: Task<Void, Never>?
@@ -72,8 +75,7 @@ final class StoreManager: ObservableObject {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
                 await transaction.finish()
-                purchasedProductIDs.insert(transaction.productID)
-                isPremium = true
+                await refreshEntitlements()
                 return true
             case .userCancelled:
                 return false
@@ -101,21 +103,33 @@ final class StoreManager: ObservableObject {
 
     private func refreshEntitlements() async {
         var ids = Set<String>()
+        var onTrial = false
         for await result in Transaction.currentEntitlements {
             if let transaction = try? checkVerified(result) {
+                if transaction.revocationDate != nil { continue }
                 ids.insert(transaction.productID)
+                if transaction.offerType == .introductory {
+                    onTrial = true
+                }
             }
         }
         purchasedProductIDs = ids
         isPremium = !ids.isEmpty
+        isTrial = isPremium && onTrial && ids.allSatisfy { id in
+            Tier.from(productID: id)?.productID != Tier.lifetime.productID
+        }
     }
 
     private func listenForTransactions() async {
         for await result in Transaction.updates {
             if let transaction = try? checkVerified(result) {
-                await transaction.finish()
-                purchasedProductIDs.insert(transaction.productID)
-                isPremium = true
+                if transaction.revocationDate != nil {
+                    purchasedProductIDs.remove(transaction.productID)
+                } else {
+                    await transaction.finish()
+                    purchasedProductIDs.insert(transaction.productID)
+                }
+                await refreshEntitlements()
             }
         }
     }

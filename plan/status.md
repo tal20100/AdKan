@@ -1,39 +1,45 @@
 # AdKan — Live Status
 
-**Updated:** 2026-04-19 (end of Day 0 — Plan lock complete; Build phase scaffold authored).
+**Updated:** 2026-05-10 (Social competition system — Phase 1 implementation complete).
 
 ---
 
 ## Current phase
 
-**Day 0 complete. Day 1 pending founder `approved, begin execution`.**
+**Build — active development. Social competition Phase 1 landed on `feature/leaderboard-redesign`.**
 
-Plan lock delivered: all 32 governance files authored in the repo (this file + the rest of `/plan`, plus `/CLAUDE.md`, `/research/*`, `/prd/*`, `/specs/*`, `/adr/*`, `/scripts/hello-mac.mjs`). Agent definitions + settings.json wiring remain as Batches 10 + 11, executed during Day 1.
-
----
-
-## Last commit
-
-**none yet** — initial commit happens at the start of Day 1 (Batch 11 finalization).
+Phase 1 social competition system implemented: profile system, leaderboard redesign with podium, league badges, streak sync, group owner management, weekly leaderboard RPC, localization fixes. Ready for Supabase migration and TestFlight validation.
 
 ---
 
-## Active blockers
+## Social Competition — Phase 1 Implementation Status
 
-None blocking Day 1 start. Two open items are *ambient* but do not block code Day 1:
+### Completed (this branch)
+- [x] Schema migration (`supabase/migration_002_social.sql`) — profile, streak, league badge columns + RPCs
+- [x] Profile system (`ProfileSetupView.swift`) — name + curated emoji avatar, onboarding + settings integration
+- [x] Leaderboard redesign (`LeaderboardView.swift` + `PodiumView.swift`) — podium top-3, daily/weekly toggle, current-user highlight
+- [x] League badges (`LeagueBadge.swift`) — 🥉→🥈→🥇→💎→👑 based on weekly performance
+- [x] Weekly leaderboard RPC — replaces 7-parallel-call pattern with single `weekly_leaderboard_for`
+- [x] Group owner management — leave group, ownership transfer, leave confirmation
+- [x] Streak + badge fields added to `GroupMember`, `LeaderboardEntry`, service layer
+- [x] Home screen leaderboard preview card (replaces `FavoriteGroupCard`)
+- [x] Localization — 18 new HE+EN keys for profile, leaderboard, groups
+- [x] Deleted replaced files: `FavoriteGroupCard.swift`, `WeeklyLeaderboardCard.swift`
 
-- **Apple Developer Program enrollment** in flight (founder-action #1). Day 1 work is governance + scaffold, not device-dependent.
-- **FamilyControls entitlement** to be submitted Day 1 morning (founder-action #3). 1–30 day wildcard; we build against stubs regardless per ADR 0005.
+### Phase 2 (next branch)
+- [ ] Rank-change push notifications (APNs + Edge Function)
+- [ ] Friday recap view + IG Story share
+- [ ] Morning nudge local notifications
+- [ ] Rivalry indicators (⚡ between close competitors)
+- [ ] Viral unlock backend (invite 3 friends = trial)
 
 ---
 
 ## Next action
 
-1. Founder types `approved, begin execution`.
-2. Orchestrator runs Day-1 first-three commands from master plan §7:
-   - Plugin installs (frontend-design, owasp)
-   - Commit the 32-file scaffold + verify hooks
-   - `node scripts/hello-mac.mjs` smoke test → OFFLINE banner + exit 0.
+1. Run Supabase migration (`migration_002_social.sql`) against EU Frankfurt project
+2. Build + verify on simulator (stubs cover all new service methods)
+3. TestFlight build once Developer Program approval completes
 
 ---
 
@@ -182,3 +188,39 @@ _(auto-appended by `subagent-stop-status-update.mjs` once the hook is wired in B
 - 2026-05-05T20:33:45.280Z orchestrator — (no subject) — ? files — ok
 - 2026-05-05T20:23:04.655Z orchestrator — (no subject) — ? files — ok
 - 2026-05-05T20:20:22.489Z orchestrator — (no subject) — ? files — ok
+
+- 2026-05-10T08:04:51.957Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T07:54:23.195Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T07:29:22.786Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T07:24:44.834Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T07:20:27.115Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T07:20:23.189Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T07:07:29.584Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:48:58.135Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:45:54.995Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:32:55.446Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:27:34.736Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:19:10.193Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:15:32.334Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:14:07.262Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:07:21.954Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T20:01:30.818Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:55:51.928Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:47:01.715Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:31:27.947Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:29:36.306Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:28:44.654Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:23:11.192Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:19:17.073Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:18:11.582Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:17:52.990Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:10:22.259Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:07:20.855Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T19:06:00.706Z orchestrator — (no subject) — ? files — ok
+- 2026-05-09T18:58:32.339Z orchestrator — (no subject) — ? files — ok
+
+- 2026-05-10T13:02:20.969Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T12:34:22.841Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T12:33:52.220Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T12:07:18.784Z orchestrator — (no subject) — ? files — ok
+- 2026-05-10T09:24:58.660Z orchestrator — (no subject) — ? files — ok

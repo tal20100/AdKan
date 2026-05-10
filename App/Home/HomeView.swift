@@ -82,10 +82,10 @@ struct HomeView: View {
                             }
                         }
 
-                        FavoriteGroupCard(group: favoriteGroup)
-
                         if let group = favoriteGroup {
-                            WeeklyLeaderboardCard(group: group)
+                            leaderboardPreview(group: group)
+                        } else if groups.isEmpty {
+                            noGroupsCTA
                         }
 
                         WeeklySummaryCard()
@@ -102,6 +102,16 @@ struct HomeView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("AdKan")
+            .navigationDestination(for: Route.self) { route in
+                switch route {
+                case .groupDetail(let groupId):
+                    GroupDetailView(groupId: groupId)
+                case .createGroup:
+                    CreateGroupView(onCreated: { _ in })
+                default:
+                    EmptyView()
+                }
+            }
             .overlay {
                 if let milestone = pendingMilestone {
                     MilestoneShareSheet(streakDays: milestone) {
@@ -251,6 +261,59 @@ struct HomeView: View {
     private var focusCTA: some View {
         AdKanButton(titleKey: "home.startFocus", style: .primary) {
             switchToFocusTab()
+        }
+    }
+
+    private func leaderboardPreview(group: AdKanGroup) -> some View {
+        VStack(spacing: 10) {
+            HStack {
+                Image(systemName: "trophy.fill")
+                    .foregroundStyle(AdKanTheme.primary)
+                    .font(.caption)
+                Text("home.leaderboard")
+                    .font(AdKanTheme.cardTitle)
+                Spacer()
+                NavigationLink(value: Route.groupDetail(groupId: group.id)) {
+                    HStack(spacing: 4) {
+                        Text("home.seeAll")
+                            .font(.caption.bold())
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 10, weight: .bold))
+                    }
+                    .foregroundStyle(AdKanTheme.primary)
+                }
+            }
+
+            LeaderboardView(group: group, previousRanks: [:], compact: true)
+        }
+    }
+
+    private var noGroupsCTA: some View {
+        PlainCard {
+            VStack(spacing: 12) {
+                Image(systemName: "person.3.fill")
+                    .font(.title)
+                    .foregroundStyle(AdKanTheme.primary)
+
+                Text("home.noGroups.title")
+                    .font(AdKanTheme.cardTitle)
+                    .multilineTextAlignment(.center)
+
+                Text("home.noGroups.body")
+                    .font(AdKanTheme.cardBody)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+
+                NavigationLink(value: Route.createGroup) {
+                    Text("home.noGroups.cta")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(AdKanTheme.primaryGradient)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
+                }
+            }
         }
     }
 }

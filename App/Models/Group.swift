@@ -5,6 +5,7 @@ struct AdKanGroup: Identifiable, Codable, Sendable {
     var name: String
     var type: GroupType
     var isFavorite: Bool
+    var createdBy: String?
     var members: [GroupMember]
 
     var memberCount: Int { members.count }
@@ -15,10 +16,16 @@ struct GroupMember: Identifiable, Codable, Sendable {
     var displayName: String
     var avatarEmoji: String
     var dailyTotalMinutes: Int?
+    var currentStreak: Int?
+    var leagueBadge: String?
     var rank: Int?
     var isCurrentUser: Bool = false
 
     var id: String { userId }
+
+    var badge: LeagueBadge {
+        LeagueBadge(rawValue: leagueBadge ?? "") ?? .none
+    }
 }
 
 enum GroupType: String, Codable, CaseIterable, Sendable {

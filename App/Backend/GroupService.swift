@@ -8,6 +8,7 @@ protocol GroupService: Sendable {
     func removeMember(groupId: String, userId: String) async throws
     func setFavorite(groupId: String, isFavorite: Bool) async throws
     func renameGroup(groupId: String, newName: String) async throws
+    func leaveGroup(groupId: String) async throws
 }
 
 final class StubGroupService: GroupService, @unchecked Sendable {
@@ -17,9 +18,12 @@ final class StubGroupService: GroupService, @unchecked Sendable {
             name: "חברים",
             type: .friends,
             isFavorite: true,
+            createdBy: "stub-user-id",
             members: [
-                GroupMember(userId: "stub-user-id", displayName: "You", avatarEmoji: "😎", dailyTotalMinutes: 95, rank: 1),
-                GroupMember(userId: "user-2", displayName: "יעל", avatarEmoji: "🌸", dailyTotalMinutes: 140, rank: 2)
+                GroupMember(userId: "stub-user-id", displayName: "You", avatarEmoji: "😎", dailyTotalMinutes: 95, currentStreak: 5, leagueBadge: "🥇", rank: 1, isCurrentUser: true),
+                GroupMember(userId: "user-2", displayName: "יעל", avatarEmoji: "🌸", dailyTotalMinutes: 140, currentStreak: 3, leagueBadge: "🥈", rank: 2),
+                GroupMember(userId: "user-3", displayName: "עומר", avatarEmoji: "🔥", dailyTotalMinutes: 185, currentStreak: 0, leagueBadge: "", rank: 3),
+                GroupMember(userId: "user-4", displayName: "נועה", avatarEmoji: "🌺", dailyTotalMinutes: 210, currentStreak: 1, leagueBadge: "🥉", rank: 4)
             ]
         ),
         AdKanGroup(
@@ -27,8 +31,9 @@ final class StubGroupService: GroupService, @unchecked Sendable {
             name: "עבודה",
             type: .coworkers,
             isFavorite: false,
+            createdBy: "stub-user-id",
             members: [
-                GroupMember(userId: "stub-user-id", displayName: "You", avatarEmoji: "😎", dailyTotalMinutes: 95, rank: 1)
+                GroupMember(userId: "stub-user-id", displayName: "You", avatarEmoji: "😎", dailyTotalMinutes: 95, currentStreak: 5, leagueBadge: "🥇", rank: 1, isCurrentUser: true)
             ]
         )
     ]
@@ -38,8 +43,8 @@ final class StubGroupService: GroupService, @unchecked Sendable {
     }
 
     func createGroup(name: String, type: GroupType) async throws -> AdKanGroup {
-        let me = GroupMember(userId: "stub-user-id", displayName: "You", avatarEmoji: "😎", dailyTotalMinutes: 0, rank: 1)
-        let group = AdKanGroup(id: UUID().uuidString, name: name, type: type, isFavorite: false, members: [me])
+        let me = GroupMember(userId: "stub-user-id", displayName: "You", avatarEmoji: "😎", dailyTotalMinutes: 0, currentStreak: 0, leagueBadge: "", rank: 1, isCurrentUser: true)
+        let group = AdKanGroup(id: UUID().uuidString, name: name, type: type, isFavorite: false, createdBy: "stub-user-id", members: [me])
         storedGroups.append(group)
         return group
     }
@@ -50,7 +55,7 @@ final class StubGroupService: GroupService, @unchecked Sendable {
 
     func addMember(groupId: String, userId: String) async throws {
         guard let idx = storedGroups.firstIndex(where: { $0.id == groupId }) else { return }
-        let member = GroupMember(userId: userId, displayName: "Friend", avatarEmoji: "🙂", dailyTotalMinutes: nil, rank: nil)
+        let member = GroupMember(userId: userId, displayName: "Friend", avatarEmoji: "🙂", dailyTotalMinutes: nil, currentStreak: 0, leagueBadge: "", rank: nil)
         storedGroups[idx].members.append(member)
     }
 
@@ -70,6 +75,10 @@ final class StubGroupService: GroupService, @unchecked Sendable {
     func renameGroup(groupId: String, newName: String) async throws {
         guard let idx = storedGroups.firstIndex(where: { $0.id == groupId }) else { return }
         storedGroups[idx].name = newName
+    }
+
+    func leaveGroup(groupId: String) async throws {
+        storedGroups.removeAll { $0.id == groupId }
     }
 }
 
@@ -123,7 +132,11 @@ struct SupabaseGroupService: GroupService {
         request.httpBody = try JSONEncoder().encode(body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+        if let http = response as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+            let message = String(data: data, encoding: .utf8) ?? ""
+            if message.contains("Group limit reached") {
+                throw GroupServiceError.groupLimitReached
+            }
             throw GroupServiceError.requestFailed
         }
         return try JSONDecoder().decode(AdKanGroup.self, from: data)
@@ -150,16 +163,22 @@ struct SupabaseGroupService: GroupService {
     func addMember(groupId: String, userId: String) async throws {
         let headers = await authHeaders()
 
-        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/group_members")
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/add_member")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         applyHeaders(&request, headers: headers)
 
-        let body: [String: String] = ["group_id": groupId, "user_id": userId]
+        let body: [String: String] = ["target_group_id": groupId, "target_user_id": userId]
         request.httpBody = try JSONEncoder().encode(body)
 
-        let (_, response) = try await URLSession.shared.data(for: request)
-        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        if let http = response as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+            let message = String(data: data, encoding: .utf8) ?? ""
+            if message.contains("Premium required") {
+                throw GroupServiceError.premiumRequired
+            } else if message.contains("Group is full") {
+                throw GroupServiceError.groupFull
+            }
             throw GroupServiceError.requestFailed
         }
     }
@@ -220,16 +239,39 @@ struct SupabaseGroupService: GroupService {
             throw GroupServiceError.requestFailed
         }
     }
+
+    func leaveGroup(groupId: String) async throws {
+        let headers = await authHeaders()
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/leave_group")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        applyHeaders(&request, headers: headers)
+
+        let body: [String: String] = ["target_group_id": groupId]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw GroupServiceError.requestFailed
+        }
+    }
 }
 
 enum GroupServiceError: Error, LocalizedError {
     case requestFailed
     case notAuthenticated
+    case premiumRequired
+    case groupFull
+    case groupLimitReached
 
     var errorDescription: String? {
         switch self {
         case .requestFailed: return "Group service request failed."
         case .notAuthenticated: return "Not authenticated."
+        case .premiumRequired: return "Premium subscription required."
+        case .groupFull: return "This group is full."
+        case .groupLimitReached: return "Group limit reached."
         }
     }
 }

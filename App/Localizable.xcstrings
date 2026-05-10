@@ -507,8 +507,8 @@
     },
     "tab.groups" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Friends" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חברים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות" } }
       }
     },
     "tab.blocking" : {
@@ -705,8 +705,26 @@
     },
     "groups.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "My Groups" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הקבוצות שלי" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות" } }
+      }
+    },
+    "groups.featured" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pinned Group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצה נעוצה" } }
+      }
+    },
+    "groups.noFavorite" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Star a group to pin it here" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סמנו קבוצה בכוכב כדי להצמיד אותה כאן" } }
+      }
+    },
+    "groups.allGroups" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All Groups" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "כל הקבוצות" } }
       }
     },
     "groups.upgradeCta" : {
@@ -1907,6 +1925,114 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Monthly Recap" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום חודשי" } }
+      }
+    },
+    "profile.setup.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create Your Profile" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "צרו את הפרופיל שלכם" } }
+      }
+    },
+    "profile.setup.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This is how your friends will see you" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ככה החברים שלכם יראו אתכם" } }
+      }
+    },
+    "profile.setup.nameLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Display Name" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שם תצוגה" } }
+      }
+    },
+    "profile.setup.namePlaceholder" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your name" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "השם שלכם" } }
+      }
+    },
+    "profile.setup.emojiLabel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose Avatar" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בחרו אווטאר" } }
+      }
+    },
+    "profile.setup.continue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "המשך" } }
+      }
+    },
+    "profile.setup.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שמירה" } }
+      }
+    },
+    "settings.profile.noName" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set your name" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגדירו שם" } }
+      }
+    },
+    "settings.profile.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit Profile" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עריכת פרופיל" } }
+      }
+    },
+    "settings.profile.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Profile" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פרופיל" } }
+      }
+    },
+    "leaderboard.today" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "היום" } }
+      }
+    },
+    "leaderboard.thisWeek" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This Week" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "השבוע" } }
+      }
+    },
+    "home.leaderboard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Leaderboard" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "טבלת מובילים" } }
+      }
+    },
+    "groups.leave" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Leave Group" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עזיבת קבוצה" } }
+      }
+    },
+    "groups.leave.confirm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Leave this group?" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "לעזוב את הקבוצה?" } }
+      }
+    },
+    "groups.leave.message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You'll no longer appear in this group's leaderboard." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "לא תופיעו יותר בטבלת המובילים של הקבוצה." } }
+      }
+    },
+    "groups.leave.ownerMessage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're the group owner. Ownership will transfer to the next member." } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתם בעלי הקבוצה. הבעלות תעבור לחבר הבא." } }
+      }
+    },
+    "groups.lapse.banner" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Upgrade to add friends and unlock weekly stats" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "שדרגו כדי להוסיף חברים ולפתוח סטטיסטיקה שבועית" } }
       }
     }
   },
