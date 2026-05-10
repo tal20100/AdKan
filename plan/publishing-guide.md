@@ -405,8 +405,8 @@ Inside the "AdKan Premium" group, add:
 | Price | Tier matching ₪7.90 (check Israel pricing tier) |
 | Display Name (HE) | חודשי |
 | Display Name (EN) | Monthly |
-| Description (HE) | גישה מלאה לכל התכונות |
-| Description (EN) | Full access to all features |
+| Description (HE) | קבוצות ללא הגבלה, אתגרים שבועיים וכל מה שצריך |
+| Description (EN) | Unlimited groups, weekly challenges, and everything you need |
 
 **Annual:**
 | Field | Value |
@@ -417,8 +417,8 @@ Inside the "AdKan Premium" group, add:
 | Price | Tier matching ₪59.90 |
 | Display Name (HE) | שנתי |
 | Display Name (EN) | Annual |
-| Description (HE) | חיסכון של 37% |
-| Description (EN) | Save 37% |
+| Description (HE) | כל התכונות. חיסכון של 37%. בלי לחשוב על זה. |
+| Description (EN) | All features. Save 37%. Set it and forget it. |
 
 ### 8.3 Create Non-Consumable (Lifetime)
 
@@ -427,12 +427,12 @@ Go to **In-App Purchases → (+) → Non-Consumable**
 | Field | Value |
 |-------|-------|
 | Reference Name | Lifetime |
-| Product ID | `com.talhayun.AdKan.lifetime` |
+| Product ID | `com.talhayun.AdKan.premium.lifetime` |
 | Price | Tier matching ₪99.90 |
 | Display Name (HE) | לכל החיים |
 | Display Name (EN) | Lifetime |
-| Description (HE) | תשלום חד-פעמי, גישה לנצח |
-| Description (EN) | One-time purchase, forever access |
+| Description (HE) | תשלום אחד. גישה מלאה. לתמיד. |
+| Description (EN) | One payment. Full access. Forever. |
 
 ### 8.4 Review Status
 
@@ -444,7 +444,7 @@ These product IDs are hardcoded in `App/Paywall/Tier.swift` and configured in `A
 
 - `com.talhayun.AdKan.subscription.monthly`
 - `com.talhayun.AdKan.subscription.annual`
-- `com.talhayun.AdKan.lifetime`
+- `com.talhayun.AdKan.premium.lifetime`
 
 The `.storekit` file is for local testing in Xcode simulator. Real purchases go through App Store Connect.
 
@@ -736,7 +736,7 @@ These are required by Apple or Supabase and cannot be avoided:
 | Services ID (Sign-In) | `com.talhayun.AdKan.auth` |
 | Product ID (Monthly) | `com.talhayun.AdKan.subscription.monthly` |
 | Product ID (Annual) | `com.talhayun.AdKan.subscription.annual` |
-| Product ID (Lifetime) | `com.talhayun.AdKan.lifetime` |
+| Product ID (Lifetime) | `com.talhayun.AdKan.premium.lifetime` |
 | URL Scheme | `adkan://` |
 | Deployment Target | iOS 17.0 |
 | Primary Language | Hebrew |

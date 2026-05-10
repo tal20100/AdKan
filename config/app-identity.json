@@ -16,7 +16,7 @@
   "productIds": {
     "monthly": "com.talhayun.AdKan.subscription.monthly",
     "annual": "com.talhayun.AdKan.subscription.annual",
-    "lifetime": "com.talhayun.AdKan.lifetime"
+    "lifetime": "com.talhayun.AdKan.premium.lifetime"
   },
   "pricingIls": {
     "monthly": 7.90,
