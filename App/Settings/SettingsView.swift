@@ -216,7 +216,7 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Link(destination: URL(string: "https://taltalhayun.com/adkan/privacy")!) {
+                    Link(destination: URL(string: "https://adkan.app/privacy")!) {
                         Label {
                             Text("settings.privacyPolicy")
                         } icon: {
@@ -226,7 +226,7 @@ struct SettingsView: View {
                     }
                     .foregroundStyle(.primary)
 
-                    Link(destination: URL(string: "https://taltalhayun.com/adkan/terms")!) {
+                    Link(destination: URL(string: "https://adkan.app/terms")!) {
                         Label {
                             Text("settings.termsOfService")
                         } icon: {
