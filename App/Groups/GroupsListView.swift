@@ -50,7 +50,7 @@ struct GroupsListView: View {
                 }
 
                 Section {
-                    if !storeManager.isPremium && groups.count >= StoreManager.freeGroupLimit {
+                    if !storeManager.canExpandGroups && groups.count >= StoreManager.freeGroupLimit {
                         Button(action: { showPaywall = true }) {
                             Label {
                                 Text("groups.upgradeCta")

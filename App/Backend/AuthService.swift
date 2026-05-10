@@ -7,6 +7,7 @@ protocol AuthService: Sendable {
     func signInWithApple(credential: ASAuthorizationAppleIDCredential) async throws
     func signOut()
     func accessToken() async -> String?
+    func updateProfile(displayName: String, avatarEmoji: String) async throws
 }
 
 final class SupabaseAuthService: AuthService, @unchecked Sendable {
@@ -76,6 +77,28 @@ final class SupabaseAuthService: AuthService, @unchecked Sendable {
         KeychainHelper.read(key: tokenKey)
     }
 
+    func updateProfile(displayName: String, avatarEmoji: String) async throws {
+        guard let token = KeychainHelper.read(key: tokenKey) else { return }
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/update_profile")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(apiKey, forHTTPHeaderField: "apikey")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let body: [String: String] = [
+            "new_display_name": displayName,
+            "new_avatar_emoji": avatarEmoji
+        ]
+        request.httpBody = try JSONEncoder().encode(body)
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw AuthError.serverError
+        }
+    }
+
     private func ensureUserRow(userId: String) async throws {
         let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/users")
         var request = URLRequest(url: url)
@@ -100,6 +123,7 @@ struct StubAuthService: AuthService {
     func signInWithApple(credential: ASAuthorizationAppleIDCredential) async throws {}
     func signOut() {}
     func accessToken() async -> String? { nil }
+    func updateProfile(displayName: String, avatarEmoji: String) async throws {}
 }
 
 enum AuthError: Error, LocalizedError {

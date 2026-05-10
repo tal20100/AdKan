@@ -2,57 +2,51 @@ import SwiftUI
 
 struct GroupDetailView: View {
     let groupId: String
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var services: ServiceContainer
     @EnvironmentObject private var storeManager: StoreManager
+    @EnvironmentObject private var languageManager: LanguageManager
     @State private var group: AdKanGroup?
     @State private var previousRanks: [String: Int] = [:]
     @State private var showAddFriend = false
     @State private var showPaywall = false
     @State private var showRenameAlert = false
+    @State private var showLeaveConfirm = false
     @State private var renameText = ""
     @State private var isLoading = true
     @State private var loadError: String?
-
-    private var sortedMembers: [GroupMember] {
-        (group?.members ?? []).sorted { ($0.rank ?? 999) < ($1.rank ?? 999) }
-    }
 
     private var isAtFreeLimit: Bool {
         (group?.memberCount ?? 0) >= storeManager.groupMemberLimit
     }
 
+    private var isOwner: Bool {
+        group?.createdBy == services.auth.currentUserId
+    }
+
     var body: some View {
-        List {
+        ScrollView {
             if isLoading {
                 ProgressView()
-                    .frame(maxWidth: .infinity, minHeight: 200)
-                    .listRowBackground(Color.clear)
+                    .frame(maxWidth: .infinity, minHeight: 300)
             } else if let error = loadError {
-                VStack(spacing: 12) {
-                    Image(systemName: "wifi.exclamationmark")
-                        .font(.system(size: 36))
-                        .foregroundStyle(.secondary)
-                    Text(error)
-                        .font(AdKanTheme.cardBody)
-                        .foregroundStyle(.secondary)
-                    Button("common.retry") {
-                        Task { await loadDetail() }
+                errorView(error)
+            } else if let group {
+                VStack(spacing: AdKanTheme.cardSpacing) {
+                    headerSection(group)
+                    if !storeManager.canExpandGroups && group.memberCount > StoreManager.freeGroupMemberLimit {
+                        lapseBanner
                     }
-                    .buttonStyle(.bordered)
+                    LeaderboardView(group: group, previousRanks: previousRanks)
+                    if isAtFreeLimit {
+                        paywallBanner
+                    }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 40)
-                .listRowBackground(Color.clear)
-            } else if let group = group {
-                headerSection(group)
-                leaderboardSection
-                if isAtFreeLimit {
-                    paywallBanner
-                } else if !storeManager.isPremium {
-                    upsellHint
-                }
+                .padding(.horizontal, AdKanTheme.screenPadding)
+                .padding(.vertical, 16)
             }
         }
+        .background(Color(.systemGroupedBackground))
         .navigationTitle(group?.name ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -63,6 +57,9 @@ struct GroupDetailView: View {
                     addFriendButton
                 }
             }
+            ToolbarItem(placement: .topBarLeading) {
+                leaveButton
+            }
         }
         .sheet(isPresented: $showAddFriend) {
             AddFriendView(groupId: groupId, memberCount: group?.memberCount ?? 0)
@@ -70,9 +67,7 @@ struct GroupDetailView: View {
         .sheet(isPresented: $showPaywall) {
             PaywallView(context: .groupLimit(groupName: group?.name ?? ""))
         }
-        .task {
-            await loadDetail()
-        }
+        .task { await loadDetail() }
         .alert("groups.rename.title", isPresented: $showRenameAlert) {
             TextField("groups.rename.placeholder", text: $renameText)
             Button("common.save") {
@@ -84,28 +79,55 @@ struct GroupDetailView: View {
             }
             Button("common.cancel", role: .cancel) {}
         }
+        .alert("groups.leave.confirm", isPresented: $showLeaveConfirm) {
+            Button("groups.leave", role: .destructive) {
+                Task {
+                    try? await services.groups.leaveGroup(groupId: groupId)
+                    dismiss()
+                }
+            }
+            Button("common.cancel", role: .cancel) {}
+        } message: {
+            Text(isOwner ? "groups.leave.ownerMessage" : "groups.leave.message")
+        }
+    }
+
+    private func errorView(_ error: String) -> some View {
+        VStack(spacing: 12) {
+            Image(systemName: "wifi.exclamationmark")
+                .font(.system(size: 36))
+                .foregroundStyle(.secondary)
+            Text(error)
+                .font(AdKanTheme.cardBody)
+                .foregroundStyle(.secondary)
+            Button("common.retry") {
+                Task { await loadDetail() }
+            }
+            .buttonStyle(.bordered)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 40)
     }
 
     private func headerSection(_ group: AdKanGroup) -> some View {
-        Section {
-            HStack(spacing: 12) {
-                Text(group.type.emoji)
-                    .font(.largeTitle)
+        HStack(spacing: 12) {
+            Text(group.type.emoji)
+                .font(.largeTitle)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(group.name)
-                        .font(.title3.bold())
-                    Text(LocalizedStringKey(group.type.nameKey))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+            VStack(alignment: .leading, spacing: 4) {
+                Text(group.name)
+                    .font(.title3.bold())
+                Text(LocalizedStringKey(group.type.nameKey))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
 
-                Spacer()
+            Spacer()
 
+            VStack(spacing: 2) {
                 Text("\(group.memberCount)")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundStyle(AdKanTheme.primary)
-
                 Text("groups.members")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -113,40 +135,8 @@ struct GroupDetailView: View {
         }
     }
 
-    private var leaderboardSection: some View {
-        Section {
-            ForEach(sortedMembers) { member in
-                HStack(spacing: 12) {
-                    Text("#\(member.rank ?? 0)")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .frame(width: 32, alignment: .leading)
-
-                    Text(member.avatarEmoji)
-                        .font(.title2)
-
-                    Text(member.displayName)
-                        .font(.body.weight(.medium))
-
-                    Spacer()
-
-                    if let minutes = member.dailyTotalMinutes {
-                        Text("\(minutes)m")
-                            .font(.body.weight(.semibold))
-                            .foregroundStyle(AdKanTheme.minutesColor(minutes))
-                    }
-
-                    RankChangeIndicator(previousRank: previousRanks[member.userId], currentRank: member.rank ?? 0)
-                }
-                .padding(.vertical, 4)
-            }
-        } header: {
-            Text("groups.leaderboard")
-        }
-    }
-
     private var paywallBanner: some View {
-        Section {
+        PlainCard {
             VStack(spacing: 12) {
                 Image(systemName: "lock.fill")
                     .font(.title2)
@@ -160,20 +150,37 @@ struct GroupDetailView: View {
                     showPaywall = true
                 }
             }
-            .padding(.vertical, 8)
         }
     }
 
-    private var upsellHint: some View {
-        Section {
+    private var lapseBanner: some View {
+        Button(action: { showPaywall = true }) {
             HStack(spacing: 8) {
                 Image(systemName: "crown.fill")
                     .foregroundStyle(.yellow)
                     .font(.caption)
-                Text("groups.paywall.upsell")
+                Text("groups.lapse.banner")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(.tertiary)
             }
+            .padding(12)
+            .background(Color(.secondarySystemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var leaveButton: some View {
+        Button {
+            showLeaveConfirm = true
+        } label: {
+            Image(systemName: "rectangle.portrait.and.arrow.right")
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
     }
 
@@ -215,10 +222,16 @@ struct GroupDetailView: View {
     private func loadDetail() async {
         loadError = nil
         do {
-            let loaded = try await services.groups.fetchGroupDetail(groupId: groupId)
+            var loaded = try await services.groups.fetchGroupDetail(groupId: groupId)
+            if let userId = services.auth.currentUserId {
+                for i in loaded.members.indices {
+                    if loaded.members[i].userId == userId {
+                        loaded.members[i].isCurrentUser = true
+                    }
+                }
+            }
             group = loaded
 
-            // Populate previousRanks from yesterday's stored history
             var prev: [String: Int] = [:]
             for member in loaded.members {
                 if let r = RankHistoryStore.shared.previousRank(for: member.userId, groupId: groupId) {
@@ -227,7 +240,6 @@ struct GroupDetailView: View {
             }
             previousRanks = prev
 
-            // Persist today's ranks so tomorrow's view can show movement
             let todayRanks = Dictionary(uniqueKeysWithValues: loaded.members.compactMap { m -> (String, Int)? in
                 guard let r = m.rank else { return nil }
                 return (m.userId, r)

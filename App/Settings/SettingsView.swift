@@ -13,10 +13,45 @@ struct SettingsView: View {
     @State private var showDeleteConfirm = false
     @AppStorage("eveningReminderEnabled") private var eveningReminder = false
     @AppStorage("weeklyCheckinEnabled") private var weeklyCheckin = true
+    @AppStorage("profileDisplayName") private var displayName = ""
+    @AppStorage("profileAvatarEmoji") private var avatarEmoji = ""
+    @State private var showProfileEdit = false
 
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    Button {
+                        showProfileEdit = true
+                    } label: {
+                        HStack(spacing: 14) {
+                            ZStack {
+                                Circle()
+                                    .fill(AdKanTheme.brandGreen.opacity(0.12))
+                                    .frame(width: 48, height: 48)
+                                Text(avatarEmoji.isEmpty ? "😎" : avatarEmoji)
+                                    .font(.system(size: 26))
+                            }
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(displayName.isEmpty ? String(localized: "settings.profile.noName") : displayName)
+                                    .font(.headline)
+                                    .foregroundStyle(.primary)
+                                Text("settings.profile.edit")
+                                    .font(.caption)
+                                    .foregroundStyle(AdKanTheme.primary)
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .font(.caption.bold())
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+
                 Section {
                     LabeledContent {
                         Picker("", selection: $languageManager.preferredLanguage) {
@@ -244,6 +279,21 @@ struct SettingsView: View {
             .navigationTitle(Text("settings.title"))
             .sheet(isPresented: $showPaywall) {
                 PaywallView()
+            }
+            .sheet(isPresented: $showProfileEdit) {
+                NavigationStack {
+                    ProfileSetupView()
+                        .navigationTitle(Text("settings.profile.title"))
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button { showProfileEdit = false } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                }
             }
             .alert("settings.signOut.confirm", isPresented: $showSignOutConfirm) {
                 Button("settings.signOut", role: .destructive) {
