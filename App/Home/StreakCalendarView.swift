@@ -60,7 +60,7 @@ struct StreakCalendarView: View {
         ) {
             ForEach(days, id: \.self) { day in
                 Circle()
-                    .fill(goalDays.contains(day) ? AdKanTheme.brandGreen : Color(.systemGray5))
+                    .fill(goalDays.contains(day) ? AdKanTheme.brandGreen : AdKanTheme.brandGreen.opacity(0.10))
                     .frame(width: dotSize, height: dotSize)
                     .scaleEffect(goalDays.contains(day) ? 1.15 : 1.0)
                     .animation(.spring(response: 0.3), value: goalDays.contains(day))

@@ -1,7 +1,7 @@
 // MascotView — brain mascot with state-driven visual effects and animations.
 import SwiftUI
 
-enum MascotState {
+enum MascotState: Equatable {
     case thriving
     case onTrack
     case slipping
@@ -53,14 +53,13 @@ enum MascotState {
         self == .thriving
     }
 
-    /// Index into the 5-dot state indicator (0 = thriving, 4 = spiraling)
-    var dotIndex: Int {
+    var labelKey: String {
         switch self {
-        case .thriving: return 0
-        case .onTrack: return 1
-        case .slipping: return 2
-        case .warning: return 3
-        case .spiraling: return 4
+        case .thriving: return "mascot.label.thriving"
+        case .onTrack: return "mascot.label.onTrack"
+        case .slipping: return "mascot.label.slipping"
+        case .warning: return "mascot.label.warning"
+        case .spiraling: return "mascot.label.spiraling"
         }
     }
 }
@@ -95,10 +94,10 @@ struct MascotView: View {
     var body: some View {
         VStack(spacing: 16) {
             mascotStack
-            stateDots
+            stateLabel
             Text(LocalizedStringKey(messageKey))
-                .font(AdKanTheme.cardBody)
-                .foregroundStyle(.secondary)
+                .font(.callout.weight(.medium))
+                .foregroundStyle(.primary.opacity(0.75))
                 .multilineTextAlignment(.center)
                 .animation(.easeInOut, value: messageKey)
         }
@@ -164,18 +163,17 @@ struct MascotView: View {
         }
     }
 
-    // MARK: - State dots
+    // MARK: - State label
 
-    private var stateDots: some View {
-        HStack(spacing: 7) {
-            ForEach(0..<5) { index in
-                let isActive = index == state.dotIndex
-                Circle()
-                    .fill(isActive ? state.glowColor : Color(.systemGray4))
-                    .frame(width: isActive ? 10 : 7, height: isActive ? 10 : 7)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.65), value: state.dotIndex)
-            }
-        }
+    private var stateLabel: some View {
+        Text(LocalizedStringKey(state.labelKey))
+            .font(.footnote.bold())
+            .foregroundStyle(state.glowColor)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 6)
+            .background(state.glowColor.opacity(0.15))
+            .clipShape(Capsule())
+            .animation(.easeInOut, value: state.labelKey)
     }
 
     // MARK: - Animation control

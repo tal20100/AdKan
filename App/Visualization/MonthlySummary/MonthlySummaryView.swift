@@ -4,6 +4,7 @@ import Charts
 struct MonthlySummaryView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var languageManager: LanguageManager
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var data: MonthlySummaryData?
     @State private var isLoading = true
@@ -262,15 +263,10 @@ struct MonthlySummaryView: View {
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        if h > 0 { return "\(h)h \(m)m" }
-        return "\(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 
     private func formatHours(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        return "\(h)h \(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 }

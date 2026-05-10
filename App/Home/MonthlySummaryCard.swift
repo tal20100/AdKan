@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MonthlySummaryCard: View {
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var languageManager: LanguageManager
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var dailyAverage: Int?
     @State private var changePercent: Double?
@@ -75,9 +76,6 @@ struct MonthlySummaryCard: View {
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        if h > 0 { return "\(h)h \(m)m" }
-        return "\(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 }

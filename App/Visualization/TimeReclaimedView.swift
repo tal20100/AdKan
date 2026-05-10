@@ -26,7 +26,7 @@ struct TimeReclaimedView: View {
             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
                 animateNumber = true
             }
-            if underGoal {
+            if underGoal && savedMinutes > 0 && todayMinutes > 0 {
                 withAnimation(.easeIn.delay(1.0)) { showConfetti = true }
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
             }
@@ -37,7 +37,10 @@ struct TimeReclaimedView: View {
         GradientCard(gradient: underGoal ? goalMetGradient : defaultGradient) {
             VStack(spacing: 12) {
                 Text(formatMinutes(todayMinutes))
-                    .font(AdKanTheme.heroNumber)
+                    .font(.system(size: languageManager.preferredLanguage.hasPrefix("he") ? 36 : 72, weight: .bold, design: .rounded))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundStyle(.white)
                     .scaleEffect(animateNumber ? 1.0 : 0.5)
                     .opacity(animateNumber ? 1.0 : 0)
@@ -67,7 +70,7 @@ struct TimeReclaimedView: View {
                 }
             }
             .overlay {
-                if showConfetti {
+                if showConfetti && underGoal {
                     ConfettiOverlay()
                 }
             }
@@ -100,7 +103,7 @@ struct TimeReclaimedView: View {
     private var comparisonCards: some View {
         VStack(spacing: 10) {
             Text(underGoal ? "home.couldve" : "home.couldveUsed")
-                .font(AdKanTheme.cardBody)
+                .font(.subheadline.bold())
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -143,10 +146,7 @@ struct TimeReclaimedView: View {
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        if h > 0 { return "\(h)h \(m)m" }
-        return "\(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 
     private var goalMetGradient: LinearGradient {
@@ -168,7 +168,7 @@ private struct ComparisonRow: View {
     var body: some View {
         HStack(spacing: 14) {
             Text(comparison.icon)
-                .font(.title2)
+                .font(.title)
 
             Text(comparison.text(locale: languageManager.preferredLanguage))
                 .font(AdKanTheme.comparisonText)
@@ -180,6 +180,7 @@ private struct ComparisonRow: View {
         .padding(.vertical, 14)
         .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 14))
+        .shadow(color: .black.opacity(0.04), radius: 6, y: 2)
     }
 }
 

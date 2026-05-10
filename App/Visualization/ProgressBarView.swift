@@ -5,9 +5,18 @@ struct ProgressBarView: View {
     let currentMinutes: Int
     let goalMinutes: Int
     var compact: Bool = true
+    @EnvironmentObject private var languageManager: LanguageManager
 
     private var fillFraction: Double {
-        min(1.0, Double(currentMinutes) / Double(max(1, goalMinutes)))
+        Double(currentMinutes) / Double(max(1, goalMinutes))
+    }
+
+    private var greenFraction: Double {
+        min(fillFraction, 1.0)
+    }
+
+    private var overflowFraction: Double {
+        max(fillFraction - 1.0, 0)
     }
 
     private var barHeight: CGFloat {
@@ -21,27 +30,48 @@ struct ProgressBarView: View {
     var body: some View {
         VStack(alignment: .trailing, spacing: 4) {
             if !compact {
-                Text("\(currentMinutes)m / \(goalMinutes)m")
+                let current = TimeFormatter.format(minutes: currentMinutes, locale: languageManager.preferredLanguage)
+                let goal = TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage)
+                let isHebrew = languageManager.preferredLanguage.hasPrefix("he")
+                Text(isHebrew ? "\(goal) / \(current)" : "\(current) / \(goal)")
                     .font(AdKanTheme.cardBody)
                     .foregroundStyle(Color.secondary)
             }
 
             GeometryReader { proxy in
+                let totalWidth = proxy.size.width
+                let goalX = totalWidth * min(1.0 / max(fillFraction, 1.0), 1.0)
+
                 ZStack(alignment: .leading) {
-                    // Background track
                     Capsule()
-                        .fill(Color(.systemGray5))
+                        .fill(AdKanTheme.brandGreen.opacity(0.08))
                         .frame(height: barHeight)
 
-                    // Filled portion
                     Capsule()
-                        .fill(fillColor)
+                        .fill(AdKanTheme.brandGreen)
                         .frame(
-                            width: proxy.size.width * fillFraction,
+                            width: totalWidth * greenFraction / max(fillFraction, 1.0),
                             height: barHeight
                         )
-                        .animation(.spring(), value: currentMinutes)
+
+                    if overflowFraction > 0 {
+                        Capsule()
+                            .fill(AdKanTheme.dangerRed)
+                            .frame(
+                                width: totalWidth * overflowFraction / max(fillFraction, 1.0),
+                                height: barHeight
+                            )
+                            .offset(x: goalX)
+                    }
+
+                    if fillFraction > 0.05 {
+                        RoundedRectangle(cornerRadius: 1)
+                            .fill(Color.white.opacity(0.9))
+                            .frame(width: 2, height: barHeight + 4)
+                            .offset(x: goalX - 1)
+                    }
                 }
+                .animation(.spring(), value: currentMinutes)
             }
             .frame(height: barHeight)
         }

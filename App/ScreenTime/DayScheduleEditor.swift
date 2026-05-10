@@ -3,6 +3,7 @@ import SwiftUI
 struct DayScheduleEditor: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var ruleStore: BlockingRuleStore
+    @EnvironmentObject private var languageManager: LanguageManager
 
     let rule: DayScheduleRule
 
@@ -89,10 +90,6 @@ struct DayScheduleEditor: View {
     }
 
     private func formattedLimit(_ minutes: Int) -> String {
-        let h = minutes / 60
-        let m = minutes % 60
-        if h == 0 { return "\(m)m" }
-        if m == 0 { return "\(h)h" }
-        return "\(h)h \(m)m"
+        TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage)
     }
 }

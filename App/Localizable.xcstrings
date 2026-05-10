@@ -249,8 +249,8 @@
     },
     "onboarding.q2.options.evening" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Evening on the couch" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "ערב על הספה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "At night before bed" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בלילה לפני השינה" } }
       }
     },
     "onboarding.q2.options.allday" : {
@@ -424,7 +424,7 @@
     "home.minutesLeft.neutral" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ left — you got this!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — שולטים!" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "נשארו %@ — אתם שולטים!" } }
       }
     },
     "home.overGoal %@" : {
@@ -453,8 +453,8 @@
     },
     "home.minToday" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "used today" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "נוצלו היום" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Screen Time Today" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "זמן מסך היום" } }
       }
     },
     "home.vsYesterday" : {
@@ -507,14 +507,14 @@
     },
     "tab.groups" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Groups" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "קבוצות" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Friends" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חברים" } }
       }
     },
     "tab.blocking" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Blocking" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Focus" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פוקוס" } }
       }
     },
     "home.seeAll" : {
@@ -1045,6 +1045,18 @@
         "he" : { "stringUnit" : { "state" : "translated", "value" : "יעד יומי" } }
       }
     },
+    "home.todayMetrics" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's Summary" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "סיכום היום" } }
+      }
+    },
+    "home.startFocus" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start Focus" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הפעל פוקוס" } }
+      }
+    },
     "home.streakCalendar.title" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Focus Streak" } },
@@ -1061,36 +1073,6 @@
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Best: %lld days" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "שיא: %lld ימים" } }
-      }
-    },
-    "mascot.thriving" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're crushing it!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מדהים!" } }
-      }
-    },
-    "mascot.onTrack" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "On track today" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בכיוון הנכון" } }
-      }
-    },
-    "mascot.slipping" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting close to the limit..." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתקרבים למגבלה..." } }
-      }
-    },
-    "mascot.warning" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Over the goal" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברנו את היעד" } }
-      }
-    },
-    "mascot.spiraling" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time to put it down" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגיע הזמן להוריד" } }
       }
     },
     "notif.weekly.title" : {
@@ -1221,44 +1203,74 @@
     },
     "mascot.thriving" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're crushing it today!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "אלוף/ה! יום מדהים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Great, keep it going" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מעולה, ממשיכים ככה" } }
       }
     },
     "mascot.onTrack" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Looking good, keep it up" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Looking good, keep going" } },
         "he" : { "stringUnit" : { "state" : "translated", "value" : "נראה טוב, ממשיכים" } }
       }
     },
     "mascot.slipping" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting close to the limit..." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתקרבים לגבול..." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting close, worth paying attention" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מתקרבים ליעד, שווה לשים לב" } }
       }
     },
     "mascot.warning" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Way over the goal today" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברת את היעד בהרבה" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Over the goal, worth stopping" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "עברת את היעד, שווה לעצור" } }
       }
     },
     "mascot.spiraling" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שים את הטלפון. ברצינות." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tough day, tomorrow's a reset" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יום קשה, מחר מתחילים מחדש" } }
       }
     },
     "mascot.spiraling.female" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שימי את הטלפון. ברצינות." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tough day, tomorrow's a reset" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יום קשה, מחר מתחילה מחדש" } }
       }
     },
     "mascot.spiraling.neutral" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Put the phone down. Seriously." } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "שימו את הטלפון. ברצינות." } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tough day, tomorrow's a reset" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יום קשה, מחר מתחילים מחדש" } }
+      }
+    },
+    "mascot.label.thriving" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Excellent" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מצוין" } }
+      }
+    },
+    "mascot.label.onTrack" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "On track" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "בשליטה" } }
+      }
+    },
+    "mascot.label.slipping" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Near limit" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "קרוב לגבול" } }
+      }
+    },
+    "mascot.label.warning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Over goal" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מעבר ליעד" } }
+      }
+    },
+    "mascot.label.spiraling" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Way over" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חריגה" } }
       }
     },
     "premium.badge" : {

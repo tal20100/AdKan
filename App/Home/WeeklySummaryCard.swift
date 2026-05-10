@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WeeklySummaryCard: View {
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var languageManager: LanguageManager
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var thisWeekMinutes: Int = 0
     @State private var lastWeekMinutes: Int = 0
@@ -50,7 +51,7 @@ struct WeeklySummaryCard: View {
 
     private func weekColumn(titleKey: String, minutes: Int) -> some View {
         VStack(spacing: 4) {
-            Text("\(minutes / 60)h \(minutes % 60)m")
+            Text(TimeFormatter.format(minutes: minutes, locale: languageManager.preferredLanguage))
                 .font(.system(size: 18, weight: .semibold, design: .rounded))
             Text(LocalizedStringKey(titleKey))
                 .font(.caption)
@@ -62,7 +63,7 @@ struct WeeklySummaryCard: View {
         VStack(spacing: 2) {
             Image(systemName: improved ? "arrow.down.right" : "arrow.up.right")
                 .font(.caption.bold())
-            Text("\(abs(delta))m")
+            Text(TimeFormatter.format(minutes: abs(delta), locale: languageManager.preferredLanguage))
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .foregroundStyle(improved ? AdKanTheme.successGreen : AdKanTheme.dangerRed)

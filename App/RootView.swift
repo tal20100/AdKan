@@ -19,8 +19,10 @@ struct RootView: View {
 }
 
 struct MainTabView: View {
+    @State private var selectedTab = 0
+
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             HomeView()
                 .tabItem {
                     Label {
@@ -29,6 +31,7 @@ struct MainTabView: View {
                         Image(systemName: "house.fill")
                     }
                 }
+                .tag(0)
 
             GroupsListView()
                 .tabItem {
@@ -38,6 +41,7 @@ struct MainTabView: View {
                         Image(systemName: "trophy.fill")
                     }
                 }
+                .tag(1)
 
             BlockingView()
                 .tabItem {
@@ -47,6 +51,7 @@ struct MainTabView: View {
                         Image(systemName: "shield.checkered")
                     }
                 }
+                .tag(2)
 
             SettingsView()
                 .tabItem {
@@ -56,9 +61,22 @@ struct MainTabView: View {
                         Image(systemName: "gearshape.fill")
                     }
                 }
+                .tag(3)
         }
         .tint(Color.accentColor)
         .toolbarBackground(.ultraThinMaterial, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)
+        .environment(\.switchToFocusTab, { selectedTab = 2 })
+    }
+}
+
+private struct SwitchToFocusTabKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var switchToFocusTab: () -> Void {
+        get { self[SwitchToFocusTabKey.self] }
+        set { self[SwitchToFocusTabKey.self] = newValue }
     }
 }

@@ -3,7 +3,9 @@ import WidgetKit
 
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
+    @Environment(\.switchToFocusTab) private var switchToFocusTab
     @EnvironmentObject private var services: ServiceContainer
+    @EnvironmentObject private var languageManager: LanguageManager
     @EnvironmentObject private var streakTracker: StreakTracker
     @AppStorage("dailyGoalMinutes") private var goalMinutes: Int = 120
     @State private var todayMinutes: Int = 0
@@ -49,7 +51,18 @@ struct HomeView: View {
                             rankChip(rank: rank, groupName: group.name, groupId: group.id)
                         }
 
+                        HStack(spacing: 6) {
+                            Image(systemName: "chart.bar.fill")
+                                .font(.caption)
+                                .foregroundStyle(AdKanTheme.primary)
+                            Text("home.todayMetrics")
+                                .font(AdKanTheme.cardTitle)
+                            Spacer()
+                        }
+
                         usageCard
+
+                        focusCTA
 
                         StreakCalendarView()
 
@@ -58,6 +71,9 @@ struct HomeView: View {
                                 HStack {
                                     Image(systemName: "flame.fill")
                                         .foregroundStyle(AdKanTheme.primary)
+                                        .padding(6)
+                                        .background(AdKanTheme.primary.opacity(0.12))
+                                        .clipShape(Circle())
                                     Text("home.dailyGoal")
                                         .font(AdKanTheme.cardTitle)
                                     Spacer()
@@ -99,12 +115,17 @@ struct HomeView: View {
                     .zIndex(10)
                 }
             }
-            .onChange(of: todayMinutes) { _, _ in
+            .onChange(of: todayMinutes) { oldValue, _ in
                 NotificationManager.shared.rescheduleStreakAtRisk(
                     streak: streakTracker.currentStreak,
                     todayMinutes: todayMinutes,
                     goalMinutes: goalMinutes
                 )
+                let oldState = MascotState(todayMinutes: oldValue, goalMinutes: goalMinutes)
+                let newState = MascotState(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+                if oldState != newState && (newState == .warning || newState == .spiraling) {
+                    UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                }
                 updateWidget()
             }
             .refreshable {
@@ -179,45 +200,57 @@ struct HomeView: View {
 
     private var usageCard: some View {
         PlainCard {
-            HStack(spacing: 20) {
-                VStack(spacing: 4) {
-                    Text("\(todayMinutes)")
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
-                        .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
-                    Text("home.minToday")
-                        .font(AdKanTheme.cardBody)
-                        .foregroundStyle(.secondary)
-                }
+            VStack(spacing: 10) {
+                Text(TimeFormatter.format(minutes: todayMinutes, locale: languageManager.preferredLanguage))
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity)
+                    .foregroundStyle(AdKanTheme.minutesColor(todayMinutes, goal: goalMinutes))
+
+                Text("home.minToday")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
                 Divider()
-                    .frame(height: 48)
 
-                VStack(spacing: 4) {
+                HStack {
                     let delta = todayMinutes - yesterdayMinutes
-                    HStack(spacing: 4) {
+                    HStack(spacing: 3) {
                         Image(systemName: delta <= 0 ? "arrow.down.right" : "arrow.up.right")
-                            .font(.caption.bold())
-                        Text("\(abs(delta))m")
-                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .font(.system(size: 10, weight: .bold))
+                        Text(TimeFormatter.format(minutes: abs(delta), locale: languageManager.preferredLanguage))
+                            .font(.caption.weight(.semibold))
+                            .minimumScaleFactor(0.6)
+                            .lineLimit(1)
                     }
                     .foregroundStyle(delta <= 0 ? AdKanTheme.successGreen : AdKanTheme.dangerRed)
 
                     Text("home.vsYesterday")
-                        .font(AdKanTheme.cardBody)
+                        .font(.caption2)
                         .foregroundStyle(.secondary)
-                }
 
-                Spacer()
+                    Spacer()
 
-                VStack(spacing: 4) {
-                    Image(systemName: "target")
-                        .font(.title2)
-                        .foregroundStyle(AdKanTheme.primary)
-                    Text("\(goalMinutes)m")
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 3) {
+                        Image(systemName: "target")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(AdKanTheme.primary)
+                        Text(TimeFormatter.format(minutes: goalMinutes, locale: languageManager.preferredLanguage))
+                            .font(.caption.weight(.semibold))
+                            .minimumScaleFactor(0.6)
+                            .lineLimit(1)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
+            .multilineTextAlignment(.center)
+        }
+    }
+
+    private var focusCTA: some View {
+        AdKanButton(titleKey: "home.startFocus", style: .primary) {
+            switchToFocusTab()
         }
     }
 }

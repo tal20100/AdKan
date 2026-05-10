@@ -84,7 +84,10 @@ struct AdKanWidgetEntryView: View {
                 .trim(from: 0, to: entry.usageRatio)
                 .stroke(entry.statusColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-            Text("\(entry.todayMinutes)m")
+            Text({
+                let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+                return "\(entry.todayMinutes)\(isHebrew ? "ד׳" : "m")"
+            }())
                 .font(.system(size: 13, weight: .bold, design: .rounded))
         }
     }
@@ -113,7 +116,11 @@ struct AdKanWidgetEntryView: View {
             Spacer()
 
             HStack {
-                Text("of \(formatMinutes(entry.goalMinutes))")
+                Text({
+                    let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+                    let goal = formatMinutes(entry.goalMinutes)
+                    return isHebrew ? "מתוך \(goal)" : "of \(goal)"
+                }())
                     .font(.system(size: 11, weight: .medium, design: .rounded))
                     .foregroundStyle(.secondary)
                 Spacer()
@@ -203,16 +210,29 @@ struct AdKanWidgetEntryView: View {
     private var deltaText: String {
         let abs = abs(entry.yesterdayDelta)
         let formatted = formatMinutes(abs)
+        let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+        let less = isHebrew ? "פחות" : "less"
+        let more = isHebrew ? "יותר" : "more"
         return entry.yesterdayDelta <= 0
-            ? "\(formatted) less"
-            : "\(formatted) more"
+            ? "\(formatted) \(less)"
+            : "\(formatted) \(more)"
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
         let h = minutes / 60, m = minutes % 60
-        if h > 0 && m > 0 { return "\(h)h\(m)m" }
-        if h > 0 { return "\(h)h" }
-        return "\(m)m"
+        let isHebrew = Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+
+        if isHebrew {
+            let hp: String = h == 1 ? "שעה" : h == 2 ? "שעתיים" : "\(h) שעות"
+            let mp: String = m == 1 ? "דקה" : "\(m) דקות"
+            if h > 0 && m > 0 { return "\(hp) ו-\(mp)" }
+            if h > 0 { return hp }
+            return mp
+        } else {
+            if h > 0 && m > 0 { return "\(h)h \(m)m" }
+            if h > 0 { return "\(h)h" }
+            return "\(m)m"
+        }
     }
 }
 

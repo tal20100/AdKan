@@ -20,7 +20,7 @@ enum AdKanTheme {
     // MARK: - Gradients
 
     static let primaryGradient = LinearGradient(
-        colors: [brandGreen, brandGreenLight],
+        colors: [Color(red: 0.28, green: 0.60, blue: 0.26), Color(red: 0.48, green: 0.78, blue: 0.42)],
         startPoint: .topLeading, endPoint: .bottomTrailing
     )
     static let heroGradient = LinearGradient(
@@ -61,7 +61,7 @@ enum AdKanTheme {
     static let cardPadding: CGFloat = 20
     static let cardCornerRadius: CGFloat = 20
     static let buttonCornerRadius: CGFloat = 16
-    static let cardSpacing: CGFloat = 16
+    static let cardSpacing: CGFloat = 20
     static let progressBarHeightCompact: CGFloat = 8
     static let progressBarHeightExpanded: CGFloat = 12
 }
