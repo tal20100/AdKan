@@ -27,7 +27,6 @@ targets:
       - path: App/Assets.xcassets
       - path: App/Localizable.xcstrings
       - path: App/PrivacyInfo.xcprivacy
-      - path: App/SupabaseSecrets.plist
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan
