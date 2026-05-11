@@ -13,7 +13,7 @@
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.ManagedSettings.shield-configuration</string>
+		<string>com.apple.ManagedSettings-shield.configuration</string>
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).AdKanShieldConfigurationExtension</string>
 	</dict>
