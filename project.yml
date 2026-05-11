@@ -130,8 +130,9 @@ targets:
         CFBundleIdentifier: com.talhayun.AdKan.DeviceActivityMonitor
         CFBundleVersion: "1"
         CFBundleShortVersionString: "1.0.0"
-        EXAppExtensionAttributes:
-          EXExtensionPointIdentifier: com.apple.deviceactivity-monitor
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity-monitor
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).AdKanDeviceActivityMonitorExtension
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan.DeviceActivityMonitor
