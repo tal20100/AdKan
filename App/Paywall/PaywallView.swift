@@ -196,13 +196,13 @@ struct PaywallView: View {
             }
             Text("·")
             Button("paywall.terms") {
-                if let url = URL(string: "https://taltalhayun.com/adkan/terms") {
+                if let url = URL(string: "https://adkan.app/terms") {
                     UIApplication.shared.open(url)
                 }
             }
             Text("·")
             Button("paywall.privacy") {
-                if let url = URL(string: "https://taltalhayun.com/adkan/privacy") {
+                if let url = URL(string: "https://adkan.app/privacy") {
                     UIApplication.shared.open(url)
                 }
             }

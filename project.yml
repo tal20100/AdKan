@@ -1,4 +1,4 @@
-name: AdKan
+﻿name: AdKan
 options:
   bundleIdPrefix: com.talhayun
   deploymentTarget:
@@ -9,7 +9,7 @@ settings:
   base:
     SWIFT_VERSION: "5.9"
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: ""
+    DEVELOPMENT_TEAM: "STJA5GH4Y9"
 
 targets:
   AdKan:
@@ -44,6 +44,7 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         SWIFT_EMIT_LOC_STRINGS: "YES"
         INFOPLIST_KEY_CFBundleURLTypes: "[{CFBundleURLSchemes = (adkan);}]"
+        CODE_SIGN_ENTITLEMENTS: App/AdKan.entitlements
     dependencies:
       - target: AdKanWidget
         embed: true
@@ -78,6 +79,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+        CODE_SIGN_ENTITLEMENTS: Widget/AdKanWidget.entitlements
     dependencies:
       - framework: WidgetKit.framework
         weak: true
@@ -98,6 +100,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+        CODE_SIGN_ENTITLEMENTS: ShieldConfiguration/ShieldConfiguration.entitlements
     dependencies:
       - framework: ManagedSettings.framework
         weak: true
@@ -118,6 +121,7 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         SWIFT_VERSION: "5.9"
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+        CODE_SIGN_ENTITLEMENTS: DeviceActivityMonitor/DeviceActivityMonitor.entitlements
     dependencies:
       - framework: DeviceActivity.framework
         weak: true
