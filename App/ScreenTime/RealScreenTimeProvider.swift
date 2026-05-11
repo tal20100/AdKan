@@ -23,11 +23,11 @@ final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     }
 
     func todayTotalMinutes() async -> Int {
-        sharedDefaults?.integer(forKey: "todayTotalMinutes") ?? 0
+        sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
     }
 
     func yesterdayTotalMinutes() async -> Int {
-        sharedDefaults?.integer(forKey: "yesterdayTotalMinutes") ?? 0
+        sharedDefaults?.integer(forKey: "widget.yesterdayMinutes") ?? 0
     }
 
     func isPermissionStillGranted() async -> Bool {

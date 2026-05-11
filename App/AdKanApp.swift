@@ -46,9 +46,10 @@ struct AdKanApp: App {
     }
 
     private static func makeScreenTimeProvider() -> any ScreenTimeProvider {
-        // RealScreenTimeProvider is excluded from build until the paid
-        // Apple Developer account + FamilyControls entitlement are active.
-        // Re-add it in project.yml sources and swap this back when ready.
+        #if canImport(FamilyControls) && !targetEnvironment(simulator)
+        return RealScreenTimeProvider()
+        #else
         return StubScreenTimeProvider.goalHit
+        #endif
     }
 }

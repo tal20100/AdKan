@@ -44,7 +44,9 @@ struct GroupsListView: View {
                     VStack(spacing: 20) {
                         featuredSection
                         groupsListSection
-                        actionButton
+                        if !groups.isEmpty {
+                            actionButton
+                        }
                     }
                     .padding(.horizontal, AdKanTheme.screenPadding)
                     .padding(.vertical, 16)
