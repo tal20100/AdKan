@@ -13,7 +13,7 @@ cd "$CI_PRIMARY_REPOSITORY_PATH"
 # Generate SupabaseSecrets.plist BEFORE xcodegen so it's included in the project
 if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
     echo "Generating SupabaseSecrets.plist..."
-    cat > config/SupabaseSecrets.plist <<PLIST
+    cat > App/SupabaseSecrets.plist <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
   "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
