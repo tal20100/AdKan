@@ -26,11 +26,17 @@ if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
 </dict>
 </plist>
 PLIST
-    echo "SupabaseSecrets.plist created."
+    echo "SupabaseSecrets.plist created at App/SupabaseSecrets.plist"
+    ls -la App/SupabaseSecrets.plist
+    cat App/SupabaseSecrets.plist
 else
-    echo "WARNING: SUPABASE_URL or SUPABASE_ANON_KEY not set."
+    echo "ERROR: SUPABASE_URL or SUPABASE_ANON_KEY not set — build will crash at launch."
+    exit 1
 fi
 
 xcodegen generate
+
+echo "=== Verifying SupabaseSecrets.plist in generated project ==="
+grep -c "SupabaseSecrets" AdKan.xcodeproj/project.pbxproj || echo "WARNING: SupabaseSecrets not found in generated project!"
 
 echo "=== ci_post_clone: done ==="
