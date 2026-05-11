@@ -120,13 +120,15 @@ struct SupabaseGroupService: GroupService {
     }
 
     func createGroup(name: String, type: GroupType) async throws -> AdKanGroup {
+        guard await accessToken() != nil else {
+            throw GroupServiceError.notAuthenticated
+        }
         let headers = await authHeaders()
 
         let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/create_group")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         applyHeaders(&request, headers: headers)
-        request.setValue("return=representation", forHTTPHeaderField: "Prefer")
 
         let body: [String: String] = ["group_name": name, "group_type": type.rawValue]
         request.httpBody = try JSONEncoder().encode(body)

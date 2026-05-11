@@ -4,67 +4,14 @@ import SwiftUI
 import FamilyControls
 #endif
 
-// MARK: - Model
-
-struct BlockableApp: Codable, Identifiable, Hashable, Equatable {
-    let id: String
-    let nameKey: String
-    let icon: String
-    var isBlocked: Bool
-    var customLimitMinutes: Int?
-
-    func hash(into hasher: inout Hasher) { hasher.combine(id) }
-}
-
-// MARK: - Default app catalogue
-
-private extension BlockableApp {
-    static let catalogue: [BlockableApp] = [
-        BlockableApp(id: "tiktok",    nameKey: "blocking.app.tiktok",    icon: "🎵", isBlocked: false),
-        BlockableApp(id: "instagram", nameKey: "blocking.app.instagram", icon: "📸", isBlocked: false),
-        BlockableApp(id: "youtube",   nameKey: "blocking.app.youtube",   icon: "▶️", isBlocked: false),
-        BlockableApp(id: "whatsapp",  nameKey: "blocking.app.whatsapp",  icon: "💬", isBlocked: false),
-        BlockableApp(id: "snapchat",  nameKey: "blocking.app.snapchat",  icon: "👻", isBlocked: false),
-        BlockableApp(id: "x",         nameKey: "blocking.app.x",         icon: "🐦", isBlocked: false),
-        BlockableApp(id: "telegram",  nameKey: "blocking.app.telegram",  icon: "✈️", isBlocked: false),
-        BlockableApp(id: "facebook",  nameKey: "blocking.app.facebook",  icon: "👤", isBlocked: false),
-        BlockableApp(id: "reddit",    nameKey: "blocking.app.reddit",    icon: "🤖", isBlocked: false),
-        BlockableApp(id: "netflix",   nameKey: "blocking.app.netflix",   icon: "🎬", isBlocked: false),
-    ]
-}
-
-// MARK: - AppStorage codec
-
-private enum AppsStorage {
-    static func decode(_ raw: String) -> [BlockableApp] {
-        guard
-            let data = raw.data(using: .utf8),
-            let decoded = try? JSONDecoder().decode([BlockableApp].self, from: data)
-        else { return BlockableApp.catalogue }
-        return decoded
-    }
-
-    static func encode(_ apps: [BlockableApp]) -> String {
-        guard
-            let data = try? JSONEncoder().encode(apps),
-            let str = String(data: data, encoding: .utf8)
-        else { return "" }
-        return str
-    }
-}
-
 // MARK: - View
 
 struct BlockingView: View {
     @AppStorage("blockingEnabled") private var blockingEnabled = false
-    @AppStorage("defaultLimitMinutes") private var defaultLimitMinutes: Int = 120
-    @AppStorage("blockedAppsJSON") private var blockedAppsJSON: String = ""
     @EnvironmentObject private var ruleStore: BlockingRuleStore
     @EnvironmentObject private var storeManager: StoreManager
     @EnvironmentObject private var languageManager: LanguageManager
 
-    @State private var apps: [BlockableApp] = []
-    @State private var expandedAppID: String? = nil
     @State private var showTimeRuleEditor = false
     @State private var editingTimeRule: TimeBlockRule?
     @State private var editingDaySchedule: DayScheduleRule?
@@ -84,8 +31,6 @@ struct BlockingView: View {
         return config
     }
 
-    private var blockedCount: Int { apps.filter(\.isBlocked).count }
-
     var body: some View {
         NavigationStack {
             List {
@@ -93,8 +38,6 @@ struct BlockingView: View {
                 masterToggleSection
                 if blockingEnabled {
                     realAppPickerSection
-                    defaultLimitSection
-                    appsSection
                     timeBlockSection
                     dayScheduleSection
                     globalLimitSection
@@ -106,7 +49,6 @@ struct BlockingView: View {
             .navigationTitle(Text("blocking.title"))
             .animation(.easeInOut(duration: 0.25), value: blockingEnabled)
             .onAppear {
-                loadApps()
                 #if canImport(FamilyControls)
                 if let saved = enforcer.loadSavedSelection() {
                     activitySelection = saved
@@ -217,166 +159,6 @@ struct BlockingView: View {
         } footer: {
             Text("blocking.selectApps.footer")
                 .font(.caption)
-        }
-    }
-
-    private var defaultLimitSection: some View {
-        Section {
-            VStack(alignment: .leading, spacing: 12) {
-                LabeledContent {
-                    Text(formattedLimit(defaultLimitMinutes))
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(AdKanTheme.primary)
-                } label: {
-                    Text("blocking.defaultLimit.label")
-                        .font(.subheadline.weight(.medium))
-                }
-
-                Slider(
-                    value: Binding(
-                        get: { Double(defaultLimitMinutes) },
-                        set: { defaultLimitMinutes = Int($0) }
-                    ),
-                    in: 15...480,
-                    step: 15
-                )
-                .tint(AdKanTheme.primary)
-
-                HStack {
-                    Text(formattedLimit(15))
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                    Spacer()
-                    Text(formattedLimit(480))
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                }
-            }
-        } header: {
-            Text("blocking.defaultLimit.header")
-        } footer: {
-            Text("blocking.defaultLimit.footer")
-                .font(.caption)
-        }
-    }
-
-    private var appsSection: some View {
-        Section {
-            ForEach(Array(apps.enumerated()), id: \.element.id) { index, _ in
-                appRow(index: index)
-            }
-        } header: {
-            HStack {
-                Text("blocking.apps.header")
-                Spacer()
-                if blockedCount > 0 {
-                    Text("blocking.apps.blockedCount \(blockedCount)")
-                        .font(.caption)
-                        .foregroundStyle(AdKanTheme.primary)
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func appRow(index: Int) -> some View {
-        let app = apps[index]
-        let isExpanded = expandedAppID == app.id
-
-        VStack(spacing: 0) {
-            HStack(spacing: 14) {
-                Text(app.icon)
-                    .font(.title2)
-
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(LocalizedStringKey(app.nameKey))
-                        .font(.body.weight(.medium))
-                        .foregroundStyle(.primary)
-
-                    if app.isBlocked {
-                        let limit = app.customLimitMinutes ?? defaultLimitMinutes
-                        Text("blocking.app.activeLimit \(formattedLimit(limit))")
-                            .font(.caption)
-                            .foregroundStyle(AdKanTheme.primary)
-                    }
-                }
-
-                Spacer()
-
-                if app.isBlocked {
-                    Image(systemName: isExpanded ? "chevron.up.circle" : "slider.horizontal.3")
-                        .foregroundStyle(AdKanTheme.primary)
-                        .font(.body)
-                        .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                expandedAppID = isExpanded ? nil : app.id
-                            }
-                        }
-                }
-
-                Toggle("", isOn: appBlockedBinding(index: index))
-                    .labelsHidden()
-                    .tint(AdKanTheme.successGreen)
-                    .fixedSize()
-            }
-            .padding(.vertical, 4)
-
-            if isExpanded {
-                perAppLimitSlider(index: index)
-                    .padding(.top, 10)
-                    .padding(.bottom, 4)
-            }
-        }
-    }
-
-    private func perAppLimitSlider(index: Int) -> some View {
-        let currentLimit = apps[index].customLimitMinutes ?? defaultLimitMinutes
-
-        return VStack(alignment: .leading, spacing: 8) {
-            Divider()
-
-            LabeledContent {
-                Text(formattedLimit(currentLimit))
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(AdKanTheme.primary)
-            } label: {
-                Text("blocking.app.customLimit.label")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            Slider(
-                value: Binding(
-                    get: { Double(currentLimit) },
-                    set: { newVal in
-                        apps[index].customLimitMinutes = Int(newVal)
-                        saveApps()
-                    }
-                ),
-                in: 15...480,
-                step: 15
-            )
-            .tint(AdKanTheme.primary)
-
-            HStack {
-                Button("blocking.app.customLimit.useDefault") {
-                    apps[index].customLimitMinutes = nil
-                    saveApps()
-                }
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .buttonStyle(.plain)
-
-                Spacer()
-
-                HStack(spacing: 4) {
-                    Text(formattedLimit(15))
-                    Text("–")
-                    Text(formattedLimit(480))
-                }
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
-            }
         }
     }
 
@@ -725,39 +507,6 @@ struct BlockingView: View {
                     .foregroundStyle(.secondary)
             }
         }
-    }
-
-    // MARK: - Bindings
-
-    private func appBlockedBinding(index: Int) -> Binding<Bool> {
-        Binding(
-            get: { guard index < apps.count else { return false }; return apps[index].isBlocked },
-            set: { newVal in
-                guard index < apps.count else { return }
-                var updated = apps
-                updated[index].isBlocked = newVal
-                if !newVal {
-                    updated[index].customLimitMinutes = nil
-                    if expandedAppID == updated[index].id { expandedAppID = nil }
-                }
-                apps = updated
-                saveApps()
-            }
-        )
-    }
-
-    // MARK: - Persistence
-
-    private func loadApps() {
-        if blockedAppsJSON.isEmpty {
-            apps = BlockableApp.catalogue
-        } else {
-            apps = AppsStorage.decode(blockedAppsJSON)
-        }
-    }
-
-    private func saveApps() {
-        blockedAppsJSON = AppsStorage.encode(apps)
     }
 
     // MARK: - Formatting

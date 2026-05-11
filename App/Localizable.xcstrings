@@ -1845,8 +1845,8 @@
     },
     "blocking.selectApps.header" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Real App Blocking" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימה אמיתית" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App Blocking" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "חסימת אפליקציות" } }
       }
     },
     "blocking.selectApps.footer" : {
