@@ -10,12 +10,10 @@
 	<string>1</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
-	<key>NSExtension</key>
+	<key>EXAppExtensionAttributes</key>
 	<dict>
-		<key>NSExtensionPointIdentifier</key>
+		<key>EXExtensionPointIdentifier</key>
 		<string>com.apple.deviceactivity-monitor</string>
-		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).AdKanDeviceActivityMonitorExtension</string>
 	</dict>
 </dict>
 </plist>
