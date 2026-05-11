@@ -9,9 +9,8 @@ if ! command -v xcodegen &> /dev/null; then
 fi
 
 cd "$CI_PRIMARY_REPOSITORY_PATH"
-xcodegen generate
 
-# Generate SupabaseSecrets.plist from Xcode Cloud environment variables
+# Generate SupabaseSecrets.plist BEFORE xcodegen so it's included in the project
 if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
     echo "Generating SupabaseSecrets.plist..."
     cat > config/SupabaseSecrets.plist <<PLIST
@@ -31,5 +30,7 @@ PLIST
 else
     echo "WARNING: SUPABASE_URL or SUPABASE_ANON_KEY not set."
 fi
+
+xcodegen generate
 
 echo "=== ci_post_clone: done ==="

@@ -27,6 +27,8 @@ targets:
       - path: App/Assets.xcassets
       - path: App/Localizable.xcstrings
       - path: App/PrivacyInfo.xcprivacy
+      - path: config/SupabaseSecrets.plist
+        optional: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan
@@ -63,6 +65,7 @@ targets:
       - path: App/Models/SharedDefaults.swift
     resources:
       - path: Widget/Assets.xcassets
+      - path: App/Localizable.xcstrings
     info:
       path: Widget/Info.plist
       properties:
