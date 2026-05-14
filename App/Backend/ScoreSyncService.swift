@@ -92,6 +92,24 @@ enum SyncError: Error {
     case notAuthenticated
 }
 
+enum LocalScoreStore {
+    private static let defaults = UserDefaults.standard
+
+    static func save(minutes: Int, for date: Date) {
+        defaults.set(minutes, forKey: key(for: date))
+    }
+
+    static func load(for date: Date) -> Int? {
+        let k = key(for: date)
+        guard defaults.object(forKey: k) != nil else { return nil }
+        return defaults.integer(forKey: k)
+    }
+
+    private static func key(for date: Date) -> String {
+        "localScore_\(ISO8601DateFormatter.dateOnly.string(from: date))"
+    }
+}
+
 extension ISO8601DateFormatter {
     static let dateOnly: ISO8601DateFormatter = {
         let f = ISO8601DateFormatter()

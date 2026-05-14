@@ -40,19 +40,19 @@ class AdKanShieldConfigurationExtension: ShieldConfigurationDataSource {
         let accent = isPremium ? theme.accent : ShieldTheme.defaultTheme.accent
 
         return ShieldConfiguration(
-            backgroundBlurStyle: .systemMaterialDark,
+            backgroundBlurStyle: .dark,
             backgroundColor: bg,
             icon: nil,
             title: ShieldConfiguration.Label(text: title, color: .white),
             subtitle: ShieldConfiguration.Label(
                 text: subtitle,
-                color: UIColor(white: 0.75, alpha: 1)
+                color: UIColor(white: 0.85, alpha: 1)
             ),
             primaryButtonLabel: ShieldConfiguration.Label(text: primaryLabel, color: .white),
             primaryButtonBackgroundColor: accent,
             secondaryButtonLabel: ShieldConfiguration.Label(
                 text: secondaryLabel,
-                color: UIColor(white: 0.6, alpha: 1)
+                color: UIColor(white: 0.8, alpha: 1)
             )
         )
     }
@@ -63,8 +63,8 @@ private struct ShieldTheme {
     let accent: UIColor
 
     static let defaultTheme = ShieldTheme(
-        background: UIColor(red: 0.05, green: 0.05, blue: 0.12, alpha: 1),
-        accent: UIColor(red: 0.2, green: 0.55, blue: 0.4, alpha: 1)
+        background: UIColor(red: 0.06, green: 0.06, blue: 0.14, alpha: 1),
+        accent: UIColor(red: 0.15, green: 0.68, blue: 0.38, alpha: 1)
     )
 
     static let forest = ShieldTheme(

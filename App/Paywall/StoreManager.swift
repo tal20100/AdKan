@@ -60,6 +60,9 @@ final class StoreManager: ObservableObject {
         do {
             let fetched = try await Product.products(for: Self.productIDs)
             products = fetched.sorted { $0.price > $1.price }
+            if products.isEmpty {
+                errorMessage = NSLocalizedString("paywall.productsUnavailable", comment: "")
+            }
         } catch {
             errorMessage = error.localizedDescription
         }

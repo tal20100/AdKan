@@ -89,12 +89,16 @@ struct WeeklySummaryCard: View {
 
         for dayOffset in 0..<7 {
             if let date = calendar.date(byAdding: .day, value: -(6 - dayOffset), to: today) {
-                let score = (try? await services.scoreSync.fetchWeeklyScore(for: date)) ?? 0
+                let score = (try? await services.scoreSync.fetchWeeklyScore(for: date))
+                    ?? LocalScoreStore.load(for: date)
+                    ?? 0
                 thisWeek += score
                 daily.append(score)
             }
             if let date = calendar.date(byAdding: .day, value: -(dayOffset + 7), to: today) {
-                let score = (try? await services.scoreSync.fetchWeeklyScore(for: date)) ?? 0
+                let score = (try? await services.scoreSync.fetchWeeklyScore(for: date))
+                    ?? LocalScoreStore.load(for: date)
+                    ?? 0
                 lastWeek += score
             }
         }

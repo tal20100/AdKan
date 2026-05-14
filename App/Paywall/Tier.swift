@@ -51,7 +51,7 @@ enum PremiumFeature: String, CaseIterable {
     case customThemes
     case hardMode
     case monthlySummary
-    case timeBasedBlocking
+    case advancedSchedules
     case globalLimitRule
     case customShieldDesign
 
@@ -69,7 +69,7 @@ enum PremiumFeature: String, CaseIterable {
         case .customThemes: return "paintpalette.fill"
         case .hardMode: return "hand.raised.fill"
         case .monthlySummary: return "calendar.badge.clock"
-        case .timeBasedBlocking: return "clock.badge.xmark"
+        case .advancedSchedules: return "clock.badge.xmark"
         case .globalLimitRule: return "gauge.with.dots.needle.67percent"
         case .customShieldDesign: return "shield.checkered"
         }

@@ -169,6 +169,9 @@ struct PaywallView: View {
                 } else if let product = storeManager.product(for: selectedTier) {
                     Text(product.displayPrice)
                         .font(.headline)
+                } else if storeManager.products.isEmpty {
+                    Text("paywall.productsUnavailable")
+                        .font(.subheadline)
                 } else {
                     Text(LocalizedStringKey(selectedTier.priceKey))
                         .font(.headline)
@@ -180,7 +183,7 @@ struct PaywallView: View {
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
         }
-        .disabled(storeManager.isLoading)
+        .disabled(storeManager.isLoading || storeManager.products.isEmpty)
         .padding(.horizontal, AdKanTheme.screenPadding)
         .alert("paywall.error", isPresented: $showError) {
             Button("OK") {}
