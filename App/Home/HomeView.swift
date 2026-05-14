@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var loadError: String?
     @State private var pendingMilestone: Int? = nil
     @State private var cardsAppeared = false
+    @State private var showSignIn = false
 
     private static let milestoneDays = [7, 14, 30, 100]
     private let shownMilestonesKey = "shownMilestonesV1"
@@ -38,12 +39,20 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                #if canImport(DeviceActivity) && !targetEnvironment(simulator)
+                ScreenTimeReportBridge()
+                #endif
+
                 if isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, minHeight: 300)
                 } else {
                     VStack(spacing: AdKanTheme.cardSpacing) {
                         MascotView(todayMinutes: todayMinutes, goalMinutes: goalMinutes)
+
+                        if !services.auth.isAuthenticated {
+                            signInBanner
+                        }
 
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
@@ -107,7 +116,9 @@ struct HomeView: View {
                 case .groupDetail(let groupId):
                     GroupDetailView(groupId: groupId)
                 case .createGroup:
-                    CreateGroupView(onCreated: { _ in })
+                    CreateGroupView(onCreated: { newGroup in
+                        groups.append(newGroup)
+                    })
                 default:
                     EmptyView()
                 }
@@ -138,6 +149,13 @@ struct HomeView: View {
                 }
                 scheduleDataDrivenNotifications()
                 updateWidget()
+                LocalScoreStore.save(minutes: todayMinutes, for: Date())
+            }
+            .sheet(isPresented: $showSignIn) {
+                SignInView {
+                    showSignIn = false
+                    Task { await refreshData() }
+                }
             }
             .refreshable {
                 await refreshData()
@@ -167,6 +185,7 @@ struct HomeView: View {
                     }
                 }
                 updateWidget()
+                LocalScoreStore.save(minutes: todayMinutes, for: Date())
                 scheduleDataDrivenNotifications()
                 detectRankChange()
                 isLoading = false
@@ -344,6 +363,32 @@ struct HomeView: View {
             oldRank: oldRank,
             newRank: currentRank
         )
+    }
+
+    private var signInBanner: some View {
+        PlainCard {
+            VStack(spacing: 10) {
+                Image(systemName: "person.crop.circle.badge.checkmark")
+                    .font(.title2)
+                    .foregroundStyle(AdKanTheme.primary)
+
+                Text("signin.prompt.title")
+                    .font(.subheadline.weight(.medium))
+                    .multilineTextAlignment(.center)
+
+                Button {
+                    showSignIn = true
+                } label: {
+                    Text("signin.prompt.cta")
+                        .font(.subheadline.weight(.semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.black)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: AdKanTheme.buttonCornerRadius))
+                }
+            }
+        }
     }
 
     private var noGroupsCTA: some View {

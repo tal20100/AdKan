@@ -30,6 +30,7 @@ struct GroupMember: Identifiable, Codable, Sendable {
 
 enum GroupType: String, Codable, CaseIterable, Sendable {
     case friends
+    case family
     case roommates
     case partner
     case coworkers
@@ -41,6 +42,7 @@ enum GroupType: String, Codable, CaseIterable, Sendable {
     var emoji: String {
         switch self {
         case .friends: return "👫"
+        case .family: return "👨‍👩‍👧‍👦"
         case .roommates: return "🏠"
         case .partner: return "💑"
         case .coworkers: return "💼"

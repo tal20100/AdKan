@@ -14,7 +14,8 @@ struct OnboardingView: View {
     @AppStorage("genderPreference") private var genderPreference: Int = 0
 
     private let questions = SurveyData.questions
-    private var totalPages: Int { questions.count + 3 } // welcome + profile + questions + permission
+    // welcome + questions + signIn + profile + permission
+    private var totalPages: Int { questions.count + 4 }
 
     var body: some View {
         ZStack {
@@ -30,14 +31,19 @@ struct OnboardingView: View {
                 TabView(selection: $currentPage) {
                     welcomePage.tag(0)
 
-                    ProfileSetupView {
-                        withAnimation { currentPage = 2 }
-                    }
-                    .tag(1)
-
                     ForEach(Array(questions.enumerated()), id: \.offset) { index, question in
-                        questionPage(question, index: index).tag(index + 2)
+                        questionPage(question, index: index).tag(index + 1)
                     }
+
+                    SignInView {
+                        withAnimation { currentPage = questions.count + 2 }
+                    }
+                    .tag(questions.count + 1)
+
+                    ProfileSetupView {
+                        withAnimation { currentPage = totalPages - 1 }
+                    }
+                    .tag(questions.count + 2)
 
                     permissionPage.tag(totalPages - 1)
                 }
@@ -63,8 +69,8 @@ struct OnboardingView: View {
     }
 
     private var progress: CGFloat {
-        guard totalPages > 3 else { return 0 }
-        return CGFloat(max(0, currentPage - 1)) / CGFloat(totalPages - 2)
+        guard totalPages > 4 else { return 0 }
+        return CGFloat(max(0, currentPage)) / CGFloat(totalPages - 1)
     }
 
     // MARK: - Welcome

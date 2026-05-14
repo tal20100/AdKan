@@ -84,6 +84,10 @@ struct CreateGroupView: View {
 
     private func createGroup() {
         guard !groupName.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        guard services.auth.isAuthenticated else {
+            errorMessage = NSLocalizedString("groups.create.needsSignIn", comment: "")
+            return
+        }
         isCreating = true
         errorMessage = nil
         Task {
@@ -91,6 +95,7 @@ struct CreateGroupView: View {
                 let newGroup = try await services.groups.createGroup(name: groupName, type: groupType)
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 onCreated?(newGroup)
+                dismiss()
             } catch {
                 errorMessage = error.localizedDescription
                 isCreating = false

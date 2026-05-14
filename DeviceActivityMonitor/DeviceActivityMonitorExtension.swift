@@ -12,6 +12,7 @@ class AdKanDeviceActivityMonitorExtension: DeviceActivityMonitor {
     }
 
     override func intervalDidStart(for activity: DeviceActivityName) {
+        reapplyIfTempAllowExpired()
         applyShieldsFromSavedTokens()
     }
 
@@ -24,7 +25,16 @@ class AdKanDeviceActivityMonitorExtension: DeviceActivityMonitor {
         _ event: DeviceActivityEvent.Name,
         activity: DeviceActivityName
     ) {
+        reapplyIfTempAllowExpired()
         applyShieldsFromSavedTokens()
+    }
+
+    private func reapplyIfTempAllowExpired() {
+        guard let ts = defaults?.double(forKey: "shield.tempAllowUntil"), ts > 0 else { return }
+        if Date().timeIntervalSince1970 >= ts {
+            defaults?.removeObject(forKey: "shield.tempAllowUntil")
+            applyShieldsFromSavedTokens()
+        }
     }
 
     private func applyShieldsFromSavedTokens() {

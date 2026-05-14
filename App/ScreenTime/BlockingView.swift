@@ -198,7 +198,7 @@ struct BlockingView: View {
                         .foregroundStyle(AdKanTheme.primary)
                 }
             }
-            .premiumGated(.timeBasedBlocking)
+            .premiumGated(.advancedSchedules)
         } header: {
             Text("blocking.timeRule.header")
         } footer: {
@@ -246,12 +246,9 @@ struct BlockingView: View {
 
     private var dayScheduleSection: some View {
         Section {
-            Group {
-                ForEach(ruleStore.dayScheduleRules) { schedule in
-                    dayScheduleRow(schedule)
-                }
+            ForEach(ruleStore.dayScheduleRules) { schedule in
+                dayScheduleRow(schedule)
             }
-            .premiumGated(.timeBasedBlocking)
         } header: {
             Text("blocking.schedule.header")
         } footer: {

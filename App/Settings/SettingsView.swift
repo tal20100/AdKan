@@ -111,7 +111,12 @@ struct SettingsView: View {
                 Section("settings.notifications") {
                     Toggle(isOn: $eveningReminder) {
                         Label {
-                            Text("settings.notifications.evening")
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("settings.notifications.evening")
+                                Text("settings.notifications.evening.desc")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                         } icon: {
                             Image(systemName: "moon.fill")
                                 .foregroundStyle(.purple)
@@ -135,7 +140,12 @@ struct SettingsView: View {
 
                     Toggle(isOn: $weeklyCheckin) {
                         Label {
-                            Text("settings.notifications.weekly")
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("settings.notifications.weekly")
+                                Text("settings.notifications.weekly.desc")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                         } icon: {
                             Image(systemName: "calendar.badge.clock")
                                 .foregroundStyle(AdKanTheme.primary)
@@ -153,7 +163,12 @@ struct SettingsView: View {
 
                     Toggle(isOn: $goalCelebration) {
                         Label {
-                            Text("settings.notifications.goalCelebration")
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("settings.notifications.goalCelebration")
+                                Text("settings.notifications.goalCelebration.desc")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                         } icon: {
                             Image(systemName: "party.popper.fill")
                                 .foregroundStyle(.orange)
@@ -168,7 +183,12 @@ struct SettingsView: View {
 
                     Toggle(isOn: $inactivityReminder) {
                         Label {
-                            Text("settings.notifications.inactivity")
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("settings.notifications.inactivity")
+                                Text("settings.notifications.inactivity.desc")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                         } icon: {
                             Image(systemName: "arrow.counterclockwise.circle.fill")
                                 .foregroundStyle(AdKanTheme.brandPurple)
