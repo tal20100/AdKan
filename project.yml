@@ -183,7 +183,7 @@ targets:
         CFBundleVersion: "1"
         CFBundleShortVersionString: "1.0.0"
         EXAppExtensionAttributes:
-          EXExtensionPointIdentifier: com.apple.deviceactivity.report-extension
+          EXExtensionPointIdentifier: com.apple.deviceactivityui.report-extension
 
     settings:
       base:
