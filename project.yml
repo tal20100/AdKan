@@ -1,4 +1,4 @@
-name: AdKan
+﻿name: AdKan
 
 options:
   bundleIdPrefix: com.talhayun
@@ -182,8 +182,8 @@ targets:
         CFBundleIdentifier: com.talhayun.AdKan.DeviceActivityReport
         CFBundleVersion: "1"
         CFBundleShortVersionString: "1.0.0"
-        EXAppExtensionAttributes:
-          EXExtensionPointIdentifier: com.apple.deviceactivityui.report-extension
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivityui.report-extension
 
     settings:
       base:
