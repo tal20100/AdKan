@@ -135,7 +135,8 @@ struct AdKanWidgetEntryView: View {
                     .fill(entry.mascotGlowColor.opacity(0.15))
                     .frame(width: 85, height: 85)
 
-                Image(entry.mascotImage)
+                Image(entry.mascotImage, bundle: .main)
+                    .renderingMode(.original)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxHeight: 75)
@@ -167,7 +168,7 @@ struct AdKanWidgetEntryView: View {
                         .fill(entry.mascotGlowColor.opacity(0.15))
                         .frame(width: 80, height: 80)
 
-                    Image(entry.mascotImage)
+                    Image(entry.mascotImage, bundle: .main)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 68, height: 68)

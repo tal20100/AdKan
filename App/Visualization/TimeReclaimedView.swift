@@ -16,10 +16,8 @@ struct TimeReclaimedView: View {
     var body: some View {
         VStack(spacing: 0) {
             heroCard
-            if todayMinutes > 0 {
-                comparisonCards
-                    .padding(.top, AdKanTheme.cardSpacing)
-            }
+            comparisonCards
+                .padding(.top, AdKanTheme.cardSpacing)
         }
         .onAppear {
             comparisons = ComparisonBank.random(savedMinutes: todayMinutes, count: 3)

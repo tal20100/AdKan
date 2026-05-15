@@ -29,7 +29,8 @@ struct TotalScreenTimeView: View {
     let totalMinutes: Int
 
     var body: some View {
-        EmptyView()
+        Color.clear
+            .frame(width: 1, height: 1)
     }
 }
 

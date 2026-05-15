@@ -2,11 +2,11 @@ import Foundation
 
 enum ComparisonBank {
     static func random(savedMinutes: Int, count: Int = 3) -> [ResolvedComparison] {
-        guard savedMinutes > 0 else { return [] }
+        let minutes = max(savedMinutes, 1)
         return all
             .shuffled()
             .prefix(count)
-            .map { $0.resolve(savedMinutes: savedMinutes) }
+            .map { $0.resolve(savedMinutes: minutes) }
     }
 
     static let all: [ComparisonTemplate] = [

@@ -4,6 +4,7 @@ import WidgetKit
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
     @Environment(\.switchToFocusTab) private var switchToFocusTab
+    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var services: ServiceContainer
     @EnvironmentObject private var languageManager: LanguageManager
     @EnvironmentObject private var streakTracker: StreakTracker
@@ -155,6 +156,16 @@ struct HomeView: View {
                 SignInView {
                     showSignIn = false
                     Task { await refreshData() }
+                }
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    Task {
+                        let fresh = await provider.todayTotalMinutes()
+                        if fresh > 0 { todayMinutes = fresh }
+                        let freshYesterday = await provider.yesterdayTotalMinutes()
+                        if freshYesterday > 0 { yesterdayMinutes = freshYesterday }
+                    }
                 }
             }
             .refreshable {
