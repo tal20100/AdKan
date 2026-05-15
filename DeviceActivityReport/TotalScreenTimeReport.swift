@@ -1,7 +1,6 @@
 import DeviceActivity
 import SwiftUI
 
-@available(iOS 16.1, *)
 struct TotalScreenTimeReport: DeviceActivityReportScene {
     let context: DeviceActivityReport.Context = .totalActivity
 
