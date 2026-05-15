@@ -156,8 +156,9 @@ struct SupabaseGroupService: GroupService {
         request.httpBody = try JSONEncoder().encode(body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
-            throw GroupServiceError.requestFailed
+        if let http = response as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+            let message = String(data: data, encoding: .utf8) ?? ""
+            throw GroupServiceError.serverError(message.isEmpty ? "HTTP \(http.statusCode)" : message)
         }
         return try JSONDecoder().decode(AdKanGroup.self, from: data)
     }
