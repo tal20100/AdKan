@@ -169,7 +169,7 @@ targets:
 
 
   AdKanDeviceActivityReport:
-    type: app-extension
+    type: extensionkit-extension
     platform: iOS
 
     sources:
