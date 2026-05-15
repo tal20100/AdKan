@@ -58,6 +58,7 @@ targets:
         embed: true
       - target: AdKanDeviceActivityReport
         embed: true
+        codeSign: true
 
 
   AdKanWidget:
@@ -174,12 +175,14 @@ targets:
 
     sources:
       - path: DeviceActivityReport
+        excludes:
+          - "Info.plist"
+          - "*.entitlements"
 
     info:
       path: DeviceActivityReport/Info.plist
       properties:
         CFBundleDisplayName: AdKan Report
-        CFBundleIdentifier: com.talhayun.AdKan.DeviceActivityReport
         CFBundleVersion: "1"
         CFBundleShortVersionString: "1.0.0"
         EXAppExtensionAttributes:
