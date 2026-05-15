@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct AdKanApp: App {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var router = Router()
     @StateObject private var services = ServiceContainer()
     @StateObject private var languageManager = LanguageManager()
@@ -31,6 +32,11 @@ struct AdKanApp: App {
                     let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
                     guard let groupId = components?.queryItems?.first(where: { $0.name == "group" })?.value else { return }
                     router.navigate(to: .groupDetail(groupId: groupId))
+                }
+                .onChange(of: scenePhase) { _, newPhase in
+                    if newPhase == .active {
+                        BlockingEnforcer.shared.reapplyIfTempAllowExpired()
+                    }
                 }
                 .task {
                     await NotificationManager.shared.checkStatus()

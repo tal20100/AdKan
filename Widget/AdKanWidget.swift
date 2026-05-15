@@ -129,7 +129,7 @@ struct AdKanWidgetEntryView: View {
 
             Spacer()
 
-            Text(LocalizedStringKey(entry.stateLabelKey))
+            Text(NSLocalizedString(entry.stateLabelKey, comment: ""))
                 .font(.system(size: 10, weight: .bold, design: .rounded))
                 .foregroundStyle(entry.mascotGlowColor)
                 .padding(.horizontal, 8)
@@ -159,7 +159,7 @@ struct AdKanWidgetEntryView: View {
                         .frame(width: 68, height: 68)
                 }
 
-                Text(LocalizedStringKey(entry.stateLabelKey))
+                Text(NSLocalizedString(entry.stateLabelKey, comment: ""))
                     .font(.system(size: 9, weight: .bold, design: .rounded))
                     .foregroundStyle(entry.mascotGlowColor)
                     .padding(.horizontal, 6)

@@ -549,20 +549,20 @@
     },
     "home.noGroups.title" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not competing yet!" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "עוד לא מתחרים!" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time to compete!" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "הגיע הזמן להתחרות" } }
       }
     },
     "home.noGroups.body" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group and invite friends to start" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתחו קבוצה והזמינו חברים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group, invite friends, and start competing" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "צרו קבוצה, הזמינו חברים והתחילו להתחרות" } }
       }
     },
     "home.noGroups.cta" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Create a group" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "פתיחת קבוצה" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "יצירת קבוצה" } }
       }
     },
     "home.weeklySummary" : {
@@ -831,8 +831,8 @@
     },
     "groups.invite.friends" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Let's compete together" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "בואו נתחרה ביחד" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Who uses their phone least? Let's find out" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מי ישתמש הכי פחות? בואו נגלה" } }
       }
     },
     "groups.invite.family" : {
@@ -843,20 +843,20 @@
     },
     "groups.invite.roommates" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Less screen time, more living" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "פחות מסך, יותר חיים" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Less screen time, more real life" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "פחות מסכים, יותר חיים אמיתיים" } }
       }
     },
     "groups.invite.partner" : {
       "localizations" : {
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Who'll use their phone less?" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מי ישתמש פחות?" } }
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "מי ישתמש פחות במסך?" } }
       }
     },
     "groups.invite.coworkers" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Team productivity challenge" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "תחרות פרודוקטיביות בצוות" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Team challenge: less phone, more focus" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "אתגר צוותי: פחות טלפון, יותר פוקוס" } }
       }
     },
     "groups.create.name" : {
@@ -1833,8 +1833,8 @@
     },
     "blocking.schedule.weekFocus" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Week Focus" } },
-        "he" : { "stringUnit" : { "state" : "translated", "value" : "מיקוד שבועי" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekdays" } },
+        "he" : { "stringUnit" : { "state" : "translated", "value" : "ימי חול" } }
       }
     },
     "blocking.schedule.weekendRelaxed" : {

@@ -49,13 +49,13 @@ struct DayScheduleRule: Codable, Identifiable {
 
     static let weekFocus = DayScheduleRule(
         name: "blocking.schedule.weekFocus",
-        activeDays: [2, 3, 4, 5, 6],
+        activeDays: [1, 2, 3, 4, 5],
         defaultLimitMinutes: 60
     )
 
     static let weekendRelaxed = DayScheduleRule(
         name: "blocking.schedule.weekendRelaxed",
-        activeDays: [1, 7],
+        activeDays: [6, 7],
         defaultLimitMinutes: 180
     )
 }

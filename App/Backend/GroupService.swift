@@ -139,7 +139,7 @@ struct SupabaseGroupService: GroupService {
             if message.contains("Group limit reached") {
                 throw GroupServiceError.groupLimitReached
             }
-            throw GroupServiceError.requestFailed
+            throw GroupServiceError.serverError(message.isEmpty ? "HTTP \(http.statusCode)" : message)
         }
         return try JSONDecoder().decode(AdKanGroup.self, from: data)
     }
@@ -262,6 +262,7 @@ struct SupabaseGroupService: GroupService {
 
 enum GroupServiceError: Error, LocalizedError {
     case requestFailed
+    case serverError(String)
     case notAuthenticated
     case premiumRequired
     case groupFull
@@ -270,6 +271,7 @@ enum GroupServiceError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .requestFailed: return "Group service request failed."
+        case .serverError(let msg): return msg
         case .notAuthenticated: return "Not authenticated."
         case .premiumRequired: return "Premium subscription required."
         case .groupFull: return "This group is full."

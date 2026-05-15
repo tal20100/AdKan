@@ -3,6 +3,11 @@ import Foundation
 #if canImport(ManagedSettings) && canImport(FamilyControls)
 import ManagedSettings
 import FamilyControls
+import DeviceActivity
+
+extension DeviceActivityName {
+    static let dailySchedule = Self("com.talhayun.AdKan.dailySchedule")
+}
 
 @MainActor
 final class BlockingEnforcer: ObservableObject {
@@ -23,6 +28,18 @@ final class BlockingEnforcer: ObservableObject {
         if let data = try? JSONEncoder().encode(selection) {
             SharedDefaults.blockedAppTokensData = data
         }
+
+        startDailyMonitoring()
+    }
+
+    func startDailyMonitoring() {
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: 0, minute: 0),
+            intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+            repeats: true
+        )
+        let center = DeviceActivityCenter()
+        try? center.startMonitoring(.dailySchedule, during: schedule)
     }
 
     func removeAllShields() {

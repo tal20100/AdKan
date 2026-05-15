@@ -206,7 +206,7 @@ final class NotificationManager: ObservableObject {
         }
 
         var dateComponents = DateComponents()
-        dateComponents.weekday = 1
+        dateComponents.weekday = 6
         dateComponents.hour = 10
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

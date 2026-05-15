@@ -12,6 +12,12 @@ class AdKanDeviceActivityMonitorExtension: DeviceActivityMonitor {
     }
 
     override func intervalDidStart(for activity: DeviceActivityName) {
+        let todayMinutes = defaults?.integer(forKey: "widget.todayMinutes") ?? 0
+        if todayMinutes > 0 {
+            defaults?.set(todayMinutes, forKey: "widget.yesterdayMinutes")
+        }
+        defaults?.set(0, forKey: "widget.todayMinutes")
+
         reapplyIfTempAllowExpired()
         applyShieldsFromSavedTokens()
     }

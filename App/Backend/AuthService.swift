@@ -104,13 +104,19 @@ final class SupabaseAuthService: AuthService, @unchecked Sendable {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("resolution=ignore-duplicates", forHTTPHeaderField: "Prefer")
+        request.setValue("resolution=merge-duplicates", forHTTPHeaderField: "Prefer")
         request.setValue(apiKey, forHTTPHeaderField: "apikey")
         if let token = KeychainHelper.read(key: tokenKey) {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
-        let body: [String: String] = ["id": userId]
+        var body: [String: String] = ["id": userId]
+        if let name = UserDefaults.standard.string(forKey: "profileDisplayName"), !name.isEmpty {
+            body["display_name"] = name
+        }
+        if let emoji = UserDefaults.standard.string(forKey: "profileAvatarEmoji"), !emoji.isEmpty {
+            body["avatar_emoji"] = emoji
+        }
         request.httpBody = try JSONEncoder().encode(body)
 
         let (_, _) = try await URLSession.shared.data(for: request)
