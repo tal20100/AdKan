@@ -1,5 +1,8 @@
 import SwiftUI
 import WidgetKit
+#if canImport(FamilyControls)
+import FamilyControls
+#endif
 
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
@@ -418,6 +421,13 @@ struct HomeView: View {
             : "never"
         let raw = defaults?.integer(forKey: "widget.todayMinutes") ?? -1
 
+        let bundleURL = Bundle.main.bundleURL
+        let extensionsDir = bundleURL.appendingPathComponent("Extensions")
+        let pluginsDir = bundleURL.appendingPathComponent("PlugIns")
+        let extContents = (try? FileManager.default.contentsOfDirectory(atPath: extensionsDir.path)) ?? []
+        let plugContents = (try? FileManager.default.contentsOfDirectory(atPath: pluginsDir.path)) ?? []
+        let authStatus = AuthorizationCenter.shared.authorizationStatus
+
         return PlainCard {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 6) {
@@ -430,7 +440,11 @@ struct HomeView: View {
                     .font(.caption2)
                 Text("Raw value: \(raw)")
                     .font(.caption2)
-                Text("Defaults suite exists: \(defaults != nil ? "yes" : "no")")
+                Text("Auth: \(String(describing: authStatus))")
+                    .font(.caption2)
+                Text("Extensions/: \(extContents.isEmpty ? "EMPTY" : extContents.joined(separator: ", "))")
+                    .font(.caption2)
+                Text("PlugIns/: \(plugContents.isEmpty ? "EMPTY" : plugContents.joined(separator: ", "))")
                     .font(.caption2)
             }
         }
