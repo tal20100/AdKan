@@ -55,6 +55,12 @@ struct HomeView: View {
                             signInBanner
                         }
 
+                        #if canImport(FamilyControls) && !targetEnvironment(simulator)
+                        if todayMinutes == 0 {
+                            screenTimeDiagnosticBanner
+                        }
+                        #endif
+
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
                         if let rank = currentUserRank, let group = favoriteGroup {
@@ -401,6 +407,35 @@ struct HomeView: View {
             }
         }
     }
+
+    #if canImport(FamilyControls) && !targetEnvironment(simulator)
+    private var screenTimeDiagnosticBanner: some View {
+        let defaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
+        let lastRun = defaults?.double(forKey: "report.lastRun") ?? 0
+        let extensionRan = lastRun > 0
+        let lastRunStr = extensionRan
+            ? DateFormatter.localizedString(from: Date(timeIntervalSince1970: lastRun), dateStyle: .none, timeStyle: .medium)
+            : "never"
+        let raw = defaults?.integer(forKey: "widget.todayMinutes") ?? -1
+
+        return PlainCard {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 6) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text("Screen Time Debug")
+                        .font(.caption.bold())
+                }
+                Text("Extension last ran: \(lastRunStr)")
+                    .font(.caption2)
+                Text("Raw value: \(raw)")
+                    .font(.caption2)
+                Text("Defaults suite exists: \(defaults != nil ? "yes" : "no")")
+                    .font(.caption2)
+            }
+        }
+    }
+    #endif
 
     private var noGroupsCTA: some View {
         PlainCard {

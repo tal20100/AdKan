@@ -24,14 +24,22 @@ class AdKanShieldConfigurationExtension: ShieldConfigurationDataSource {
         buildConfiguration()
     }
 
+    private var isHebrew: Bool {
+        Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
+            || (defaults?.string(forKey: "preferredLanguage") ?? "").hasPrefix("he")
+    }
+
     private func buildConfiguration() -> ShieldConfiguration {
         let store = defaults
+        let he = isHebrew
 
         let title = store?.string(forKey: "shield.title") ?? "עד כאן"
         let subtitle = store?.string(forKey: "shield.subtitle")
-            ?? "You chose to limit this app. Stay strong!"
-        let primaryLabel = store?.string(forKey: "shield.primaryButton") ?? "Close"
-        let secondaryLabel = store?.string(forKey: "shield.secondaryButton") ?? "Allow 1 min"
+            ?? (he ? "בחרת להגביל את האפליקציה הזו. תישאר חזק!" : "You chose to limit this app. Stay strong!")
+        let primaryLabel = store?.string(forKey: "shield.primaryButton")
+            ?? (he ? "סגור" : "Close")
+        let secondaryLabel = store?.string(forKey: "shield.secondaryButton")
+            ?? (he ? "דקה אחת" : "Allow 1 min")
         let isPremium = store?.bool(forKey: "shield.isPremium") ?? false
         let themeIndex = store?.integer(forKey: "shield.themeIndex") ?? 0
 

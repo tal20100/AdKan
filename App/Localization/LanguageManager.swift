@@ -5,6 +5,7 @@ final class LanguageManager: ObservableObject {
         didSet {
             objectWillChange.send()
             UserDefaults.standard.set([preferredLanguage], forKey: "AppleLanguages")
+            UserDefaults(suiteName: "group.com.talhayun.AdKan")?.set(preferredLanguage, forKey: "preferredLanguage")
         }
     }
 
@@ -22,5 +23,6 @@ final class LanguageManager: ObservableObject {
 
     init() {
         UserDefaults.standard.set([preferredLanguage], forKey: "AppleLanguages")
+        UserDefaults(suiteName: "group.com.talhayun.AdKan")?.set(preferredLanguage, forKey: "preferredLanguage")
     }
 }

@@ -84,9 +84,15 @@ struct AddFriendView: View {
         let deepLink = "adkan://join?group=\(groupId)"
         let fullText = "\(baseText)\n\(deepLink)"
         let av = UIActivityViewController(activityItems: [fullText], applicationActivities: nil)
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let root = scene.keyWindow?.rootViewController {
-            root.present(av, animated: true)
+        if let scene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene }).first,
+           let root = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+            var topVC = root
+            while let presented = topVC.presentedViewController {
+                topVC = presented
+            }
+            av.popoverPresentationController?.sourceView = topVC.view
+            topVC.present(av, animated: true)
         }
     }
 }
