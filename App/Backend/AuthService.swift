@@ -8,6 +8,7 @@ protocol AuthService: Sendable {
     func signOut()
     func accessToken() async -> String?
     func updateProfile(displayName: String, avatarEmoji: String) async throws
+    func ensureUserRow() async throws
 }
 
 final class SupabaseAuthService: AuthService, @unchecked Sendable {
@@ -65,7 +66,7 @@ final class SupabaseAuthService: AuthService, @unchecked Sendable {
         KeychainHelper.save(key: tokenKey, value: token)
         UserDefaults.standard.set(userId, forKey: userIdKey)
 
-        try await ensureUserRow(userId: userId)
+        try await ensureUserRow()
     }
 
     func signOut() {
@@ -99,27 +100,30 @@ final class SupabaseAuthService: AuthService, @unchecked Sendable {
         }
     }
 
-    private func ensureUserRow(userId: String) async throws {
-        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/users")
+    func ensureUserRow() async throws {
+        guard let token = KeychainHelper.read(key: tokenKey) else { return }
+
+        let url = URL(string: baseURL)!.appendingPathComponent("rest/v1/rpc/ensure_user")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("resolution=merge-duplicates", forHTTPHeaderField: "Prefer")
         request.setValue(apiKey, forHTTPHeaderField: "apikey")
-        if let token = KeychainHelper.read(key: tokenKey) {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
-        var body: [String: String] = ["id": userId]
+        var body: [String: String] = [:]
         if let name = UserDefaults.standard.string(forKey: "profileDisplayName"), !name.isEmpty {
-            body["display_name"] = name
+            body["p_display_name"] = name
         }
         if let emoji = UserDefaults.standard.string(forKey: "profileAvatarEmoji"), !emoji.isEmpty {
-            body["avatar_emoji"] = emoji
+            body["p_avatar_emoji"] = emoji
         }
         request.httpBody = try JSONEncoder().encode(body)
 
-        let (_, _) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            let msg = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw AuthError.serverError
+        }
     }
 }
 
@@ -130,6 +134,7 @@ struct StubAuthService: AuthService {
     func signOut() {}
     func accessToken() async -> String? { nil }
     func updateProfile(displayName: String, avatarEmoji: String) async throws {}
+    func ensureUserRow() async throws {}
 }
 
 enum AuthError: Error, LocalizedError {

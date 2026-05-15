@@ -23,12 +23,12 @@ final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     }
 
     func todayTotalMinutes() async -> Int {
-        let value = sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
-        if value == 0 {
+        for _ in 0..<3 {
+            let value = sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
+            if value > 0 { return value }
             try? await Task.sleep(for: .seconds(1))
-            return sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
         }
-        return value
+        return sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
     }
 
     func yesterdayTotalMinutes() async -> Int {

@@ -9,9 +9,9 @@ enum TimeFormatter {
         if isHebrew {
             let hourPart = hebrewHours(h)
             let minPart = hebrewMinutes(m)
-            if h > 0 && m > 0 { return "\(hourPart) ו-\(minPart)" }
-            if h > 0 { return hourPart }
-            return minPart
+            if h > 0 && m > 0 { return "\u{200F}\(hourPart) ו\u{2011}\(minPart)\u{200F}" }
+            if h > 0 { return "\u{200F}\(hourPart)\u{200F}" }
+            return "\u{200F}\(minPart)\u{200F}"
         } else {
             if h > 0 && m > 0 { return "\(h)h \(m)m" }
             if h > 0 { return "\(h)h" }

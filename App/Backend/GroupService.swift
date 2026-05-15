@@ -268,6 +268,13 @@ enum GroupServiceError: Error, LocalizedError {
     case groupFull
     case groupLimitReached
 
+    var isForeignKeyViolation: Bool {
+        if case .serverError(let msg) = self {
+            return msg.contains("23503") || msg.contains("not present in table")
+        }
+        return false
+    }
+
     var errorDescription: String? {
         switch self {
         case .requestFailed: return "Group service request failed."

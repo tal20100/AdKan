@@ -249,9 +249,9 @@ struct AdKanWidgetEntryView: View {
         if isHebrew {
             let hp: String = h == 1 ? "שעה" : h == 2 ? "שעתיים" : "\(h) שעות"
             let mp: String = m == 1 ? "דקה" : "\(m) דקות"
-            if h > 0 && m > 0 { return "\(hp) ו-\(mp)" }
-            if h > 0 { return hp }
-            return mp
+            if h > 0 && m > 0 { return "\u{200F}\(hp) ו\u{2011}\(mp)\u{200F}" }
+            if h > 0 { return "\u{200F}\(hp)\u{200F}" }
+            return "\u{200F}\(mp)\u{200F}"
         } else {
             if h > 0 && m > 0 { return "\(h)h \(m)m" }
             if h > 0 { return "\(h)h" }

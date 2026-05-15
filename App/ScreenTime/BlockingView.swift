@@ -198,7 +198,6 @@ struct BlockingView: View {
                         .foregroundStyle(AdKanTheme.primary)
                 }
             }
-            .premiumGated(.advancedSchedules)
         } header: {
             Text("blocking.timeRule.header")
         } footer: {
@@ -345,7 +344,6 @@ struct BlockingView: View {
                     }
                 }
             }
-            .premiumGated(.globalLimitRule)
         } header: {
             Text("blocking.global.header")
         } footer: {

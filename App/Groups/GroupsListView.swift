@@ -55,10 +55,12 @@ struct GroupsListView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle(Text("groups.title"))
             .sheet(isPresented: $showCreateGroup) {
-                CreateGroupView(onCreated: { newGroup in
-                    groups.append(newGroup)
-                    showCreateGroup = false
-                })
+                NavigationStack {
+                    CreateGroupView(onCreated: { newGroup in
+                        groups.append(newGroup)
+                        showCreateGroup = false
+                    })
+                }
             }
             .sheet(isPresented: $showPaywall) {
                 PaywallView(context: .general)

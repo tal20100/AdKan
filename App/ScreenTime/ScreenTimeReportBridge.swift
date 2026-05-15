@@ -11,8 +11,8 @@ struct ScreenTimeReportBridge: View {
 
     var body: some View {
         DeviceActivityReport(.totalActivity, filter: filter)
-            .frame(width: 0, height: 0)
-            .opacity(0)
+            .frame(height: 1)
+            .opacity(0.01)
             .allowsHitTesting(false)
             .onAppear {
                 filter = Self.todayFilter()
