@@ -7,18 +7,12 @@ extension DeviceActivityReport.Context {
 }
 
 struct ScreenTimeReportBridge: View {
-    @State private var filter = Self.todayFilter()
-
     var body: some View {
-        DeviceActivityReport(.totalActivity, filter: filter)
+        DeviceActivityReport(.totalActivity, filter: Self.todayFilter())
             .frame(maxWidth: .infinity, minHeight: 50)
-            .allowsHitTesting(false)
-            .onAppear {
-                filter = Self.todayFilter()
-            }
     }
 
-    private static func todayFilter() -> DeviceActivityFilter {
+    static func todayFilter() -> DeviceActivityFilter {
         DeviceActivityFilter(
             segment: .daily(
                 during: DateInterval(

@@ -18,6 +18,7 @@ struct HomeView: View {
     @State private var isLoading = true
     @State private var loadError: String?
     @State private var pendingMilestone: Int? = nil
+    @State private var bridgeRefreshID = UUID()
     @State private var cardsAppeared = false
     @State private var showSignIn = false
 
@@ -45,6 +46,7 @@ struct HomeView: View {
             ScrollView {
                 #if canImport(DeviceActivity) && !targetEnvironment(simulator)
                 ScreenTimeReportBridge()
+                    .id(bridgeRefreshID)
                 #endif
 
                 if isLoading {
@@ -169,7 +171,9 @@ struct HomeView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
+                    bridgeRefreshID = UUID()
                     Task {
+                        try? await Task.sleep(for: .seconds(1))
                         let fresh = await provider.todayTotalMinutes()
                         if fresh > 0 { todayMinutes = fresh }
                         let freshYesterday = await provider.yesterdayTotalMinutes()
@@ -421,12 +425,15 @@ struct HomeView: View {
             : "never"
         let raw = defaults?.integer(forKey: "widget.todayMinutes") ?? -1
 
-        let bundleURL = Bundle.main.bundleURL
-        let extensionsDir = bundleURL.appendingPathComponent("Extensions")
-        let pluginsDir = bundleURL.appendingPathComponent("PlugIns")
-        let extContents = (try? FileManager.default.contentsOfDirectory(atPath: extensionsDir.path)) ?? []
-        let plugContents = (try? FileManager.default.contentsOfDirectory(atPath: pluginsDir.path)) ?? []
+        let phase = defaults?.string(forKey: "report.phase") ?? "none"
+        let initTime = defaults?.double(forKey: "report.initTime") ?? 0
+        let startTime = defaults?.double(forKey: "report.startTime") ?? 0
+        let segments = defaults?.integer(forKey: "report.segmentCount") ?? -1
         let authStatus = AuthorizationCenter.shared.authorizationStatus
+
+        let initStr = initTime > 0
+            ? DateFormatter.localizedString(from: Date(timeIntervalSince1970: initTime), dateStyle: .none, timeStyle: .medium)
+            : "never"
 
         return PlainCard {
             VStack(alignment: .leading, spacing: 6) {
@@ -436,15 +443,15 @@ struct HomeView: View {
                     Text("Screen Time Debug")
                         .font(.caption.bold())
                 }
-                Text("Extension last ran: \(lastRunStr)")
+                Text("Phase: \(phase)")
                     .font(.caption2)
-                Text("Raw value: \(raw)")
+                Text("Ext init: \(initStr)")
+                    .font(.caption2)
+                Text("makeConfig ran: \(lastRunStr)")
+                    .font(.caption2)
+                Text("Segments: \(segments), Minutes: \(raw)")
                     .font(.caption2)
                 Text("Auth: \(String(describing: authStatus))")
-                    .font(.caption2)
-                Text("Extensions/: \(extContents.isEmpty ? "EMPTY" : extContents.joined(separator: ", "))")
-                    .font(.caption2)
-                Text("PlugIns/: \(plugContents.isEmpty ? "EMPTY" : plugContents.joined(separator: ", "))")
                     .font(.caption2)
             }
         }

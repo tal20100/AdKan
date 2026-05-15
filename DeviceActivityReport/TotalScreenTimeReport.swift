@@ -6,22 +6,33 @@ struct TotalScreenTimeReport: DeviceActivityReportScene {
 
     let content: (Int) -> TotalScreenTimeView
 
+    private var defaults: UserDefaults? {
+        UserDefaults(suiteName: "group.com.talhayun.AdKan")
+    }
+
     func makeConfiguration(
         representing data: DeviceActivityResults<DeviceActivityData>
     ) async -> Int {
+        defaults?.set("makeConfig_entered", forKey: "report.phase")
+        defaults?.set(Date().timeIntervalSince1970, forKey: "report.startTime")
+        defaults?.synchronize()
+
         var totalSeconds: TimeInterval = 0
+        var segmentCount = 0
 
         for await activityData in data {
             for await segment in activityData.activitySegments {
                 totalSeconds += segment.totalActivityDuration
+                segmentCount += 1
             }
         }
 
         let totalMinutes = Int(totalSeconds / 60)
 
-        let defaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
         defaults?.set(totalMinutes, forKey: "widget.todayMinutes")
         defaults?.set(Date().timeIntervalSince1970, forKey: "report.lastRun")
+        defaults?.set(segmentCount, forKey: "report.segmentCount")
+        defaults?.set("makeConfig_done", forKey: "report.phase")
         defaults?.synchronize()
 
         return totalMinutes
@@ -32,9 +43,9 @@ struct TotalScreenTimeView: View {
     let totalMinutes: Int
 
     var body: some View {
-        Text("\(totalMinutes)")
-            .font(.system(size: 1))
-            .foregroundStyle(.clear)
+        Text("ST: \(totalMinutes)m")
+            .font(.caption2)
+            .foregroundStyle(.secondary)
     }
 }
 

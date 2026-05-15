@@ -56,6 +56,9 @@ targets:
       - target: AdKanShieldConfiguration
         embed: true
         codeSign: true
+      - target: AdKanShieldAction
+        embed: true
+        codeSign: true
       - target: AdKanDeviceActivityMonitor
         embed: true
         codeSign: true
@@ -127,6 +130,41 @@ targets:
         FRAMEWORK_SEARCH_PATHS: "$(inherited)"
         SUPPORTED_PLATFORMS: iphoneos
         CODE_SIGN_ENTITLEMENTS: ShieldConfiguration/ShieldConfiguration.entitlements
+
+    dependencies:
+      - framework: ManagedSettings.framework
+        weak: true
+      - framework: ManagedSettingsUI.framework
+        weak: true
+
+
+  AdKanShieldAction:
+    type: app-extension
+    platform: iOS
+
+    sources:
+      - path: ShieldAction
+
+    info:
+      path: ShieldAction/Info.plist
+      properties:
+        CFBundleDisplayName: AdKan Shield Action
+        CFBundleIdentifier: com.talhayun.AdKan.ShieldAction
+        CFBundleVersion: "1"
+        CFBundleShortVersionString: "1.0.0"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.ManagedSettingsUI.shield-action-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).AdKanShieldActionExtension
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.talhayun.AdKan.ShieldAction
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: "5.9"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+        SUPPORTED_PLATFORMS: iphoneos
+        CODE_SIGN_ENTITLEMENTS: ShieldAction/ShieldAction.entitlements
 
     dependencies:
       - framework: ManagedSettings.framework
