@@ -191,6 +191,15 @@ struct HomeView: View {
                 isLoading = false
                 withAnimation { cardsAppeared = true }
             }
+            .task {
+                guard todayMinutes == 0 else { return }
+                try? await Task.sleep(for: .seconds(5))
+                let fresh = await provider.todayTotalMinutes()
+                if fresh > 0 {
+                    todayMinutes = fresh
+                    updateWidget()
+                }
+            }
         }
     }
 

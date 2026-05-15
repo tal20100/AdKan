@@ -71,6 +71,20 @@ struct AdKanWidgetEntryView: View {
     @Environment(\.widgetFamily) private var family
     @Environment(\.colorScheme) private var colorScheme
 
+    private static let mascotLabels: [String: [String: String]] = [
+        "mascot.label.thriving":  ["en": "Excellent", "he": "מצוין"],
+        "mascot.label.onTrack":   ["en": "On track", "he": "בשליטה"],
+        "mascot.label.slipping":  ["en": "Near limit", "he": "קרוב לגבול"],
+        "mascot.label.warning":   ["en": "Over goal", "he": "מעבר ליעד"],
+        "mascot.label.spiraling": ["en": "Way over", "he": "חריגה"],
+    ]
+
+    private func mascotLabel(_ key: String) -> String {
+        let lang = Locale.current.language.languageCode?.identifier ?? "en"
+        let langKey = lang.hasPrefix("he") ? "he" : "en"
+        return Self.mascotLabels[key]?[langKey] ?? key
+    }
+
     var body: some View {
         switch family {
         case .accessoryCircular:
@@ -129,7 +143,7 @@ struct AdKanWidgetEntryView: View {
 
             Spacer()
 
-            Text(NSLocalizedString(entry.stateLabelKey, comment: ""))
+            Text(mascotLabel(entry.stateLabelKey))
                 .font(.system(size: 10, weight: .bold, design: .rounded))
                 .foregroundStyle(entry.mascotGlowColor)
                 .padding(.horizontal, 8)
@@ -159,7 +173,7 @@ struct AdKanWidgetEntryView: View {
                         .frame(width: 68, height: 68)
                 }
 
-                Text(NSLocalizedString(entry.stateLabelKey, comment: ""))
+                Text(mascotLabel(entry.stateLabelKey))
                     .font(.system(size: 9, weight: .bold, design: .rounded))
                     .foregroundStyle(entry.mascotGlowColor)
                     .padding(.horizontal, 6)

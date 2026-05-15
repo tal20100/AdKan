@@ -198,6 +198,7 @@ struct BlockingView: View {
                         .foregroundStyle(AdKanTheme.primary)
                 }
             }
+            .premiumGated(.advancedSchedules)
         } header: {
             Text("blocking.timeRule.header")
         } footer: {

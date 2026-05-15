@@ -26,6 +26,34 @@ struct GroupMember: Identifiable, Codable, Sendable {
     var badge: LeagueBadge {
         LeagueBadge(rawValue: leagueBadge ?? "") ?? .none
     }
+
+    enum CodingKeys: String, CodingKey {
+        case userId, displayName, avatarEmoji, dailyTotalMinutes
+        case currentStreak, leagueBadge, rank, isCurrentUser
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        userId = try c.decode(String.self, forKey: .userId)
+        displayName = try c.decodeIfPresent(String.self, forKey: .displayName) ?? ""
+        avatarEmoji = try c.decodeIfPresent(String.self, forKey: .avatarEmoji) ?? ""
+        dailyTotalMinutes = try c.decodeIfPresent(Int.self, forKey: .dailyTotalMinutes)
+        currentStreak = try c.decodeIfPresent(Int.self, forKey: .currentStreak)
+        leagueBadge = try c.decodeIfPresent(String.self, forKey: .leagueBadge)
+        rank = try c.decodeIfPresent(Int.self, forKey: .rank)
+        isCurrentUser = try c.decodeIfPresent(Bool.self, forKey: .isCurrentUser) ?? false
+    }
+
+    init(userId: String, displayName: String, avatarEmoji: String, dailyTotalMinutes: Int? = nil, currentStreak: Int? = nil, leagueBadge: String? = nil, rank: Int? = nil, isCurrentUser: Bool = false) {
+        self.userId = userId
+        self.displayName = displayName
+        self.avatarEmoji = avatarEmoji
+        self.dailyTotalMinutes = dailyTotalMinutes
+        self.currentStreak = currentStreak
+        self.leagueBadge = leagueBadge
+        self.rank = rank
+        self.isCurrentUser = isCurrentUser
+    }
 }
 
 enum GroupType: String, Codable, CaseIterable, Sendable {

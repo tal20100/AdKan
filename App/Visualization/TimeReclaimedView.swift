@@ -142,7 +142,10 @@ struct TimeReclaimedView: View {
         case 0:  key = "home.minutesLeft.neutral"
         default: key = "home.minutesLeft.male"
         }
-        return String(format: NSLocalizedString(key, comment: ""), formatted)
+        let lang = languageManager.preferredLanguage
+        let bundle = Bundle.main.path(forResource: lang, ofType: "lproj")
+            .flatMap { Bundle(path: $0) } ?? .main
+        return String(format: NSLocalizedString(key, bundle: bundle, comment: ""), formatted)
     }
 
     private func formatMinutes(_ minutes: Int) -> String {
