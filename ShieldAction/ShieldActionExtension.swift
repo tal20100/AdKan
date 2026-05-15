@@ -9,17 +9,25 @@ class AdKanShieldActionExtension: ShieldActionDelegate {
         UserDefaults(suiteName: "group.com.talhayun.AdKan")
     }
 
-    func handle(
+    override func handle(
         action: ShieldAction,
-        for application: Application,
+        for application: ApplicationToken,
         completionHandler: @escaping (ShieldActionResponse) -> Void
     ) {
         handleAction(action, completionHandler: completionHandler)
     }
 
-    func handle(
+    override func handle(
         action: ShieldAction,
-        for webDomain: WebDomain,
+        for webDomain: WebDomainToken,
+        completionHandler: @escaping (ShieldActionResponse) -> Void
+    ) {
+        handleAction(action, completionHandler: completionHandler)
+    }
+
+    override func handle(
+        action: ShieldAction,
+        for category: ActivityCategoryToken,
         completionHandler: @escaping (ShieldActionResponse) -> Void
     ) {
         handleAction(action, completionHandler: completionHandler)
@@ -35,8 +43,7 @@ class AdKanShieldActionExtension: ShieldActionDelegate {
         case .secondaryButtonPressed:
             store.shield.applications = nil
             store.shield.applicationCategories = nil
-            let reapplyAt = Date().addingTimeInterval(60)
-            defaults?.set(reapplyAt.timeIntervalSince1970, forKey: "shield.tempAllowUntil")
+            defaults?.set(Date().addingTimeInterval(60).timeIntervalSince1970, forKey: "shield.tempAllowUntil")
             completionHandler(.close)
         @unknown default:
             completionHandler(.close)

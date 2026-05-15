@@ -427,7 +427,6 @@ struct HomeView: View {
 
         let phase = defaults?.string(forKey: "report.phase") ?? "none"
         let initTime = defaults?.double(forKey: "report.initTime") ?? 0
-        let startTime = defaults?.double(forKey: "report.startTime") ?? 0
         let segments = defaults?.integer(forKey: "report.segmentCount") ?? -1
         let authStatus = AuthorizationCenter.shared.authorizationStatus
 
