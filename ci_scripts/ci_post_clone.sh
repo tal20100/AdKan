@@ -26,10 +26,18 @@ fi
 
 xcodegen generate
 
-# Diagnostic: show how XcodeGen embedded extensions (no modification)
+# Fail fast if NSExtensionPrincipalClass leaks into DeviceActivityReport
 PBXPROJ="$CI_PRIMARY_REPOSITORY_PATH/AdKan.xcodeproj/project.pbxproj"
+echo "=== Verifying DeviceActivityReport has no NSExtensionPrincipalClass ==="
+if grep -A 50 "DeviceActivityReport" "$PBXPROJ" | grep -q "NSExtensionPrincipalClass"; then
+    echo "FATAL: NSExtensionPrincipalClass found in DeviceActivityReport!"
+    exit 1
+fi
+echo "PASS: DeviceActivityReport clean"
+
+# Diagnostic: show how XcodeGen embedded extensions
 echo "=== Extension embed phases ==="
-grep -B 1 -A 8 "Embed.*Extensions" "$PBXPROJ" || echo "No embed phases found"
+grep -B 1 -A 8 "Embed.*Extension" "$PBXPROJ" || echo "No embed phases found"
 echo "=== End embed phases ==="
 
 echo "=== ci_post_clone: done ==="
