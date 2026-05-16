@@ -4,13 +4,15 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>AdKan Report</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.talhayun.AdKan.DeviceActivityReport</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
-	<key>EXAppExtensionAttributes</key>
+	<key>NSExtension</key>
 	<dict>
-		<key>EXExtensionPointIdentifier</key>
+		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.deviceactivityui.report-extension</string>
 	</dict>
 </dict>
