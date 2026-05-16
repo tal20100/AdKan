@@ -14,7 +14,7 @@ struct OnboardingView: View {
     @AppStorage("genderPreference") private var genderPreference: Int = 0
 
     private let questions = SurveyData.questions
-    // welcome + questions + signIn + profile + permission
+    // welcome + permission + questions + signIn + profile
     private var totalPages: Int { questions.count + 4 }
 
     var body: some View {
@@ -22,7 +22,7 @@ struct OnboardingView: View {
             Color(.systemGroupedBackground).ignoresSafeArea()
 
             VStack(spacing: 0) {
-                if currentPage > 0 && currentPage < totalPages - 1 {
+                if currentPage > 1 && currentPage < totalPages {
                     progressBar
                         .padding(.horizontal, AdKanTheme.screenPadding)
                         .padding(.top, 8)
@@ -31,21 +31,21 @@ struct OnboardingView: View {
                 TabView(selection: $currentPage) {
                     welcomePage.tag(0)
 
+                    permissionPage.tag(1)
+
                     ForEach(Array(questions.enumerated()), id: \.offset) { index, question in
-                        questionPage(question, index: index).tag(index + 1)
+                        questionPage(question, index: index).tag(index + 2)
                     }
 
                     SignInView {
-                        withAnimation { currentPage = questions.count + 2 }
-                    }
-                    .tag(questions.count + 1)
-
-                    ProfileSetupView {
-                        withAnimation { currentPage = totalPages - 1 }
+                        withAnimation { currentPage = questions.count + 3 }
                     }
                     .tag(questions.count + 2)
 
-                    permissionPage.tag(totalPages - 1)
+                    ProfileSetupView {
+                        withAnimation { onComplete() }
+                    }
+                    .tag(questions.count + 3)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.easeInOut(duration: 0.35), value: currentPage)
@@ -70,7 +70,8 @@ struct OnboardingView: View {
 
     private var progress: CGFloat {
         guard totalPages > 4 else { return 0 }
-        return CGFloat(max(0, currentPage)) / CGFloat(totalPages - 1)
+        let progressPages = max(0, currentPage - 1)
+        return CGFloat(progressPages) / CGFloat(totalPages - 2)
     }
 
     // MARK: - Welcome
@@ -188,7 +189,7 @@ struct OnboardingView: View {
 
                 AdKanButton(titleKey: "permission.maybeLater", style: .subtle) {
                     permissionSkipped = true
-                    onComplete()
+                    withAnimation { currentPage = 2 }
                 }
             }
             .padding(.horizontal, AdKanTheme.screenPadding)
@@ -202,7 +203,7 @@ struct OnboardingView: View {
             }
             Button("permission.maybeLater", role: .cancel) {
                 permissionSkipped = true
-                onComplete()
+                withAnimation { currentPage = 2 }
             }
         } message: {
             Text("permission.denied.body")
@@ -216,7 +217,7 @@ struct OnboardingView: View {
                 try await provider.requestAuthorization()
                 let status = await provider.authorizationStatus
                 if status == .approved {
-                    onComplete()
+                    withAnimation { currentPage = 2 }
                 } else {
                     showPermissionDeniedAlert = true
                 }
