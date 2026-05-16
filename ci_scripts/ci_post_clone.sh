@@ -26,22 +26,10 @@ fi
 
 xcodegen generate
 
-# Fix ExtensionKit extension embed phase
-# XcodeGen may generate incorrect dstPath for ExtensionKit extensions,
-# causing "must be embedded in Extensions directory" export failures.
+# Diagnostic: show how XcodeGen embedded extensions (no modification)
 PBXPROJ="$CI_PRIMARY_REPOSITORY_PATH/AdKan.xcodeproj/project.pbxproj"
-if grep -q "Embed ExtensionKit Extensions" "$PBXPROJ"; then
-    echo "Fixing ExtensionKit embed phase..."
-    echo "Before:"
-    grep -A 5 "Embed ExtensionKit Extensions" "$PBXPROJ" || true
-
-    sed -i '' '/Embed ExtensionKit Extensions/,/};/{
-        s|dstPath = ".*";|dstPath = "$(EXTENSIONS_FOLDER_PATH)";|
-        s|dstSubfolderSpec = [0-9]*;|dstSubfolderSpec = 16;|
-    }' "$PBXPROJ"
-
-    echo "After:"
-    grep -A 5 "Embed ExtensionKit Extensions" "$PBXPROJ" || true
-fi
+echo "=== Extension embed phases ==="
+grep -B 1 -A 8 "Embed.*Extensions" "$PBXPROJ" || echo "No embed phases found"
+echo "=== End embed phases ==="
 
 echo "=== ci_post_clone: done ==="
