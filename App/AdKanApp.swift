@@ -36,6 +36,7 @@ struct AdKanApp: App {
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
                         BlockingEnforcer.shared.reapplyIfTempAllowExpired()
+                        BlockingEnforcer.shared.startDailyMonitoring()
                     }
                 }
                 .task {

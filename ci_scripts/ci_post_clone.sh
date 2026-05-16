@@ -36,7 +36,7 @@ if grep -q "Embed ExtensionKit Extensions" "$PBXPROJ"; then
     grep -A 5 "Embed ExtensionKit Extensions" "$PBXPROJ" || true
 
     sed -i '' '/Embed ExtensionKit Extensions/,/};/{
-        s|dstPath = ".*";|dstPath = "\$(EXTENSIONS_FOLDER_PATH)";|
+        s|dstPath = ".*";|dstPath = "$(EXTENSIONS_FOLDER_PATH)";|
         s|dstSubfolderSpec = [0-9]*;|dstSubfolderSpec = 16;|
     }' "$PBXPROJ"
 
