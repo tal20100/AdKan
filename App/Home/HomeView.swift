@@ -436,6 +436,8 @@ struct HomeView: View {
 
         let udOK = defaults != nil
         let writeTest = defaults?.bool(forKey: "report.writeTest") ?? false
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")
+        let containerOK = containerURL != nil
 
         return PlainCard {
             VStack(alignment: .leading, spacing: 6) {
@@ -458,6 +460,9 @@ struct HomeView: View {
                 Text("App UD: \(udOK ? "ok" : "NIL") | Ext wrote: \(writeTest ? "yes" : "no")")
                     .font(.caption2)
                     .foregroundStyle(udOK && writeTest ? .green : .red)
+                Text("App container: \(containerOK ? "ok" : "NIL")")
+                    .font(.caption2)
+                    .foregroundStyle(containerOK ? .green : .red)
             }
         }
     }

@@ -49,6 +49,9 @@ struct TotalScreenTimeView: View {
         let readBack = defaults?.integer(forKey: "widget.todayMinutes") ?? -1
         let phase = defaults?.string(forKey: "report.phase") ?? "nil"
 
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")
+        let containerOK = containerURL != nil
+
         VStack(alignment: .leading, spacing: 2) {
             Text("ST: \(totalMinutes)m")
                 .font(.caption2)
@@ -56,6 +59,9 @@ struct TotalScreenTimeView: View {
             Text("UD:\(defaultsOK ? "ok" : "NIL") rb:\(readBack) ph:\(phase)")
                 .font(.system(size: 9))
                 .foregroundStyle(defaultsOK ? .green : .red)
+            Text("container:\(containerOK ? "ok" : "NIL") \(containerURL?.lastPathComponent ?? "none")")
+                .font(.system(size: 9))
+                .foregroundStyle(containerOK ? .green : .red)
         }
     }
 }
