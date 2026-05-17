@@ -9,7 +9,7 @@ extension DeviceActivityReport.Context {
 struct ScreenTimeReportBridge: View {
     var body: some View {
         DeviceActivityReport(.totalActivity, filter: Self.todayFilter())
-            .frame(maxWidth: .infinity, minHeight: 50)
+            .frame(maxWidth: .infinity, minHeight: 120)
     }
 
     static func todayFilter() -> DeviceActivityFilter {

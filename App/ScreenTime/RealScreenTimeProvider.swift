@@ -28,19 +28,24 @@ final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     }
 
     func todayTotalMinutes() async -> Int {
-        for i in 0..<3 {
-            let value = reportData?["todayMinutes"] as? Int ?? 0
-            if value > 0 { return value }
-            if i < 2 {
-                try? await Task.sleep(for: .seconds(1))
-            }
-        }
+        let keychainValue = KeychainScreenTimeStore.todayMinutes
+        if keychainValue > 0 { return keychainValue }
+
+        let fileValue = reportData?["todayMinutes"] as? Int ?? 0
+        if fileValue > 0 { return fileValue }
+
+        try? await Task.sleep(for: .seconds(1))
+        let retryKeychain = KeychainScreenTimeStore.todayMinutes
+        if retryKeychain > 0 { return retryKeychain }
+
         return reportData?["todayMinutes"] as? Int ?? 0
     }
 
     var reportExtensionLastRan: Date? {
-        guard let ts = reportData?["lastRun"] as? Double, ts > 0 else { return nil }
-        return Date(timeIntervalSince1970: ts)
+        let ts = KeychainScreenTimeStore.lastRunTimestamp
+        if ts > 0 { return Date(timeIntervalSince1970: ts) }
+        guard let fileTs = reportData?["lastRun"] as? Double, fileTs > 0 else { return nil }
+        return Date(timeIntervalSince1970: fileTs)
     }
 
     func yesterdayTotalMinutes() async -> Int {

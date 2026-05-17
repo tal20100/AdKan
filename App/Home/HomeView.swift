@@ -1,8 +1,5 @@
 import SwiftUI
 import WidgetKit
-#if canImport(FamilyControls)
-import FamilyControls
-#endif
 
 struct HomeView: View {
     @Environment(\.screenTimeProvider) private var provider
@@ -44,11 +41,6 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                #if canImport(DeviceActivity) && !targetEnvironment(simulator)
-                ScreenTimeReportBridge()
-                    .id(bridgeRefreshID)
-                #endif
-
                 if isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, minHeight: 300)
@@ -60,10 +52,10 @@ struct HomeView: View {
                             signInBanner
                         }
 
-                        #if canImport(FamilyControls) && !targetEnvironment(simulator)
-                        if todayMinutes == 0 {
-                            screenTimeDiagnosticBanner
-                        }
+                        #if canImport(DeviceActivity) && !targetEnvironment(simulator)
+                        ScreenTimeReportBridge()
+                            .id(bridgeRefreshID)
+                            .padding(.horizontal, -AdKanTheme.screenPadding)
                         #endif
 
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
@@ -219,10 +211,14 @@ struct HomeView: View {
     }
 
     private func updateWidget() {
-        SharedDefaults.todayMinutes = todayMinutes
+        if todayMinutes > 0 {
+            SharedDefaults.todayMinutes = todayMinutes
+        }
         SharedDefaults.goalMinutes = goalMinutes
         SharedDefaults.currentStreak = streakTracker.currentStreak
-        SharedDefaults.yesterdayMinutes = yesterdayMinutes
+        if yesterdayMinutes > 0 {
+            SharedDefaults.yesterdayMinutes = yesterdayMinutes
+        }
         WidgetCenter.shared.reloadAllTimelines()
     }
 
@@ -415,44 +411,6 @@ struct HomeView: View {
         }
     }
 
-    #if canImport(FamilyControls) && !targetEnvironment(simulator)
-    private var screenTimeDiagnosticBanner: some View {
-        let fileURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")?
-            .appendingPathComponent("report-data.plist")
-        let dict = fileURL.flatMap { NSDictionary(contentsOf: $0) }
-
-        let lastRun = dict?["lastRun"] as? Double ?? 0
-        let lastRunStr = lastRun > 0
-            ? DateFormatter.localizedString(from: Date(timeIntervalSince1970: lastRun), dateStyle: .none, timeStyle: .medium)
-            : "never"
-        let raw = dict?["todayMinutes"] as? Int ?? -1
-        let phase = dict?["phase"] as? String ?? "none"
-        let segments = dict?["segmentCount"] as? Int ?? -1
-        let authStatus = AuthorizationCenter.shared.authorizationStatus
-
-        return PlainCard {
-            VStack(alignment: .leading, spacing: 6) {
-                HStack(spacing: 6) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.orange)
-                    Text("Screen Time Debug")
-                        .font(.caption.bold())
-                }
-                Text("Phase: \(phase)")
-                    .font(.caption2)
-                Text("makeConfig ran: \(lastRunStr)")
-                    .font(.caption2)
-                Text("Segments: \(segments), Minutes: \(raw)")
-                    .font(.caption2)
-                Text("Auth: \(String(describing: authStatus))")
-                    .font(.caption2)
-                Text("File: \(dict != nil ? "readable" : "missing")")
-                    .font(.caption2)
-                    .foregroundStyle(dict != nil ? .green : .red)
-            }
-        }
-    }
-    #endif
 
     private var noGroupsCTA: some View {
         PlainCard {
