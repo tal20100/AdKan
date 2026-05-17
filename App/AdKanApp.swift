@@ -12,21 +12,9 @@ struct AdKanApp: App {
     @StateObject private var blockingRuleStore = BlockingRuleStore()
     @StateObject private var appearanceManager = AppearanceManager()
 
-    @State private var bridgeRefreshID = UUID()
-
     var body: some Scene {
         WindowGroup {
             RootView(hasCompletedOnboarding: $hasCompletedOnboarding)
-                .background {
-                    #if canImport(DeviceActivity) && !targetEnvironment(simulator)
-                    ScreenTimeReportBridge()
-                        .id(bridgeRefreshID)
-                        .frame(width: 1, height: 1)
-                        .opacity(0)
-                        .allowsHitTesting(false)
-                        .accessibilityHidden(true)
-                    #endif
-                }
                 .environmentObject(router)
                 .environmentObject(services)
                 .environmentObject(languageManager)
@@ -47,7 +35,6 @@ struct AdKanApp: App {
                 }
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
-                        bridgeRefreshID = UUID()
                         BlockingEnforcer.shared.reapplyIfTempAllowExpired()
                         BlockingEnforcer.shared.startDailyMonitoring()
                     }

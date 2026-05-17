@@ -17,6 +17,7 @@ struct HomeView: View {
     @State private var pendingMilestone: Int? = nil
     @State private var cardsAppeared = false
     @State private var showSignIn = false
+    @State private var bridgeRefreshID = UUID()
 
     private static let milestoneDays = [7, 14, 30, 100]
     private let shownMilestonesKey = "shownMilestonesV1"
@@ -66,7 +67,12 @@ struct HomeView: View {
                             Spacer()
                         }
 
+                        #if canImport(DeviceActivity) && !targetEnvironment(simulator)
+                        ScreenTimeReportBridge()
+                            .id(bridgeRefreshID)
+                        #else
                         usageCard
+                        #endif
 
                         focusCTA
 
@@ -156,6 +162,7 @@ struct HomeView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
+                    bridgeRefreshID = UUID()
                     Task {
                         try? await Task.sleep(for: .seconds(1))
                         let fresh = await provider.todayTotalMinutes()

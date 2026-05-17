@@ -49,7 +49,7 @@ final class BlockingEnforcer: ObservableObject {
             repeats: true
         )
         var events: [DeviceActivityEvent.Name: DeviceActivityEvent] = [:]
-        for minutes in stride(from: 5, through: 480, by: 5) {
+        for minutes in stride(from: 15, through: 480, by: 15) {
             let name = DeviceActivityEvent.Name("com.talhayun.AdKan.threshold.\(minutes)")
             events[name] = DeviceActivityEvent(threshold: DateComponents(minute: minutes))
         }
