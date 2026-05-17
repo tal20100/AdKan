@@ -52,7 +52,12 @@ struct HomeView: View {
                             signInBanner
                         }
 
+                        #if canImport(DeviceActivity) && !targetEnvironment(simulator)
+                        ScreenTimeReportBridge()
+                            .id(bridgeRefreshID)
+                        #else
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
+                        #endif
 
                         if let rank = currentUserRank, let group = favoriteGroup {
                             rankChip(rank: rank, groupName: group.name, groupId: group.id)
@@ -67,12 +72,7 @@ struct HomeView: View {
                             Spacer()
                         }
 
-                        #if canImport(DeviceActivity) && !targetEnvironment(simulator)
-                        ScreenTimeReportBridge()
-                            .id(bridgeRefreshID)
-                        #else
                         usageCard
-                        #endif
 
                         focusCTA
 

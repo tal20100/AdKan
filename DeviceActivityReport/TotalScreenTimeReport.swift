@@ -105,7 +105,6 @@ struct TotalScreenTimeView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .shadow(color: .black.opacity(0.08), radius: 12, y: 4)
-        .padding(.horizontal, 20)
     }
 }
 
