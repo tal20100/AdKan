@@ -1,0 +1,77 @@
+{
+  "$schema_note": "Manually mirrored from developer.apple.com. Update `as_of` whenever you change anything on the portal. If `as_of` is older than 14 days OR any bundle says 'unknown', the apple-signing-debug skill's AUDIT phase must halt and ask the founder.",
+  "team_id": "STJA5GH4Y9",
+  "as_of": "2026-05-17",
+  "family_controls_distribution": {
+    "status": "approved",
+    "approved_for_bundles": [
+      "com.talhayun.AdKan",
+      "com.talhayun.AdKan.ShieldConfiguration",
+      "com.talhayun.AdKan.ShieldAction",
+      "com.talhayun.AdKan.DeviceActivityMonitor",
+      "com.talhayun.AdKan.DeviceActivityReport"
+    ]
+  },
+  "shared_app_group": "group.com.talhayun.AdKan",
+  "bundles": {
+    "com.talhayun.AdKan": {
+      "registered": true,
+      "kind": "app",
+      "capabilities_enabled": [
+        "AppGroups",
+        "FamilyControls",
+        "SignInWithApple"
+      ],
+      "app_groups": ["group.com.talhayun.AdKan"],
+      "associated_entitlements_file": "App/AdKan.entitlements"
+    },
+    "com.talhayun.AdKan.AdKanWidget": {
+      "registered": true,
+      "kind": "app-extension",
+      "extension_point": "com.apple.widgetkit-extension",
+      "capabilities_enabled": ["AppGroups"],
+      "app_groups": ["group.com.talhayun.AdKan"],
+      "associated_entitlements_file": "Widget/AdKanWidget.entitlements",
+      "needs_family_controls": false
+    },
+    "com.talhayun.AdKan.ShieldConfiguration": {
+      "registered": true,
+      "kind": "app-extension",
+      "extension_point": "com.apple.ManagedSettingsUI.shield-configuration-service",
+      "capabilities_enabled": ["AppGroups", "FamilyControls"],
+      "app_groups": ["group.com.talhayun.AdKan"],
+      "associated_entitlements_file": "ShieldConfiguration/ShieldConfiguration.entitlements"
+    },
+    "com.talhayun.AdKan.ShieldAction": {
+      "registered": true,
+      "kind": "app-extension",
+      "extension_point": "com.apple.ManagedSettings.shield-action-service",
+      "capabilities_enabled": ["AppGroups", "FamilyControls"],
+      "app_groups": ["group.com.talhayun.AdKan"],
+      "associated_entitlements_file": "ShieldAction/ShieldAction.entitlements"
+    },
+    "com.talhayun.AdKan.DeviceActivityMonitor": {
+      "registered": true,
+      "kind": "app-extension",
+      "extension_point": "com.apple.deviceactivity.monitor-extension",
+      "capabilities_enabled": ["AppGroups", "FamilyControls"],
+      "app_groups": ["group.com.talhayun.AdKan"],
+      "associated_entitlements_file": "DeviceActivityMonitor/DeviceActivityMonitor.entitlements"
+    },
+    "com.talhayun.AdKan.DeviceActivityReport": {
+      "registered": true,
+      "kind": "extensionkit-extension",
+      "extension_point": "com.apple.deviceactivityui.report-extension",
+      "info_plist_key": "EXAppExtensionAttributes",
+      "capabilities_enabled": ["AppGroups", "FamilyControls"],
+      "app_groups": ["group.com.talhayun.AdKan"],
+      "associated_entitlements_file": "DeviceActivityReport/DeviceActivityReport.entitlements"
+    }
+  },
+  "xcode_auto_generated_ids_present": [
+    "XC com talhayun AdKan AdKanWidget",
+    "XC com talhayun AdKan DeviceActivityMonitor",
+    "XC Wildcard"
+  ],
+  "xcode_auto_id_policy": "Do not delete until verified that no current/recent provisioning profile references them. They are duplicates of the real IDs above but may be referenced by historical Xcode Cloud builds. Safe to delete once next successful TestFlight build is signed against the canonical IDs."
+}
