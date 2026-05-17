@@ -43,6 +43,18 @@ class AdKanDeviceActivityMonitorExtension: DeviceActivityMonitor {
         _ event: DeviceActivityEvent.Name,
         activity: DeviceActivityName
     ) {
+        let prefix = "com.talhayun.AdKan.threshold."
+        if event.rawValue.hasPrefix(prefix),
+           let minutes = Int(event.rawValue.dropFirst(prefix.count)) {
+            var dict = (reportData as? [String: Any]) ?? [:]
+            let current = dict["todayMinutes"] as? Int ?? 0
+            if minutes > current {
+                dict["todayMinutes"] = minutes
+                dict["lastRun"] = Date().timeIntervalSince1970
+                writeReport(dict as NSDictionary)
+            }
+        }
+
         reapplyIfTempAllowExpired()
         applyShieldsFromSavedTokens()
     }
@@ -81,6 +93,3 @@ extension DeviceActivityName {
     static let dailySchedule = Self("com.talhayun.AdKan.dailySchedule")
 }
 
-extension DeviceActivityEvent.Name {
-    static let usageThresholdReached = Self("com.talhayun.AdKan.usageThreshold")
-}

@@ -55,7 +55,6 @@ struct HomeView: View {
                         #if canImport(DeviceActivity) && !targetEnvironment(simulator)
                         ScreenTimeReportBridge()
                             .id(bridgeRefreshID)
-                            .padding(.horizontal, -AdKanTheme.screenPadding)
                         #endif
 
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
