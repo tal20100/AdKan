@@ -15,7 +15,6 @@ struct HomeView: View {
     @State private var isLoading = true
     @State private var loadError: String?
     @State private var pendingMilestone: Int? = nil
-    @State private var bridgeRefreshID = UUID()
     @State private var cardsAppeared = false
     @State private var showSignIn = false
 
@@ -51,11 +50,6 @@ struct HomeView: View {
                         if !services.auth.isAuthenticated {
                             signInBanner
                         }
-
-                        #if canImport(DeviceActivity) && !targetEnvironment(simulator)
-                        ScreenTimeReportBridge()
-                            .id(bridgeRefreshID)
-                        #endif
 
                         TimeReclaimedView(savedMinutes: savedMinutes, goalMinutes: goalMinutes, todayMinutes: todayMinutes)
 
@@ -162,7 +156,6 @@ struct HomeView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
-                    bridgeRefreshID = UUID()
                     Task {
                         try? await Task.sleep(for: .seconds(1))
                         let fresh = await provider.todayTotalMinutes()
@@ -178,6 +171,13 @@ struct HomeView: View {
             .task {
                 todayMinutes = await provider.todayTotalMinutes()
                 yesterdayMinutes = await provider.yesterdayTotalMinutes()
+                if todayMinutes == 0 {
+                    try? await Task.sleep(for: .seconds(2))
+                    let retry = await provider.todayTotalMinutes()
+                    if retry > 0 { todayMinutes = retry }
+                    let retryYesterday = await provider.yesterdayTotalMinutes()
+                    if retryYesterday > 0 { yesterdayMinutes = retryYesterday }
+                }
                 do {
                     groups = try await services.groups.fetchMyGroups()
                 } catch {
