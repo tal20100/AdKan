@@ -49,6 +49,7 @@ final class BlockingEnforcer: ObservableObject {
             events[name] = DeviceActivityEvent(threshold: DateComponents(minute: minutes))
         }
         let center = DeviceActivityCenter()
+        center.stopMonitoring([.dailySchedule])
         try? center.startMonitoring(.dailySchedule, during: schedule, events: events)
     }
 

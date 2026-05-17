@@ -1,5 +1,6 @@
 import DeviceActivity
 import SwiftUI
+import Security
 
 struct TotalScreenTimeReport: DeviceActivityReportScene {
     let context: DeviceActivityReport.Context = .totalActivity
@@ -17,7 +18,31 @@ struct TotalScreenTimeReport: DeviceActivityReportScene {
             }
         }
 
-        return Int(totalSeconds / 60)
+        let totalMinutes = Int(totalSeconds / 60)
+        Self.writeToKeychain(totalMinutes)
+        return totalMinutes
+    }
+
+    private static let keychainService = "com.talhayun.AdKan.screentime"
+    private static let keychainGroup = "group.com.talhayun.AdKan"
+
+    private static func writeToKeychain(_ minutes: Int) {
+        var v = minutes
+        let data = Data(bytes: &v, count: MemoryLayout<Int>.size)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: keychainService,
+            kSecAttrAccount as String: "todayMinutes",
+            kSecAttrAccessGroup as String: keychainGroup
+        ]
+        let attrs: [String: Any] = [kSecValueData as String: data]
+        let status = SecItemUpdate(query as CFDictionary, attrs as CFDictionary)
+        if status == errSecItemNotFound {
+            var newItem = query
+            newItem[kSecValueData as String] = data
+            newItem[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+            SecItemAdd(newItem as CFDictionary, nil)
+        }
     }
 }
 

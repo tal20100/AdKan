@@ -171,13 +171,6 @@ struct HomeView: View {
             .task {
                 todayMinutes = await provider.todayTotalMinutes()
                 yesterdayMinutes = await provider.yesterdayTotalMinutes()
-                if todayMinutes == 0 {
-                    try? await Task.sleep(for: .seconds(2))
-                    let retry = await provider.todayTotalMinutes()
-                    if retry > 0 { todayMinutes = retry }
-                    let retryYesterday = await provider.yesterdayTotalMinutes()
-                    if retryYesterday > 0 { yesterdayMinutes = retryYesterday }
-                }
                 do {
                     groups = try await services.groups.fetchMyGroups()
                 } catch {
