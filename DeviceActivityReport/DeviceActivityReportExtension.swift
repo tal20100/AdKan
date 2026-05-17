@@ -4,10 +4,11 @@ import SwiftUI
 @main
 struct AdKanDeviceActivityReportExtension: DeviceActivityReportExtension {
     init() {
-        let defaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
-        defaults?.set("ext_init", forKey: "report.phase")
-        defaults?.set(Date().timeIntervalSince1970, forKey: "report.initTime")
-        defaults?.synchronize()
+        if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")?
+            .appendingPathComponent("report-data.plist") {
+            let dict: NSDictionary = ["phase": "ext_init", "initTime": Date().timeIntervalSince1970]
+            dict.write(to: url, atomically: true)
+        }
     }
 
     var body: some DeviceActivityReportScene {

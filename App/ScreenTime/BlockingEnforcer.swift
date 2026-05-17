@@ -16,6 +16,10 @@ final class BlockingEnforcer: ObservableObject {
     private let store = ManagedSettingsStore()
     private var reapplyTask: Task<Void, Never>?
 
+    private var containerURL: URL? {
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")
+    }
+
     func applyShields(for selection: FamilyActivitySelection) {
         let apps = selection.applicationTokens
         let categories = selection.categoryTokens
@@ -25,8 +29,9 @@ final class BlockingEnforcer: ObservableObject {
             ? nil
             : ShieldSettings.ActivityCategoryPolicy.specific(categories)
 
-        if let data = try? JSONEncoder().encode(selection) {
-            SharedDefaults.blockedAppTokensData = data
+        if let data = try? JSONEncoder().encode(selection),
+           let url = containerURL?.appendingPathComponent("shield-tokens.bin") {
+            try? data.write(to: url, options: .atomic)
         }
 
         startDailyMonitoring()
@@ -49,19 +54,23 @@ final class BlockingEnforcer: ObservableObject {
     }
 
     func allowTemporarily(minutes: Int = 1) {
-        let savedTokens = SharedDefaults.blockedAppTokensData
+        let savedTokens = loadSavedTokensData()
         store.shield.applications = nil
         store.shield.applicationCategories = nil
 
-        let defaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
         let reapplyAt = Date().addingTimeInterval(Double(minutes * 60))
-        defaults?.set(reapplyAt.timeIntervalSince1970, forKey: "shield.tempAllowUntil")
+        if let url = containerURL?.appendingPathComponent("shield-config.plist") {
+            let dict: NSDictionary = ["tempAllowUntil": reapplyAt.timeIntervalSince1970]
+            dict.write(to: url, atomically: true)
+        }
 
         reapplyTask?.cancel()
         reapplyTask = Task {
             try? await Task.sleep(for: .seconds(minutes * 60))
             guard !Task.isCancelled else { return }
-            defaults?.removeObject(forKey: "shield.tempAllowUntil")
+            if let url = containerURL?.appendingPathComponent("shield-config.plist") {
+                try? FileManager.default.removeItem(at: url)
+            }
             if let data = savedTokens,
                let selection = try? JSONDecoder().decode(FamilyActivitySelection.self, from: data) {
                 applyShields(for: selection)
@@ -70,18 +79,24 @@ final class BlockingEnforcer: ObservableObject {
     }
 
     func reapplyIfTempAllowExpired() {
-        let defaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
-        guard let ts = defaults?.double(forKey: "shield.tempAllowUntil"), ts > 0 else { return }
+        guard let url = containerURL?.appendingPathComponent("shield-config.plist"),
+              let dict = NSDictionary(contentsOf: url),
+              let ts = dict["tempAllowUntil"] as? Double, ts > 0 else { return }
         if Date().timeIntervalSince1970 >= ts {
-            defaults?.removeObject(forKey: "shield.tempAllowUntil")
+            try? FileManager.default.removeItem(at: url)
             if let selection = loadSavedSelection() {
                 applyShields(for: selection)
             }
         }
     }
 
+    private func loadSavedTokensData() -> Data? {
+        guard let url = containerURL?.appendingPathComponent("shield-tokens.bin") else { return nil }
+        return try? Data(contentsOf: url)
+    }
+
     func loadSavedSelection() -> FamilyActivitySelection? {
-        guard let data = SharedDefaults.blockedAppTokensData else { return nil }
+        guard let data = loadSavedTokensData() else { return nil }
         return try? JSONDecoder().decode(FamilyActivitySelection.self, from: data)
     }
 }

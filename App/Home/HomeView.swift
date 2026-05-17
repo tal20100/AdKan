@@ -417,27 +417,18 @@ struct HomeView: View {
 
     #if canImport(FamilyControls) && !targetEnvironment(simulator)
     private var screenTimeDiagnosticBanner: some View {
-        let defaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
-        let lastRun = defaults?.double(forKey: "report.lastRun") ?? 0
-        let extensionRan = lastRun > 0
-        let lastRunStr = extensionRan
+        let fileURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")?
+            .appendingPathComponent("report-data.plist")
+        let dict = fileURL.flatMap { NSDictionary(contentsOf: $0) }
+
+        let lastRun = dict?["lastRun"] as? Double ?? 0
+        let lastRunStr = lastRun > 0
             ? DateFormatter.localizedString(from: Date(timeIntervalSince1970: lastRun), dateStyle: .none, timeStyle: .medium)
             : "never"
-        let raw = defaults?.integer(forKey: "widget.todayMinutes") ?? -1
-
-        let phase = defaults?.string(forKey: "report.phase") ?? "none"
-        let initTime = defaults?.double(forKey: "report.initTime") ?? 0
-        let segments = defaults?.integer(forKey: "report.segmentCount") ?? -1
+        let raw = dict?["todayMinutes"] as? Int ?? -1
+        let phase = dict?["phase"] as? String ?? "none"
+        let segments = dict?["segmentCount"] as? Int ?? -1
         let authStatus = AuthorizationCenter.shared.authorizationStatus
-
-        let initStr = initTime > 0
-            ? DateFormatter.localizedString(from: Date(timeIntervalSince1970: initTime), dateStyle: .none, timeStyle: .medium)
-            : "never"
-
-        let udOK = defaults != nil
-        let writeTest = defaults?.bool(forKey: "report.writeTest") ?? false
-        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")
-        let containerOK = containerURL != nil
 
         return PlainCard {
             VStack(alignment: .leading, spacing: 6) {
@@ -449,20 +440,15 @@ struct HomeView: View {
                 }
                 Text("Phase: \(phase)")
                     .font(.caption2)
-                Text("Ext init: \(initStr)")
-                    .font(.caption2)
                 Text("makeConfig ran: \(lastRunStr)")
                     .font(.caption2)
                 Text("Segments: \(segments), Minutes: \(raw)")
                     .font(.caption2)
                 Text("Auth: \(String(describing: authStatus))")
                     .font(.caption2)
-                Text("App UD: \(udOK ? "ok" : "NIL") | Ext wrote: \(writeTest ? "yes" : "no")")
+                Text("File: \(dict != nil ? "readable" : "missing")")
                     .font(.caption2)
-                    .foregroundStyle(udOK && writeTest ? .green : .red)
-                Text("App container: \(containerOK ? "ok" : "NIL")")
-                    .font(.caption2)
-                    .foregroundStyle(containerOK ? .green : .red)
+                    .foregroundStyle(dict != nil ? .green : .red)
             }
         }
     }

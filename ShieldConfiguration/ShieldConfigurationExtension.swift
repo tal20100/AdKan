@@ -4,8 +4,13 @@ import UIKit
 
 class AdKanShieldConfigurationExtension: ShieldConfigurationDataSource {
 
-    private var defaults: UserDefaults? {
-        UserDefaults(suiteName: "group.com.talhayun.AdKan")
+    private var containerURL: URL? {
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")
+    }
+
+    private var shieldConfig: NSDictionary? {
+        guard let url = containerURL?.appendingPathComponent("shield-ui.plist") else { return nil }
+        return NSDictionary(contentsOf: url)
     }
 
     override func configuration(shielding application: Application) -> ShieldConfiguration {
@@ -26,22 +31,22 @@ class AdKanShieldConfigurationExtension: ShieldConfigurationDataSource {
 
     private var isHebrew: Bool {
         Locale.current.language.languageCode?.identifier.hasPrefix("he") == true
-            || (defaults?.string(forKey: "preferredLanguage") ?? "").hasPrefix("he")
+            || (shieldConfig?["preferredLanguage"] as? String ?? "").hasPrefix("he")
     }
 
     private func buildConfiguration() -> ShieldConfiguration {
-        let store = defaults
+        let store = shieldConfig
         let he = isHebrew
 
-        let title = store?.string(forKey: "shield.title") ?? "עד כאן"
-        let subtitle = store?.string(forKey: "shield.subtitle")
+        let title = store?["shield.title"] as? String ?? "עד כאן"
+        let subtitle = store?["shield.subtitle"] as? String
             ?? (he ? "בחרת להגביל את האפליקציה הזו. תישאר חזק!" : "You chose to limit this app. Stay strong!")
-        let primaryLabel = store?.string(forKey: "shield.primaryButton")
+        let primaryLabel = store?["shield.primaryButton"] as? String
             ?? (he ? "סגור" : "Close")
-        let secondaryLabel = store?.string(forKey: "shield.secondaryButton")
+        let secondaryLabel = store?["shield.secondaryButton"] as? String
             ?? (he ? "דקה אחת" : "Allow 1 min")
-        let isPremium = store?.bool(forKey: "shield.isPremium") ?? false
-        let themeIndex = store?.integer(forKey: "shield.themeIndex") ?? 0
+        let isPremium = store?["shield.isPremium"] as? Bool ?? false
+        let themeIndex = store?["shield.themeIndex"] as? Int ?? 0
 
         let theme = ShieldTheme.all[min(themeIndex, ShieldTheme.all.count - 1)]
         let bg = isPremium ? theme.background : ShieldTheme.defaultTheme.background

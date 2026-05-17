@@ -1,69 +1,126 @@
-// [SKILL-DECL] Consulted App/Models/StreakTracker.swift and App/Home/HomeView.swift for data patterns
 import Foundation
 
-/// UserDefaults shared between the main app and the widget via App Groups.
-/// The App Group ID must be registered at developer.apple.com before data will flow.
+/// File-based sharing between the main app and extensions via the App Group container.
+/// UserDefaults(suiteName:) does not reliably sync cross-process on device;
+/// file I/O through containerURL is the reliable alternative.
 struct SharedDefaults {
     static let suiteName = "group.com.talhayun.AdKan"
-    private static let suite = UserDefaults(suiteName: suiteName) ?? .standard
+
+    private static var containerURL: URL? {
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: suiteName)
+    }
+
+    // MARK: - Report data (written by DeviceActivityReport ext, read by main app)
+
+    private static var reportData: NSDictionary? {
+        guard let url = containerURL?.appendingPathComponent("report-data.plist") else { return nil }
+        return NSDictionary(contentsOf: url)
+    }
 
     static var todayMinutes: Int {
-        get { suite.integer(forKey: "widget.todayMinutes") }
-        set { suite.set(newValue, forKey: "widget.todayMinutes") }
+        get { reportData?["todayMinutes"] as? Int ?? 0 }
+        set {
+            var dict = (reportData as? [String: Any]) ?? [:]
+            dict["todayMinutes"] = newValue
+            if let url = containerURL?.appendingPathComponent("report-data.plist") {
+                (dict as NSDictionary).write(to: url, atomically: true)
+            }
+        }
+    }
+
+    static var yesterdayMinutes: Int {
+        get { reportData?["yesterdayMinutes"] as? Int ?? 0 }
+        set {
+            var dict = (reportData as? [String: Any]) ?? [:]
+            dict["yesterdayMinutes"] = newValue
+            if let url = containerURL?.appendingPathComponent("report-data.plist") {
+                (dict as NSDictionary).write(to: url, atomically: true)
+            }
+        }
+    }
+
+    // MARK: - Widget data (written by main app, read by widget)
+
+    private static var widgetFileURL: URL? {
+        containerURL?.appendingPathComponent("widget-data.plist")
+    }
+
+    private static var widgetData: NSDictionary? {
+        guard let url = widgetFileURL else { return nil }
+        return NSDictionary(contentsOf: url)
+    }
+
+    private static func writeWidgetData(_ dict: [String: Any]) {
+        guard let url = widgetFileURL else { return }
+        (dict as NSDictionary).write(to: url, atomically: true)
     }
 
     static var goalMinutes: Int {
         get {
-            let v = suite.integer(forKey: "widget.goalMinutes")
+            let v = widgetData?["goalMinutes"] as? Int ?? 0
             return v > 0 ? v : 120
         }
-        set { suite.set(newValue, forKey: "widget.goalMinutes") }
+        set {
+            var dict = (widgetData as? [String: Any]) ?? [:]
+            dict["goalMinutes"] = newValue
+            writeWidgetData(dict)
+        }
     }
 
     static var currentStreak: Int {
-        get { suite.integer(forKey: "widget.currentStreak") }
-        set { suite.set(newValue, forKey: "widget.currentStreak") }
+        get { widgetData?["currentStreak"] as? Int ?? 0 }
+        set {
+            var dict = (widgetData as? [String: Any]) ?? [:]
+            dict["currentStreak"] = newValue
+            writeWidgetData(dict)
+        }
     }
 
-    static var yesterdayMinutes: Int {
-        get { suite.integer(forKey: "widget.yesterdayMinutes") }
-        set { suite.set(newValue, forKey: "widget.yesterdayMinutes") }
+    // MARK: - Shield UI config (written by main app, read by ShieldConfiguration ext)
+
+    private static var shieldUIFileURL: URL? {
+        containerURL?.appendingPathComponent("shield-ui.plist")
     }
 
-    // MARK: - Shield Configuration (read by ShieldConfigurationExtension)
+    private static var shieldUI: NSDictionary? {
+        guard let url = shieldUIFileURL else { return nil }
+        return NSDictionary(contentsOf: url)
+    }
+
+    private static func writeShieldUI(_ dict: [String: Any]) {
+        guard let url = shieldUIFileURL else { return }
+        (dict as NSDictionary).write(to: url, atomically: true)
+    }
 
     static var shieldTitle: String {
-        get { suite.string(forKey: "shield.title") ?? "עד כאן" }
-        set { suite.set(newValue, forKey: "shield.title") }
+        get { shieldUI?["shield.title"] as? String ?? "עד כאן" }
+        set { var d = (shieldUI as? [String: Any]) ?? [:]; d["shield.title"] = newValue; writeShieldUI(d) }
     }
 
     static var shieldSubtitle: String {
-        get { suite.string(forKey: "shield.subtitle") ?? "You chose to limit this app. Stay strong!" }
-        set { suite.set(newValue, forKey: "shield.subtitle") }
+        get { shieldUI?["shield.subtitle"] as? String ?? "You chose to limit this app. Stay strong!" }
+        set { var d = (shieldUI as? [String: Any]) ?? [:]; d["shield.subtitle"] = newValue; writeShieldUI(d) }
     }
 
     static var shieldPrimaryButton: String {
-        get { suite.string(forKey: "shield.primaryButton") ?? "Close" }
-        set { suite.set(newValue, forKey: "shield.primaryButton") }
+        get { shieldUI?["shield.primaryButton"] as? String ?? "Close" }
+        set { var d = (shieldUI as? [String: Any]) ?? [:]; d["shield.primaryButton"] = newValue; writeShieldUI(d) }
     }
 
     static var shieldSecondaryButton: String {
-        get { suite.string(forKey: "shield.secondaryButton") ?? "Allow 1 min" }
-        set { suite.set(newValue, forKey: "shield.secondaryButton") }
+        get { shieldUI?["shield.secondaryButton"] as? String ?? "Allow 1 min" }
+        set { var d = (shieldUI as? [String: Any]) ?? [:]; d["shield.secondaryButton"] = newValue; writeShieldUI(d) }
     }
 
     static var shieldIsPremium: Bool {
-        get { suite.bool(forKey: "shield.isPremium") }
-        set { suite.set(newValue, forKey: "shield.isPremium") }
+        get { shieldUI?["shield.isPremium"] as? Bool ?? false }
+        set { var d = (shieldUI as? [String: Any]) ?? [:]; d["shield.isPremium"] = newValue; writeShieldUI(d) }
     }
 
     static var shieldThemeIndex: Int {
-        get { suite.integer(forKey: "shield.themeIndex") }
-        set { suite.set(newValue, forKey: "shield.themeIndex") }
+        get { shieldUI?["shield.themeIndex"] as? Int ?? 0 }
+        set { var d = (shieldUI as? [String: Any]) ?? [:]; d["shield.themeIndex"] = newValue; writeShieldUI(d) }
     }
 
-    static var blockedAppTokensData: Data? {
-        get { suite.data(forKey: "shield.blockedTokens") }
-        set { suite.set(newValue, forKey: "shield.blockedTokens") }
-    }
+    // MARK: - Blocked tokens (written by main app, read by monitor ext) — handled by BlockingEnforcer via shield-tokens.bin
 }

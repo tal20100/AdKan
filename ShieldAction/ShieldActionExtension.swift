@@ -5,8 +5,9 @@ import Foundation
 class AdKanShieldActionExtension: ShieldActionDelegate {
 
     private let store = ManagedSettingsStore()
-    private var defaults: UserDefaults? {
-        UserDefaults(suiteName: "group.com.talhayun.AdKan")
+
+    private var containerURL: URL? {
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")
     }
 
     override func handle(
@@ -43,7 +44,10 @@ class AdKanShieldActionExtension: ShieldActionDelegate {
         case .secondaryButtonPressed:
             store.shield.applications = nil
             store.shield.applicationCategories = nil
-            defaults?.set(Date().addingTimeInterval(60).timeIntervalSince1970, forKey: "shield.tempAllowUntil")
+            if let url = containerURL?.appendingPathComponent("shield-config.plist") {
+                let dict: NSDictionary = ["tempAllowUntil": Date().addingTimeInterval(60).timeIntervalSince1970]
+                dict.write(to: url, atomically: true)
+            }
             completionHandler(.close)
         @unknown default:
             completionHandler(.close)

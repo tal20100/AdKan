@@ -6,7 +6,12 @@ import DeviceActivity
 
 final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     private let center = AuthorizationCenter.shared
-    private let sharedDefaults = UserDefaults(suiteName: "group.com.talhayun.AdKan")
+
+    private var reportData: NSDictionary? {
+        guard let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.talhayun.AdKan")?
+            .appendingPathComponent("report-data.plist") else { return nil }
+        return NSDictionary(contentsOf: url)
+    }
 
     var authorizationStatus: AuthorizationStatus {
         get async {
@@ -23,25 +28,23 @@ final class RealScreenTimeProvider: ScreenTimeProvider, @unchecked Sendable {
     }
 
     func todayTotalMinutes() async -> Int {
-        sharedDefaults?.synchronize()
         for i in 0..<3 {
-            let value = sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
+            let value = reportData?["todayMinutes"] as? Int ?? 0
             if value > 0 { return value }
             if i < 2 {
                 try? await Task.sleep(for: .seconds(1))
-                sharedDefaults?.synchronize()
             }
         }
-        return sharedDefaults?.integer(forKey: "widget.todayMinutes") ?? 0
+        return reportData?["todayMinutes"] as? Int ?? 0
     }
 
     var reportExtensionLastRan: Date? {
-        guard let ts = sharedDefaults?.double(forKey: "report.lastRun"), ts > 0 else { return nil }
+        guard let ts = reportData?["lastRun"] as? Double, ts > 0 else { return nil }
         return Date(timeIntervalSince1970: ts)
     }
 
     func yesterdayTotalMinutes() async -> Int {
-        sharedDefaults?.integer(forKey: "widget.yesterdayMinutes") ?? 0
+        reportData?["yesterdayMinutes"] as? Int ?? 0
     }
 
     func isPermissionStillGranted() async -> Bool {
