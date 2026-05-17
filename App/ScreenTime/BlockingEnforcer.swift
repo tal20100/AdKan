@@ -38,18 +38,21 @@ final class BlockingEnforcer: ObservableObject {
     }
 
     func startDailyMonitoring() {
+        let center = DeviceActivityCenter()
+        // Don't restart if already monitoring — stopMonitoring resets accumulated
+        // usage, which means thresholds won't fire for already-exceeded screen time.
+        if center.activities.contains(.dailySchedule) { return }
+
         let schedule = DeviceActivitySchedule(
             intervalStart: DateComponents(hour: 0, minute: 0),
             intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
             repeats: true
         )
         var events: [DeviceActivityEvent.Name: DeviceActivityEvent] = [:]
-        for minutes in stride(from: 15, through: 480, by: 15) {
+        for minutes in stride(from: 5, through: 480, by: 5) {
             let name = DeviceActivityEvent.Name("com.talhayun.AdKan.threshold.\(minutes)")
             events[name] = DeviceActivityEvent(threshold: DateComponents(minute: minutes))
         }
-        let center = DeviceActivityCenter()
-        center.stopMonitoring([.dailySchedule])
         try? center.startMonitoring(.dailySchedule, during: schedule, events: events)
     }
 

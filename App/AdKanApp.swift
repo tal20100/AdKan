@@ -21,8 +21,8 @@ struct AdKanApp: App {
                     #if canImport(DeviceActivity) && !targetEnvironment(simulator)
                     ScreenTimeReportBridge()
                         .id(bridgeRefreshID)
-                        .frame(width: 0, height: 0)
-                        .clipped()
+                        .frame(width: 1, height: 1)
+                        .opacity(0)
                         .allowsHitTesting(false)
                         .accessibilityHidden(true)
                     #endif
@@ -53,6 +53,7 @@ struct AdKanApp: App {
                     }
                 }
                 .task {
+                    BlockingEnforcer.shared.startDailyMonitoring()
                     await NotificationManager.shared.checkStatus()
                     if UserDefaults.standard.object(forKey: "inactivityReminderEnabled") as? Bool ?? true {
                         NotificationManager.shared.scheduleInactivityReengagement(
