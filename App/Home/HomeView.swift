@@ -434,6 +434,9 @@ struct HomeView: View {
             ? DateFormatter.localizedString(from: Date(timeIntervalSince1970: initTime), dateStyle: .none, timeStyle: .medium)
             : "never"
 
+        let udOK = defaults != nil
+        let writeTest = defaults?.bool(forKey: "report.writeTest") ?? false
+
         return PlainCard {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 6) {
@@ -452,6 +455,9 @@ struct HomeView: View {
                     .font(.caption2)
                 Text("Auth: \(String(describing: authStatus))")
                     .font(.caption2)
+                Text("App UD: \(udOK ? "ok" : "NIL") | Ext wrote: \(writeTest ? "yes" : "no")")
+                    .font(.caption2)
+                    .foregroundStyle(udOK && writeTest ? .green : .red)
             }
         }
     }
